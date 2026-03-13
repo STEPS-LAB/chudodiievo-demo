@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Sparkles } from 'lucide-react';
+import { MessageCircle, X, Send, Sparkles, MessageSquare } from 'lucide-react';
 import { useScrollPosition } from '@/lib/hooks';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 
@@ -139,17 +139,22 @@ export default function AIConcierge() {
     <>
       {/* Floating Button */}
       <motion.button
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: isScrolled ? 0 : 20, opacity: isScrolled ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-40 w-14 h-14 bg-primary-600 text-white rounded-full shadow-large flex items-center justify-center hover:bg-primary-700 transition-colors ${
-          isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        className={`fixed bottom-6 right-6 z-40 flex items-center gap-3 bg-neutral-900 text-neutral-200 rounded-sm shadow-large px-5 py-3.5 hover:bg-neutral-800 transition-colors ${
+          isScrolled ? 'pointer-events-auto' : 'pointer-events-none'
         }`}
         aria-label="Open AI Concierge"
       >
-        <MessageCircle className="w-6 h-6" />
+        <MessageSquare className="w-4 h-4 text-secondary-500" />
+        <span className="text-xs font-medium tracking-[0.2em] uppercase hidden sm:block">
+          {locale === 'ua' ? 'ЗАПИТАЙТЕ ЩО ЗАВГОДНО ПРО ЧУДОДІЄВО' : 'ASK ANYTHING ABOUT CHUDODIEVO'}
+        </span>
+        <MessageCircle className="w-5 h-5 text-secondary-500 sm:hidden" />
       </motion.button>
 
       {/* Chat Window */}
