@@ -1,0 +1,274 @@
+{
+  "common": {
+    "home": "Home",
+    "about": "About",
+    "rooms": "Rooms",
+    "restaurant": "Restaurant",
+    "wellness": "Wellness",
+    "spa": "SPA",
+    "experiences": "Experiences",
+    "events": "Events",
+    "gallery": "Gallery",
+    "blog": "Blog",
+    "faq": "FAQ",
+    "contacts": "Contacts",
+    "bookNow": "Book Now",
+    "explore": "Explore",
+    "learnMore": "Learn More",
+    "readMore": "Read More",
+    "viewAll": "View All",
+    "contactUs": "Contact Us",
+    "followUs": "Follow Us"
+  },
+  "header": {
+    "title": "Chudodievo",
+    "tagline": "Luxury Escape in Nature"
+  },
+  "hero": {
+    "title": "Chudodievo",
+    "subtitle": "Luxury Escape in Nature",
+    "description": "Discover the perfect blend of luxury and nature in the heart of Ukrainian Polissia",
+    "explore": "Explore",
+    "bookStay": "Book Stay"
+  },
+  "booking": {
+    "title": "Find Your Perfect Stay",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "guests": "Guests",
+    "adults": "Adults",
+    "children": "Children",
+    "search": "Search",
+    "searching": "Finding the best rooms for you...",
+    "selectDates": "Select dates",
+    "selectGuests": "Select guests",
+    "roomSuggestion": "Room suggestion",
+    "summary": "Summary",
+    "reserve": "Reserve",
+    "recommendedStays": {
+      "title": "Recommended Stays",
+      "tomorrow": "Tomorrow — from 14:00",
+      "weekend": "Weekend Escape — Fri → Sun",
+      "morning": "Morning Relax — tomorrow 08:30"
+    }
+  },
+  "aiConcierge": {
+    "welcome": "Hello! I'm your AI concierge. Ask me anything about your stay.",
+    "placeholder": "Ask something...",
+    "suggestions": {
+      "restaurant": "What dishes do you recommend?",
+      "spa": "Best relaxation program?",
+      "rooms": "Which room is best for a couple?",
+      "activities": "What activities are available?"
+    }
+  },
+  "about": {
+    "title": "About Chudodievo",
+    "subtitle": "Where Nature Meets Luxury",
+    "description": "Chudodievo is a unique resort complex located in the heart of the picturesque Ukrainian Polissia. We have created a place where every guest can escape from the city noise and enjoy harmony with nature without compromising on comfort and luxury.",
+    "features": {
+      "nature": {
+        "title": "Nature",
+        "description": "Surrounded by ancient forests and crystal-clear lakes"
+      },
+      "luxury": {
+        "title": "Luxury",
+        "description": "Premium service and attention to every detail"
+      },
+      "wellness": {
+        "title": "Wellness",
+        "description": "Comprehensive programs for body and soul"
+      },
+      "cuisine": {
+        "title": "Cuisine",
+        "description": "Author's cuisine from local products"
+      }
+    }
+  },
+  "rooms": {
+    "title": "Rooms & Cottages",
+    "subtitle": "Space for Your Perfect Stay",
+    "viewDetails": "View Details",
+    "from": "from",
+    "perNight": "per night",
+    "amenities": "Amenities",
+    "bookThisRoom": "Book This Room",
+    "checkAvailability": "Check Availability",
+    "relatedRooms": "Related Rooms"
+  },
+  "restaurant": {
+    "title": "Restaurant",
+    "subtitle": "The Taste of Nature in Every Dish",
+    "description": "Our restaurant offers a unique gastronomic journey through the flavors of Ukrainian Polissia. We use only the freshest local ingredients, creating dishes that amaze the imagination.",
+    "hours": "Opening Hours",
+    "menu": "Menu",
+    "reservation": "Reservation",
+    "chefSpecial": "Chef's Specials",
+    "privateEvents": "Private Events"
+  },
+  "spa": {
+    "title": "SPA & Wellness",
+    "subtitle": "Body and Soul Restoration",
+    "description": "Our SPA center offers comprehensive relaxation and restoration programs. From traditional massages to modern wellness procedures — everyone will find something for themselves.",
+    "services": "Services",
+    "programs": "Programs",
+    "bookTreatment": "Book Treatment",
+    "treatments": {
+      "massage": {
+        "title": "Massages",
+        "description": "Classic and author's massage techniques"
+      },
+      "facial": {
+        "title": "Facial Care",
+        "description": "Rejuvenating and restorative procedures"
+      },
+      "body": {
+        "title": "Body Care",
+        "description": "Wraps, scrubs, and rituals"
+      },
+      "thermal": {
+        "title": "Thermal Complex",
+        "description": "Sauna, hammam, and hot springs"
+      }
+    }
+  },
+  "experiences": {
+    "title": "Experiences",
+    "subtitle": "Adventures and Discoveries",
+    "description": "Discover all the possibilities of nature recreation. From active adventures to peaceful contemplation of the surrounding beauty.",
+    "activities": {
+      "hiking": {
+        "title": "Hiking",
+        "description": "Eco-trails through ancient forests"
+      },
+      "cycling": {
+        "title": "Cycling",
+        "description": "Routes for any level"
+      },
+      "fishing": {
+        "title": "Fishing",
+        "description": "Fishing on crystal-clear lakes"
+      },
+      "yoga": {
+        "title": "Yoga in Nature",
+        "description": "Morning and evening practices"
+      },
+      "birdwatching": {
+        "title": "Bird Watching",
+        "description": "Unique fauna of Polissia"
+      },
+      "stargazing": {
+        "title": "Stargazing",
+        "description": "Night sky without light pollution"
+      }
+    }
+  },
+  "events": {
+    "title": "Events",
+    "subtitle": "Unforgettable Moments",
+    "description": "Chudodievo is the perfect place for special events. From weddings to corporate gatherings.",
+    "weddings": {
+      "title": "Weddings",
+      "description": "Create an unforgettable wedding in harmony with nature"
+    },
+    "corporate": {
+      "title": "Corporate Events",
+      "description": "Team building and conferences in nature"
+    },
+    "private": {
+      "title": "Private Celebrations",
+      "description": "Anniversaries, birthdays, and personal events"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Stories and Tips",
+    "readArticle": "Read Article",
+    "categories": {
+      "all": "All",
+      "nature": "Nature",
+      "wellness": "Wellness",
+      "cuisine": "Cuisine",
+      "events": "Events"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Answers to Your Questions",
+    "contact": "Didn't find an answer? Contact us"
+  },
+  "contacts": {
+    "title": "Contacts",
+    "subtitle": "Get in Touch",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "hours": "Opening Hours",
+    "map": "Map"
+  },
+  "footer": {
+    "description": "Luxury escape in nature in the heart of Ukrainian Polissia",
+    "navigation": "Navigation",
+    "contact": "Contacts",
+    "social": "Social Media",
+    "copyright": "© 2026 Chudodievo. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
+  },
+  "testimonials": {
+    "title": "Guest Reviews",
+    "subtitle": "What Our Guests Say"
+  },
+  "map": {
+    "title": "Resort Map",
+    "restaurant": {
+      "title": "Restaurant",
+      "description": "Fine dining with local ingredients"
+    },
+    "spa": {
+      "title": "SPA",
+      "description": "Wellness and relaxation center"
+    },
+    "cottages": {
+      "title": "Cottages",
+      "description": "Private nature houses"
+    },
+    "lake": {
+      "title": "Lake",
+      "description": "Natural lake with recreation area"
+    },
+    "reception": {
+      "title": "Reception",
+      "description": "Guest service center"
+    }
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "Moments of Chudodievo"
+  },
+  "newsletter": {
+    "title": "Subscribe to News",
+    "description": "Receive exclusive offers and news",
+    "placeholder": "Your email",
+    "subscribe": "Subscribe",
+    "success": "Thank you for subscribing!",
+    "error": "An error occurred. Please try again."
+  },
+  "errors": {
+    "notFound": {
+      "title": "Page Not Found",
+      "description": "Sorry, the page you're looking for doesn't exist.",
+      "backHome": "Back to Home"
+    },
+    "serverError": {
+      "title": "Something Went Wrong",
+      "description": "Please try again later.",
+      "backHome": "Back to Home"
+    }
+  },
+  "metadata": {
+    "title": "Chudodievo | Luxury Escape in Nature",
+    "description": "Discover the perfect blend of luxury and nature in the heart of Ukrainian Polissia. Premium resort complex for an unforgettable stay.",
+    "keywords": "resort, vacation, nature, luxury, SPA, restaurant, cottages, Ukraine, Polissia"
+  }
+}
