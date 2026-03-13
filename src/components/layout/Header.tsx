@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { href: '/#about', key: 'about' },
   { href: '/rooms', key: 'rooms' },
   { href: '/restaurant', key: 'restaurant' },
-  { href: '/spa', key: 'spa' },
+  { href: '/activities', key: 'activities' },
   { href: '/blog', key: 'blog' },
   { href: '/contacts', key: 'contacts' },
 ] as const;
@@ -22,6 +22,14 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+
+  const scrollToTop = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
@@ -65,14 +73,21 @@ export default function Header() {
       >
         <div className="container flex items-center justify-between h-[4.5rem] min-h-[4.5rem]">
           {/* Logo */}
-          <Link
-            href="/"
-            className={`text-sm font-medium tracking-[0.28em] transition-colors ${
+          <button
+            onClick={scrollToTop}
+            className={`transition-colors ${
               isScrolled ? 'text-[var(--color-neutral-900)]' : 'text-white'
             }`}
           >
-            {locale === 'ua' ? 'ЧУДОДІЄВО' : 'CHUDODIEVO'}
-          </Link>
+            <img
+              src="/images/logo.svg"
+              alt={locale === 'ua' ? 'Чудодієво' : 'Chudodievo'}
+              className="h-8 w-auto transition-all duration-300"
+              style={{
+                filter: isScrolled ? 'grayscale(100%) brightness(0)' : 'none',
+              }}
+            />
+          </button>
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-8 md:flex" aria-label="Main">

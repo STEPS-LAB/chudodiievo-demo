@@ -63,7 +63,7 @@ export default function TestimonialsSection() {
   }, [next]);
 
   return (
-    <section className="section-padding bg-surface">
+    <section className="section-padding bg-neutral-100">
       <div className="container">
         {/* Header */}
         <motion.div
@@ -94,7 +94,7 @@ export default function TestimonialsSection() {
                   key={testimonial.id}
                   className="w-full flex-shrink-0 px-4"
                 >
-                  <div className="luxury-card p-8 sm:p-12 text-center">
+                  <div className="bg-white p-8 sm:p-12 text-center rounded-sm shadow-md h-full">
                     <Quote className="w-12 h-12 text-primary-200 mx-auto mb-6" />
                     
                     <div className="flex justify-center mb-6">

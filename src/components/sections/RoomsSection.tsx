@@ -5,9 +5,26 @@ import Link from 'next/link';
 import { ArrowRight, Users, Maximize } from 'lucide-react';
 import { useIntersectionObserver } from '@/lib/hooks';
 import { getFeaturedRooms } from '@/lib/config/rooms';
+import { useLanguage } from '@/lib/i18n/LanguageProvider';
 
 export default function RoomsSection() {
   const { ref, isVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
+  const { locale } = useLanguage();
+
+  const content = {
+    ua: {
+      subtitle: 'Простір для вашого ідеального відпочинку',
+      title: 'Номери та Котеджі',
+      viewAll: 'Переглянути всі будиночки',
+    },
+    en: {
+      subtitle: 'Space for your perfect getaway',
+      title: 'Rooms & Cottages',
+      viewAll: 'View All Cottages',
+    },
+  };
+
+  const t = content[locale as 'ua' | 'en'];
 
   return (
     <section className="section-padding bg-neutral-50">
@@ -21,10 +38,10 @@ export default function RoomsSection() {
           className="text-center mb-16"
         >
           <span className="text-sm uppercase tracking-widest text-primary-600 font-medium">
-            Простір для вашого ідеального відпочинку
+            {t.subtitle}
           </span>
           <h2 className="text-4xl sm:text-5xl font-display font-medium text-neutral-900 mt-4 mb-6">
-            Номери та Котеджі
+            {t.title}
           </h2>
         </motion.div>
 
@@ -38,7 +55,7 @@ export default function RoomsSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <Link href={`/rooms/${room.slug}`} className="group block">
-                <div className="luxury-card overflow-hidden">
+                <div className="bg-white rounded-sm shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                   {/* Image */}
                   <div className="image-zoom-container relative aspect-[4/3] overflow-hidden">
                     <img
@@ -104,7 +121,7 @@ export default function RoomsSection() {
           className="text-center mt-12"
         >
           <Link href="/rooms" className="luxury-button-secondary">
-            View All Rooms
+            {t.viewAll}
             <ArrowRight className="w-4 h-4 ml-2" />
           </Link>
         </motion.div>

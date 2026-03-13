@@ -65,7 +65,7 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
         <button
           ref={dateDropdownRef}
           onClick={() => setShowCalendar((value) => !value)}
-          className="flex h-12 w-full items-center gap-3 rounded-sm bg-white px-4 text-left text-sm shadow-sm transition hover:bg-neutral-50"
+          className="flex h-14 w-full items-center gap-3 rounded-sm bg-white px-4 text-left text-sm shadow-sm transition hover:bg-neutral-50"
           type="button"
         >
           <CalendarDays className="h-5 w-5 shrink-0 text-neutral-500" />
@@ -127,7 +127,7 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
       </div>
 
       {/* Guests Selector */}
-      <div className="flex h-12 w-full items-center gap-3 rounded-sm bg-white px-4 shadow-sm transition hover:bg-neutral-50 sm:w-[400px]">
+      <div className="flex h-14 w-full items-center gap-3 rounded-sm bg-white px-4 shadow-sm transition hover:bg-neutral-50 sm:w-[340px]">
         <Users className="h-5 w-5 shrink-0 text-neutral-500" />
         <span className="text-xs text-neutral-500">{copy.searchGuests}:</span>
         <div className="ml-auto flex items-center gap-3">
@@ -158,7 +158,7 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
       {/* Search Button */}
       <button
         type="submit"
-        className="flex h-12 items-center justify-center rounded-sm bg-primary px-6 text-sm font-medium uppercase tracking-[0.16em] text-white transition-all duration-300 hover:scale-[1.02] hover:bg-primary-900 disabled:cursor-not-allowed disabled:opacity-70 sm:flex-none"
+        className="flex h-14 flex-1 items-center justify-center rounded-sm bg-primary px-6 text-sm font-medium uppercase tracking-[0.16em] text-white transition-all duration-300 hover:scale-[1.02] hover:bg-primary-900 disabled:cursor-not-allowed disabled:opacity-70 sm:flex-none"
       >
         {copy.searchButton}
       </button>

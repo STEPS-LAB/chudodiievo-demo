@@ -46,7 +46,7 @@ export const rooms: Room[] = [
     maxGuests: 2,
     size: 65,
     images: [
-      'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=1920&q=80',
+      '/images/bo.webp',
       'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1920&q=80',
       'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1920&q=80',
       'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1920&q=80',
@@ -77,7 +77,7 @@ export const rooms: Room[] = [
     maxGuests: 4,
     size: 85,
     images: [
-      'https://images.unsplash.com/photo-1449156493391-d2cfa28e468b?w=1920&q=80',
+      '/images/lk.webp',
       'https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=1920&q=80',
       'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80',
       'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=1920&q=80',
@@ -92,8 +92,8 @@ export const rooms: Room[] = [
     id: 'premium-suite',
     slug: 'premium-suite',
     name: {
-      ua: 'Преміум Люкс',
-      en: 'Premium Suite',
+      ua: 'Чудо Village',
+      en: 'Chudo Village',
     },
     description: {
       ua: 'Розкішний люкс з окремим входом, приватною спа-зоною та ексклюзивним сервісом. Максимальний комфорт для вибагливих гостей.',
@@ -108,7 +108,7 @@ export const rooms: Room[] = [
     maxGuests: 2,
     size: 120,
     images: [
-      'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=1920&q=80',
+      '/images/cv.webp',
       'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1920&q=80',
       'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1920&q=80',
       'https://images.unsplash.com/photo-1505693416388-b0346efee535?w=1920&q=80',

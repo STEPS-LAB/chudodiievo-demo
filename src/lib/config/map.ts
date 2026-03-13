@@ -69,7 +69,7 @@ export const mapLocations: MapLocation[] = [
     },
     coordinates: { x: 280, y: 120 },
     icon: 'spa',
-    page: '/spa',
+    page: '/activities',
     aiPrompt: {
       ua: 'Яка найкраща програма релаксації?',
       en: 'What is the best relaxation program?',

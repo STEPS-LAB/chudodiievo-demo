@@ -13,7 +13,7 @@ export default function RestaurantSection() {
   const isUA = locale === 'ua';
 
   return (
-    <section className="section-padding bg-surface">
+    <section className="section-padding bg-white">
       <div className="container">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Images */}
@@ -25,17 +25,17 @@ export default function RestaurantSection() {
             className="grid grid-cols-2 gap-4"
           >
             <div className="space-y-4">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-sm">
+              <div className="image-zoom-container relative aspect-[3/4] overflow-hidden rounded-sm">
                 <Image
-                  src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80"
+                  src="/images/r1.webp"
                   alt={isUA ? 'Ресторан' : 'Restaurant'}
                   fill
                   className="object-cover"
                 />
               </div>
-              <div className="relative aspect-square overflow-hidden rounded-sm">
+              <div className="image-zoom-container relative aspect-square overflow-hidden rounded-sm">
                 <Image
-                  src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80"
+                  src="/images/r2.webp"
                   alt={isUA ? 'Авторська кухня' : 'Author\'s Cuisine'}
                   fill
                   className="object-cover"
@@ -43,17 +43,17 @@ export default function RestaurantSection() {
               </div>
             </div>
             <div className="space-y-4 pt-8">
-              <div className="relative aspect-square overflow-hidden rounded-sm">
+              <div className="image-zoom-container relative aspect-square overflow-hidden rounded-sm">
                 <Image
-                  src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80"
+                  src="/images/r3.webp"
                   alt={isUA ? 'Інтер\'єр' : 'Interior'}
                   fill
                   className="object-cover"
                 />
               </div>
-              <div className="relative aspect-[3/4] overflow-hidden rounded-sm">
+              <div className="image-zoom-container relative aspect-[3/4] overflow-hidden rounded-sm">
                 <Image
-                  src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80"
+                  src="/images/r4.webp"
                   alt={isUA ? 'Страви' : 'Dishes'}
                   fill
                   className="object-cover"

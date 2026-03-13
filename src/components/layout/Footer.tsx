@@ -1,5 +1,6 @@
 'use client';
 
+import { useCallback } from 'react';
 import Link from 'next/link';
 import { Instagram, Facebook, Mail, Phone, MapPin, Clock } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
@@ -10,9 +11,7 @@ const footerLinks = {
     { href: '/', key: 'home' },
     { href: '/rooms', key: 'rooms' },
     { href: '/restaurant', key: 'restaurant' },
-    { href: '/spa', key: 'spa' },
-    { href: '/experiences', key: 'experiences' },
-    { href: '/events', key: 'events' },
+    { href: '/activities', key: 'activities' },
   ],
   info: [
     { href: '/#about', key: 'about' },
@@ -24,12 +23,12 @@ const footerLinks = {
 
 const socialLinks = [
   {
-    href: 'https://instagram.com',
+    href: 'https://www.instagram.com/chudodievo/',
     icon: Instagram,
     label: 'Instagram',
   },
   {
-    href: 'https://facebook.com',
+    href: 'https://www.facebook.com/chudodievo',
     icon: Facebook,
     label: 'Facebook',
   },
@@ -41,25 +40,23 @@ export default function Footer() {
 
   const isUA = locale === 'ua';
 
+  const scrollToTop = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, []);
+
   return (
     <footer className="bg-neutral-900 text-neutral-300">
       <div className="container py-16 lg:py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-primary-600 rounded-sm flex items-center justify-center">
-                <span className="text-white font-display font-medium text-lg">Ч</span>
-              </div>
-              <div>
-                <span className="block font-display font-medium text-lg text-white">
-                  {isUA ? 'Чудодієво' : 'Chudodievo'}
-                </span>
-                <span className="block text-xs text-neutral-400 tracking-wide">
-                  {isUA ? 'Розкішний відпочинок на природі' : 'Luxury Escape in Nature'}
-                </span>
-              </div>
-            </Link>
+            <button onClick={scrollToTop} className="mb-6">
+              <img src="/images/logo.svg" alt={isUA ? 'Чудодієво' : 'Chudodievo'} className="h-10 w-auto" />
+            </button>
             <p className="text-neutral-400 mb-6 max-w-sm">
               {t('footer.description')}
             </p>
@@ -128,7 +125,7 @@ export default function Footer() {
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" />
                 <span className="text-neutral-400">
-                  {isUA ? 'Київська область,\nс. Чудодієво' : 'Kyiv region,\nv. Chudodievo'}
+                  {isUA ? 'Житомирська область,\nс. Вишпіль, вул. Лісова 47' : 'Zhytomyr region,\nv. Vyshpil, Lisova st. 47'}
                 </span>
               </li>
               <li className="flex items-center space-x-3">
@@ -161,38 +158,31 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-neutral-800">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 relative">
             <p className="text-sm text-neutral-500">
               {t('footer.copyright')}
             </p>
-            <div className="flex space-x-6">
-              <Link
-                href="/privacy"
-                className="text-sm text-neutral-500 hover:text-neutral-300 transition-colors"
-              >
+            <div className="flex items-center space-x-6">
+              <span className="text-sm text-neutral-500">
                 {isUA ? 'Політика конфіденційності' : 'Privacy Policy'}
-              </Link>
-              <Link
-                href="/terms"
-                className="text-sm text-neutral-500 hover:text-neutral-300 transition-colors"
-              >
+              </span>
+              <span className="text-sm text-neutral-500">
                 {isUA ? 'Умови використання' : 'Terms of Use'}
-              </Link>
+              </span>
             </div>
-          </div>
-          {/* Developer Credit */}
-          <div className="mt-6 text-center">
-            <p className="text-sm text-neutral-500">
-              Developed by{' '}
-              <a
-                href="https://stepslab.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary-400 hover:text-primary-300 transition-colors"
-              >
-                STEPS LAB
-              </a>
-            </p>
+            <div className="absolute left-1/2 -translate-x-1/2">
+              <p className="text-sm text-neutral-500">
+                Developed by{' '}
+                <a
+                  href="https://stepslab.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary-400 hover:text-primary-300 transition-colors"
+                >
+                  STEPS LAB
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>

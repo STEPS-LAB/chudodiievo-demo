@@ -48,7 +48,7 @@ export default function SpaSection() {
             </div>
 
             <Link
-              href="/spa"
+              href="/activities"
               className="luxury-button inline-flex items-center"
             >
               {isUA ? 'Дізнатися більше' : 'Learn More'}
