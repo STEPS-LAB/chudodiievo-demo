@@ -14,8 +14,8 @@ const features = [
 
 const content = {
   ua: {
-    subtitle: 'Місце, де природа зустрічається з розкішшю',
-    title: 'Про Чудодієво',
+    subtitle: 'Про нас',
+    title: 'Місце, де природа зустрічається з розкішшю',
     description: 'Чудодієво — це унікальний курортний комплекс, розташований у серці мальовничого українського Полісся. Ми створили місце, де кожен гість може відпочити від міського шуму та насолодитися гармонією з природою, не відмовляючись від комфорту та розкоші.',
     features: {
       nature: { title: 'Природа', description: 'Оточений віковими лісами та кристально чистими озерами' },
@@ -25,8 +25,8 @@ const content = {
     },
   },
   en: {
-    subtitle: 'Where Nature Meets Luxury',
-    title: 'About Chudodievo',
+    subtitle: 'About Us',
+    title: 'Where Nature Meets Luxury',
     description: 'Chudodievo is a unique resort complex located in the heart of the picturesque Ukrainian Polissia. We have created a place where every guest can escape from the city noise and enjoy harmony with nature without compromising on comfort and luxury.',
     features: {
       nature: { title: 'Nature', description: 'Surrounded by ancient forests and crystal-clear lakes' },
