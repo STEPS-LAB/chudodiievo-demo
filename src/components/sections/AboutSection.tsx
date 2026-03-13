@@ -20,7 +20,7 @@ const content = {
     features: {
       nature: { title: 'Природа', description: 'Оточений віковими лісами та кристально чистими озерами' },
       luxury: { title: 'Розкіш', description: 'Преміальний сервіс та увага до кожної деталі' },
-      wellness: { title: 'Велнес', description: 'Комплексні програми для тіла та душі' },
+      wellness: { title: 'Здоров\'я та релакс', description: 'Комплексні програми для тіла та душі' },
       cuisine: { title: 'Кухня', description: 'Авторська кухня з локальних продуктів' },
     },
   },
@@ -43,7 +43,7 @@ export default function AboutSection() {
   const t = content[locale as 'ua' | 'en'];
 
   return (
-    <section id="about" className="section-padding bg-surface">
+    <section id="about" className="section-padding bg-white">
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
@@ -62,7 +62,7 @@ export default function AboutSection() {
             <p className="text-lg text-neutral-600 leading-relaxed mb-8">
               {t.description}
             </p>
-            
+
             <div className="grid sm:grid-cols-2 gap-6">
               {features.map((feature, index) => (
                 <motion.div
@@ -72,8 +72,8 @@ export default function AboutSection() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="flex items-start space-x-4"
                 >
-                  <div className="w-12 h-12 bg-primary-50 rounded-sm flex items-center justify-center flex-shrink-0">
-                    <feature.icon className="w-6 h-6 text-primary-600" />
+                  <div className="w-12 h-12 bg-neutral-100 rounded-sm flex items-center justify-center flex-shrink-0">
+                    <feature.icon className="w-6 h-6 text-neutral-600" />
                   </div>
                   <div>
                     <h3 className="font-medium text-neutral-900 mb-1">
@@ -99,14 +99,14 @@ export default function AboutSection() {
               <div className="space-y-4">
                 <div className="image-zoom-container rounded-sm overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80"
+                    src="/images/about1.webp"
                     alt="Chudodievo nature"
                     className="w-full h-64 object-cover"
                   />
                 </div>
                 <div className="image-zoom-container rounded-sm overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80"
+                    src="/images/about2.webp"
                     alt="Luxury resort"
                     className="w-full h-48 object-cover"
                   />
@@ -115,21 +115,21 @@ export default function AboutSection() {
               <div className="space-y-4 pt-8">
                 <div className="image-zoom-container rounded-sm overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80"
+                    src="/images/about3.webp"
                     alt="Resort amenities"
                     className="w-full h-48 object-cover"
                   />
                 </div>
                 <div className="image-zoom-container rounded-sm overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80"
+                    src="/images/about4.webp"
                     alt="Wellness"
                     className="w-full h-64 object-cover"
                   />
                 </div>
               </div>
             </div>
-            
+
             {/* Decorative Element */}
             <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-primary-100 rounded-sm -z-10" />
           </motion.div>
