@@ -1,209 +1,161 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
-import { Calendar, Users, Minus, Plus } from 'lucide-react';
+import { CalendarDays, Minus, Plus } from 'lucide-react';
+import { format } from 'date-fns';
+import { uk } from 'date-fns/locale';
 
 interface BookingBarProps {
   onSearch?: (data: BookingData) => void;
 }
 
 interface BookingData {
-  checkIn: Date;
-  checkOut: Date;
-  adults: number;
-  children: number;
+  checkIn: string;
+  checkOut: string;
+  guests: number;
 }
 
 export default function BookingBar({ onSearch }: BookingBarProps) {
   const { locale } = useLanguage();
   const isUA = locale === 'ua';
 
-  const [checkIn, setCheckIn] = useState<Date>(() => {
-    const today = new Date();
-    today.setHours(14, 0, 0, 0);
-    return today;
+  const today = new Date().toISOString().split('T')[0];
+  const [checkIn, setCheckIn] = useState<string>(today);
+  const [checkOut, setCheckOut] = useState<string>(() => {
+    const date = new Date();
+    date.setDate(date.getDate() + 3);
+    return date.toISOString().split('T')[0];
   });
+  const [guests, setGuests] = useState(2);
+  const [showCalendar, setShowCalendar] = useState(false);
 
-  const [checkOut, setCheckOut] = useState<Date>(() => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 3);
-    tomorrow.setHours(12, 0, 0, 0);
-    return tomorrow;
-  });
+  const dateDropdownRef = useRef<HTMLButtonElement>(null);
 
-  const [adults, setAdults] = useState(2);
-  const [children, setChildren] = useState(0);
-  const [showGuestsPopup, setShowGuestsPopup] = useState(false);
-
-  const handleSearch = () => {
+  const handleSearch = (e?: React.FormEvent) => {
+    e?.preventDefault();
     if (onSearch) {
-      onSearch({ checkIn, checkOut, adults, children });
+      onSearch({ checkIn, checkOut, guests });
     }
   };
 
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('uk-UA', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
+  const datesDisplayFull = isUA
+    ? `${format(new Date(checkIn), 'dd MMMM yyyy', { locale: uk })} — ${format(new Date(checkOut), 'dd MMMM yyyy', { locale: uk })}`
+    : `${format(new Date(checkIn), 'MMMM dd, yyyy')} — ${format(new Date(checkOut), 'MMMM dd, yyyy')}`;
+
+  const datesDisplayShort = isUA
+    ? `${format(new Date(checkIn), 'dd.MM.yy')} — ${format(new Date(checkOut), 'dd.MM.yy')}`
+    : `${format(new Date(checkIn), 'MM/dd/yy')} — ${format(new Date(checkOut), 'MM/dd/yy')}`;
+
+  const copy = {
+    searchDates: isUA ? 'Дати' : 'Dates',
+    searchGuests: isUA ? 'Гості' : 'Guests',
+    calendarLabel: isUA ? 'Оберіть дати' : 'Select dates',
+    dateCheckInLabel: isUA ? 'Заїзд' : 'Check-in',
+    dateCheckOutLabel: isUA ? 'Виїзд' : 'Check-out',
+    searchButton: isUA ? 'ЗНАЙТИ' : 'FIND',
   };
 
-  const totalGuests = adults + children;
-
   return (
-    <div className="w-full">
-      <div className="bg-white/90 backdrop-blur-md rounded-lg shadow-lg p-3">
-        <div className="flex flex-col lg:flex-row gap-2">
-          {/* Dates Block */}
-          <div className="flex-1 relative">
-            <div className="flex items-center h-[64px] border border-neutral-200 rounded-lg bg-white px-5 hover:border-primary-300 transition-colors">
-              <Calendar className="w-5 h-5 text-neutral-500 mr-3 flex-shrink-0" />
-              <span className="text-base text-neutral-600 mr-4 whitespace-nowrap">
-                {isUA ? 'Дати:' : 'Dates:'}
-              </span>
-              <div className="flex items-center gap-2 flex-1 justify-end">
-                <span className="text-base text-neutral-900">
-                  {formatDate(checkIn)}
-                </span>
-                <span className="text-neutral-300">—</span>
-                <span className="text-base text-neutral-900">
-                  {formatDate(checkOut)}
-                </span>
-              </div>
-              {/* Hidden date inputs for interaction */}
+    <form
+      onSubmit={handleSearch}
+      className="mx-auto flex w-full max-w-5xl flex-col gap-3 rounded-sm bg-white p-3 shadow-lg md:flex-row md:items-center md:gap-4 md:p-4"
+    >
+      {/* Dates Input Button */}
+      <button
+        ref={dateDropdownRef}
+        onClick={() => setShowCalendar((value) => !value)}
+        className="flex h-14 w-full flex-col items-start justify-center rounded-sm border border-black/15 bg-white px-3 text-left text-sm transition-[border-color,background-color] duration-150 hover:border-black/25 hover:bg-black/[0.02] md:w-[280px]"
+        type="button"
+      >
+        <span className="text-xs text-[#666]">{copy.searchDates}</span>
+        <span className="font-medium text-[#1A1A1B]">
+          {datesDisplayShort}
+        </span>
+      </button>
+
+      {/* Calendar Dropdown */}
+      {showCalendar && (
+        <>
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setShowCalendar(false)}
+          />
+          <div className="absolute left-3 right-3 top-full z-50 mt-2 flex flex-col gap-3 rounded-sm border border-black/15 bg-white p-3 shadow-xl md:left-auto md:right-auto md:w-[280px]">
+            <h3 className="text-sm font-medium text-[#1A1A1B]">
+              {copy.calendarLabel}
+            </h3>
+
+            {/* Check-in Input */}
+            <div className="flex flex-col gap-1">
+              <label className="text-xs text-[#666]">{copy.dateCheckInLabel}</label>
               <input
                 type="date"
-                value={checkIn.toISOString().split('T')[0]}
+                min={today}
+                value={checkIn}
                 onChange={(e) => {
-                  if (e.target.value) {
-                    const newDate = new Date(e.target.value);
-                    newDate.setHours(14, 0, 0, 0);
-                    setCheckIn(newDate);
-                    if (newDate >= checkOut) {
-                      const newCheckOut = new Date(newDate);
-                      newCheckOut.setDate(newCheckOut.getDate() + 1);
-                      setCheckOut(newCheckOut);
-                    }
+                  const v = e.target.value;
+                  setCheckIn(v);
+                  if (checkOut && v >= checkOut) {
+                    const nextDay = new Date(v);
+                    nextDay.setDate(nextDay.getDate() + 1);
+                    setCheckOut(nextDay.toISOString().split('T')[0]);
                   }
                 }}
-                className="absolute inset-0 opacity-0 cursor-pointer"
+                className="box-border h-10 w-full min-w-0 rounded border border-black/15 bg-white px-3 py-2 text-base text-[#1A1A1B] outline-none transition focus:border-[#C5A059] focus:ring-1 focus:ring-[#C5A059]"
+              />
+            </div>
+
+            {/* Check-out Input */}
+            <div className="flex flex-col gap-1">
+              <label className="text-xs text-[#666]">{copy.dateCheckOutLabel}</label>
+              <input
+                type="date"
+                min={checkIn}
+                value={checkOut}
+                onChange={(e) => setCheckOut(e.target.value)}
+                className="box-border h-10 w-full min-w-0 rounded border border-black/15 bg-white px-3 py-2 text-base text-[#1A1A1B] outline-none transition focus:border-[#C5A059] focus:ring-1 focus:ring-[#C5A059]"
               />
             </div>
           </div>
+        </>
+      )}
 
-          {/* Guests Block */}
-          <div className="flex-1 relative">
-            <div
-              className="flex items-center h-[64px] border border-neutral-200 rounded-lg bg-white px-5 hover:border-primary-300 transition-colors cursor-pointer"
-              onClick={() => setShowGuestsPopup(!showGuestsPopup)}
-            >
-              <Users className="w-5 h-5 text-neutral-500 mr-3 flex-shrink-0" />
-              <span className="text-base text-neutral-600 mr-4 whitespace-nowrap">
-                {isUA ? 'Гості:' : 'Guests:'}
-              </span>
-              <div className="flex items-center gap-4 flex-1 justify-end">
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setAdults(Math.max(1, adults - 1));
-                  }}
-                  className="w-8 h-8 flex items-center justify-center rounded hover:bg-neutral-100 transition-colors"
-                >
-                  <Minus className="w-4 h-4 text-neutral-600" />
-                </button>
-                <span className="text-lg text-neutral-900 w-6 text-center">{totalGuests}</span>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setAdults(Math.min(10, adults + 1));
-                  }}
-                  className="w-8 h-8 flex items-center justify-center rounded hover:bg-neutral-100 transition-colors"
-                >
-                  <Plus className="w-4 h-4 text-neutral-600" />
-                </button>
-              </div>
-            </div>
-
-            {/* Guests Popup */}
-            {showGuestsPopup && (
-              <>
-                <div
-                  className="fixed inset-0 z-40"
-                  onClick={() => setShowGuestsPopup(false)}
-                />
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[300px] bg-white rounded-lg shadow-xl border border-neutral-200 p-5 z-50">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-neutral-900">{isUA ? 'Дорослі' : 'Adults'}</p>
-                        <p className="text-xs text-neutral-500">{isUA ? 'від 18 років' : '18+ years'}</p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setAdults(Math.max(1, adults - 1))}
-                          className="w-8 h-8 flex items-center justify-center rounded border border-neutral-200 hover:bg-neutral-100 transition-colors"
-                        >
-                          <Minus className="w-4 h-4 text-neutral-600" />
-                        </button>
-                        <span className="text-sm text-neutral-900 w-6 text-center">{adults}</span>
-                        <button
-                          type="button"
-                          onClick={() => setAdults(Math.min(10, adults + 1))}
-                          className="w-8 h-8 flex items-center justify-center rounded border border-neutral-200 hover:bg-neutral-100 transition-colors"
-                        >
-                          <Plus className="w-4 h-4 text-neutral-600" />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between pt-4 border-t border-neutral-100">
-                      <div>
-                        <p className="text-sm font-medium text-neutral-900">{isUA ? 'Діти' : 'Children'}</p>
-                        <p className="text-xs text-neutral-500">{isUA ? 'до 18 років' : 'Under 18'}</p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => setChildren(Math.max(0, children - 1))}
-                          className="w-8 h-8 flex items-center justify-center rounded border border-neutral-200 hover:bg-neutral-100 transition-colors"
-                        >
-                          <Minus className="w-4 h-4 text-neutral-600" />
-                        </button>
-                        <span className="text-sm text-neutral-900 w-6 text-center">{children}</span>
-                        <button
-                          type="button"
-                          onClick={() => setChildren(Math.min(6, children + 1))}
-                          className="w-8 h-8 flex items-center justify-center rounded border border-neutral-200 hover:bg-neutral-100 transition-colors"
-                        >
-                          <Plus className="w-4 h-4 text-neutral-600" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => setShowGuestsPopup(false)}
-                    className="w-full mt-4 py-2.5 bg-[#B59456] text-white text-sm font-medium uppercase tracking-wider rounded-lg hover:bg-[#9D7942] transition-colors"
-                  >
-                    {isUA ? 'Застосувати' : 'Apply'}
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* Search Button */}
+      {/* Guests Selector */}
+      <div className="flex h-14 w-full items-center justify-between rounded-sm border border-black/15 bg-white px-3 md:w-[180px]">
+        <div className="flex flex-col">
+          <span className="text-xs text-[#666]">{copy.searchGuests}</span>
+          <span className="font-medium text-[#1A1A1B]">{guests}</span>
+        </div>
+        <div className="flex items-center gap-1">
           <button
-            onClick={handleSearch}
-            className="h-[64px] px-8 bg-[#B59456] hover:bg-[#9D7942] text-white text-sm font-medium uppercase tracking-widest rounded-lg transition-all duration-300 shadow-sm hover:shadow-md whitespace-nowrap"
+            type="button"
+            onClick={() => setGuests((g) => Math.max(1, g - 1))}
+            disabled={guests <= 1}
+            className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded p-1.5 text-[#4A4A4A] transition hover:bg-black/5 disabled:opacity-40"
+            aria-label={isUA ? "Зменшити кількість гостей" : "Decrease guests"}
           >
-            {isUA ? 'Знайти' : 'Find'}
+            <Minus className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => setGuests((g) => Math.min(10, g + 1))}
+            disabled={guests >= 10}
+            className="flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center rounded p-1.5 text-[#4A4A4A] transition hover:bg-black/5 disabled:opacity-40"
+            aria-label={isUA ? "Збільшити кількість гостей" : "Increase guests"}
+          >
+            <Plus className="h-4 w-4" />
           </button>
         </div>
       </div>
-    </div>
+
+      {/* Search Button */}
+      <button
+        type="submit"
+        className="flex h-14 items-center justify-center gap-2 rounded-sm bg-[#C5A059] px-6 text-sm font-medium text-white transition-[background-color,opacity] duration-150 hover:bg-[#B8934E] disabled:cursor-not-allowed disabled:opacity-70"
+      >
+        {copy.searchButton}
+      </button>
+    </form>
   );
 }

@@ -23,7 +23,7 @@ export default function Hero({
   const { locale } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleSearch = (data: { checkIn: Date; checkOut: Date; adults: number; children: number }) => {
+  const handleSearch = (data: { checkIn: string; checkOut: string; guests: number }) => {
     console.log('Search:', data);
     // Redirect to rooms or handle search
   };
@@ -88,7 +88,6 @@ export default function Hero({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="w-full"
         >
           <BookingBar onSearch={handleSearch} />
         </motion.div>
