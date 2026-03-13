@@ -88,7 +88,7 @@ export default function SpaPage() {
 
       {/* Description */}
       <section className="section-padding bg-surface">
-        <div className="container-wide mx-auto">
+        <div className="container">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -128,7 +128,7 @@ export default function SpaPage() {
 
       {/* Services */}
       <section className="section-padding bg-neutral-50">
-        <div className="container-wide mx-auto">
+        <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -178,7 +178,7 @@ export default function SpaPage() {
 
       {/* Programs */}
       <section className="section-padding bg-surface">
-        <div className="container-wide mx-auto">
+        <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -241,7 +241,7 @@ export default function SpaPage() {
 
       {/* Amenities */}
       <section className="section-padding bg-neutral-50">
-        <div className="container-wide mx-auto">
+        <div className="container">
           <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -283,7 +283,7 @@ export default function SpaPage() {
 
       {/* Contact */}
       <section className="section-padding bg-surface">
-        <div className="container-wide mx-auto">
+        <div className="container">
           <div className="max-w-2xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

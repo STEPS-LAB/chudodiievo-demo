@@ -39,7 +39,7 @@ export default function RoomDetailPage() {
   return (
     <main className="pt-24">
       {/* Back Link */}
-      <div className="container-wide mx-auto px-4 py-8">
+      <div className="container py-8">
         <Link
           href="/rooms"
           className="inline-flex items-center text-neutral-600 hover:text-neutral-900 transition-colors"
@@ -50,7 +50,7 @@ export default function RoomDetailPage() {
       </div>
 
       {/* Image Gallery */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 container-wide mx-auto px-4 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 container mb-12">
         <div className="relative aspect-[4/3] md:aspect-square">
           <Image
             src={room.images[0]}
@@ -75,7 +75,7 @@ export default function RoomDetailPage() {
 
       {/* Room Info */}
       <section className="section-padding bg-surface">
-        <div className="container-wide mx-auto">
+        <div className="container">
           <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -139,7 +139,7 @@ export default function RoomDetailPage() {
       {/* Related Rooms */}
       {relatedRooms.length > 0 && (
         <section className="section-padding bg-neutral-50">
-          <div className="container-wide mx-auto">
+          <div className="container">
             <h2 className="font-display font-medium text-3xl text-neutral-900 mb-8 text-center">
               {t('rooms.relatedRooms')}
             </h2>

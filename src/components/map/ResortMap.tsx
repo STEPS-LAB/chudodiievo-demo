@@ -45,7 +45,7 @@ export default function ResortMap() {
 
   return (
     <section className="section-padding bg-neutral-100">
-      <div className="container-wide mx-auto">
+      <div className="container">
         {/* Header */}
         <motion.div
           ref={ref}

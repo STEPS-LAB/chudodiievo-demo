@@ -64,7 +64,7 @@ export default function TestimonialsSection() {
 
   return (
     <section className="section-padding bg-surface">
-      <div className="container-wide mx-auto">
+      <div className="container">
         {/* Header */}
         <motion.div
           ref={ref}

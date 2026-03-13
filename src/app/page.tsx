@@ -1,5 +1,4 @@
 import Hero from '@/components/layout/Hero';
-import BookingForm from '@/features/booking/BookingForm';
 import AboutSection from '@/components/sections/AboutSection';
 import RoomsSection from '@/components/sections/RoomsSection';
 import RestaurantSection from '@/components/sections/RestaurantSection';
@@ -25,15 +24,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-
-      {/* Booking Section */}
-      <section className="relative -mt-32 z-20 px-4 sm:px-6 lg:px-8">
-        <div className="container-wide mx-auto">
-          <div className="max-w-4xl mx-auto">
-            <BookingForm />
-          </div>
-        </div>
-      </section>
 
       {/* About Section */}
       <AboutSection />

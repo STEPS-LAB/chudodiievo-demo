@@ -58,7 +58,7 @@ export default function ContactsPage() {
 
       {/* Contact Info & Form */}
       <section className="section-padding bg-surface">
-        <div className="container-wide mx-auto">
+        <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
             {/* Contact Information */}
             <motion.div

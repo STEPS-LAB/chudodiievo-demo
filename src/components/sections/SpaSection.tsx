@@ -14,7 +14,7 @@ export default function SpaSection() {
 
   return (
     <section className="section-padding bg-neutral-50">
-      <div className="container-wide mx-auto">
+      <div className="container">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <motion.div

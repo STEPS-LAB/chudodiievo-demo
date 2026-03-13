@@ -14,7 +14,7 @@ export default function RestaurantSection() {
 
   return (
     <section className="section-padding bg-surface">
-      <div className="container-wide mx-auto">
+      <div className="container">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Images */}
           <motion.div

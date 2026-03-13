@@ -63,7 +63,7 @@ export default function Header() {
             : 'bg-transparent backdrop-blur-md'
         }`}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 md:px-10 h-[4.5rem] min-h-[4.5rem]">
+        <div className="container flex items-center justify-between h-[4.5rem] min-h-[4.5rem]">
           {/* Logo */}
           <Link
             href="/"

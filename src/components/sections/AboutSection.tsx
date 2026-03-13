@@ -44,7 +44,7 @@ export default function AboutSection() {
 
   return (
     <section id="about" className="section-padding bg-surface">
-      <div className="container-wide mx-auto">
+      <div className="container">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <motion.div

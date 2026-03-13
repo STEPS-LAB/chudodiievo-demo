@@ -150,7 +150,7 @@ export default function FAQPage() {
 
       {/* FAQ List */}
       <section className="section-padding bg-surface">
-        <div className="container-wide mx-auto">
+        <div className="container">
           <div className="max-w-4xl mx-auto">
             <div className="space-y-4">
               {faqs.map((faq, index) => (

@@ -72,7 +72,7 @@ export default function RestaurantPage() {
 
       {/* Description */}
       <section className="section-padding bg-surface">
-        <div className="container-wide mx-auto">
+        <div className="container">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -118,7 +118,7 @@ export default function RestaurantPage() {
 
       {/* Menu Preview */}
       <section className="section-padding bg-neutral-50">
-        <div className="container-wide mx-auto">
+        <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -168,7 +168,7 @@ export default function RestaurantPage() {
 
       {/* Hours & Contact */}
       <section className="section-padding bg-surface">
-        <div className="container-wide mx-auto">
+        <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

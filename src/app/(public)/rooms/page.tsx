@@ -46,7 +46,7 @@ export default function RoomsPage() {
 
       {/* Rooms Grid */}
       <section className="section-padding bg-surface">
-        <div className="container-wide mx-auto">
+        <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
             {rooms.map((room, index) => (
               <motion.div

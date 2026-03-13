@@ -11,7 +11,7 @@ export default function RoomsSection() {
 
   return (
     <section className="section-padding bg-neutral-50">
-      <div className="container-wide mx-auto">
+      <div className="container">
         {/* Header */}
         <motion.div
           ref={ref}

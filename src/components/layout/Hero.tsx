@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
+import BookingBar from '@/features/booking/BookingBar';
 
 interface HeroProps {
   title?: string;
@@ -21,6 +22,11 @@ export default function Hero({
 }: HeroProps) {
   const { locale } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleSearch = (data: { checkIn: Date; checkOut: Date; adults: number; children: number }) => {
+    console.log('Search:', data);
+    // Redirect to rooms or handle search
+  };
 
   return (
     <section
@@ -64,7 +70,7 @@ export default function Hero({
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
           <Link href="/rooms" className="luxury-button min-w-[160px]">
             {locale === 'ua' ? 'Забронювати' : 'Book Stay'}
@@ -75,6 +81,16 @@ export default function Hero({
           >
             {locale === 'ua' ? 'Дослідити' : 'Explore'}
           </Link>
+        </motion.div>
+
+        {/* Booking Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="w-full"
+        >
+          <BookingBar onSearch={handleSearch} />
         </motion.div>
       </div>
 
