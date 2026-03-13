@@ -5,11 +5,12 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #7D7D6F;
-  --color-secondary: #5E8063;
-  --color-accent: #5C4033;
-  --color-background: #FAFAF9;
-  --color-surface: #FFFFFF;
+  --color-primary: #1F3A2E;
+  --color-primary-light: #4A7560;
+  --color-secondary: #D8C3A5;
+  --color-accent: #5A4636;
+  --color-background: #F7F6F2;
+  --color-surface: #E8E8E6;
   --color-neutral-50: #FAFAFA;
   --color-neutral-100: #F5F5F5;
   --color-neutral-200: #E5E5E5;
@@ -78,19 +79,19 @@ h1, h2, h3, h4, h5, h6 {
   
   .luxury-button {
     @apply inline-flex items-center justify-center px-6 py-2.5
-           bg-primary-700 text-white font-medium text-sm
+           bg-primary text-white font-medium text-sm
            rounded-sm transition-all duration-300
-           hover:bg-primary-800 hover:shadow-medium hover:scale-[1.02]
+           hover:bg-primary-900 hover:shadow-medium hover:scale-[1.02]
            active:scale-[0.98] focus:outline-none focus:ring-2
            focus:ring-primary-500 focus:ring-offset-2;
   }
 
   .luxury-button-secondary {
     @apply inline-flex items-center justify-center px-6 py-2.5
-           bg-transparent text-primary-700 font-medium text-sm
+           bg-transparent text-primary font-medium text-sm
            rounded-sm border border-primary-300
            transition-all duration-300
-           hover:bg-primary-50 hover:border-primary-400 hover:scale-[1.02]
+           hover:bg-secondary-500 hover:border-secondary-600 hover:scale-[1.02]
            active:scale-[0.98] focus:outline-none focus:ring-2
            focus:ring-primary-500 focus:ring-offset-2;
   }
@@ -103,7 +104,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-primary-700 via-primary-600 to-secondary-600 
+    @apply bg-gradient-to-r from-primary via-primary-500 to-secondary-600
            bg-clip-text text-transparent;
   }
   

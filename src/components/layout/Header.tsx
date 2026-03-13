@@ -93,14 +93,16 @@ export default function Header() {
           {/* Actions */}
           <div className="flex items-center gap-2">
             {/* Language Switch */}
-            <div className="flex items-center gap-2 rounded-sm border border-white/30 bg-black/15 p-1 backdrop-blur">
+            <div className={`flex items-center gap-2 rounded-sm p-1 ${
+              isScrolled ? 'bg-neutral-200' : 'bg-white/10 backdrop-blur border border-white/30'
+            }`}>
               {(['ua', 'en'] as const).map((code) => (
                 <button
                   key={code}
                   className={`rounded-sm px-3 py-1.5 text-xs uppercase tracking-[0.14em] transition ${
                     locale === code
-                      ? 'bg-[#B59456] text-black'
-                      : 'text-white/85 hover:bg-white/15'
+                      ? isScrolled ? 'bg-primary text-white' : 'bg-primary text-white'
+                      : isScrolled ? 'text-neutral-600 hover:bg-neutral-300' : 'text-white/90 hover:bg-white/20'
                   }`}
                   onClick={() => setLocale(code)}
                   type="button"
@@ -113,7 +115,7 @@ export default function Header() {
             {/* Book Button */}
             <Link
               href="/rooms"
-              className="hidden items-center justify-center rounded-sm bg-[#4A4A40] px-4 py-2.5 text-xs font-medium uppercase tracking-[0.14em] text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:bg-[#3D3D35] md:inline-flex"
+              className="hidden items-center justify-center rounded-sm bg-primary px-4 py-2.5 text-xs font-medium uppercase tracking-[0.14em] text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:bg-primary-900 md:inline-flex"
             >
               {t('common.bookNow')}
             </Link>
@@ -127,19 +129,13 @@ export default function Header() {
               aria-expanded={menuOpen}
             >
               <span
-                className={`h-[1.5px] w-5 rounded-full transition-colors ${
-                  isScrolled ? 'bg-[var(--color-neutral-900)]' : 'bg-white'
-                }`}
+                className={`h-[1.5px] w-5 rounded-full bg-white transition-colors`}
               />
               <span
-                className={`h-[1.5px] w-5 rounded-full transition-colors ${
-                  isScrolled ? 'bg-[var(--color-neutral-900)]' : 'bg-white'
-                }`}
+                className={`h-[1.5px] w-5 rounded-full bg-white transition-colors`}
               />
               <span
-                className={`h-[1.5px] w-5 rounded-full transition-colors ${
-                  isScrolled ? 'bg-[var(--color-neutral-900)]' : 'bg-white'
-                }`}
+                className={`h-[1.5px] w-5 rounded-full bg-white transition-colors`}
               />
             </button>
           </div>
@@ -220,7 +216,7 @@ export default function Header() {
                   <Link
                     href="/rooms"
                     onClick={() => setMenuOpen(false)}
-                    className="flex w-full items-center justify-center rounded-sm bg-[#4A4A40] px-4 py-3 text-xs font-medium uppercase tracking-[0.1em] text-white shadow-sm transition-all duration-300 hover:bg-[#3D3D35]"
+                    className="flex w-full items-center justify-center rounded-sm bg-primary px-4 py-3 text-xs font-medium uppercase tracking-[0.1em] text-white shadow-sm transition-all duration-300 hover:bg-primary-900"
                   >
                     {t('common.bookNow')}
                   </Link>

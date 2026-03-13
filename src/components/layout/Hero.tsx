@@ -17,7 +17,7 @@ interface HeroProps {
 export default function Hero({
   title,
   subtitle,
-  backgroundImage = 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1920&q=80',
+  backgroundImage = '/images/hero.webp',
   showScrollIndicator = true,
 }: HeroProps) {
   const { locale } = useLanguage();
@@ -64,23 +64,6 @@ export default function Hero({
           <p className="text-lg sm:text-xl md:text-2xl text-neutral-200 mb-10 max-w-2xl mx-auto font-light">
             {subtitle || (locale === 'ua' ? 'Розкішний відпочинок на природі' : 'Luxury Escape in Nature')}
           </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
-        >
-          <Link href="/rooms" className="luxury-button min-w-[160px]">
-            {locale === 'ua' ? 'Забронювати' : 'Book Stay'}
-          </Link>
-          <Link
-            href="/#about"
-            className="luxury-button-secondary min-w-[160px] text-white border-white/30 hover:bg-white/10"
-          >
-            {locale === 'ua' ? 'Дослідити' : 'Explore'}
-          </Link>
         </motion.div>
 
         {/* Booking Bar */}
