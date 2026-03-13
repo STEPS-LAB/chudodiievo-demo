@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /d/github/chudodiievo-demo/src/app/\\\\\\(public\\\\\\)/ | grep page)",
+      "Bash(find D:/github/chudodiievo-demo/src -name \"*.ts\" -o -name \"*.tsx\" 2>/dev/null | head -40)",
+      "Bash(cd D:/github/chudodiievo-demo && find src -name \"*.ts\" -o -name \"*.tsx\" | xargs rm -f && echo \"Removed TypeScript files\")",
+      "Bash(cd D:/github/chudodiievo-demo && npm install 2>&1 | tail -20)",
+      "Bash(cd D:/github/chudodiievo-demo && npm run build 2>&1 | tail -40)",
+      "Bash(cd D:/github/chudodiievo-demo && npm run build 2>&1 | tail -30)",
+      "Bash(cd D:/github/chudodiievo-demo && timeout 15 npm run dev 2>&1 || true)"
+    ]
+  }
+}
