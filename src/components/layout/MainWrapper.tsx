@@ -8,8 +8,11 @@ interface MainWrapperProps {
 }
 
 export default function MainWrapper({ children }: MainWrapperProps) {
+  const pathname = usePathname();
+  const isHeroPage = pathname === '/' || pathname === '/restaurant';
+
   return (
-    <main className="flex-1 pb-20 md:pb-0">
+    <main className={`flex-1 ${isHeroPage ? '' : 'pb-20 md:pb-0'}`}>
       {children}
     </main>
   );

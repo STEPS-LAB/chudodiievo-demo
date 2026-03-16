@@ -16,8 +16,9 @@ export default function MobileBookingBar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Show on all pages except home page hero section
-  const shouldBeVisible = pathname !== '/' || isScrolled;
+  // Show on all pages except home page and restaurant page hero sections
+  const isHeroPage = pathname === '/' || pathname === '/restaurant';
+  const shouldBeVisible = !isHeroPage || isScrolled;
 
   return (
     <motion.div

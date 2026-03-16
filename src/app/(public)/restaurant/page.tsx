@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Clock, MapPin, Phone, Mail } from 'lucide-react';
+import { MapPin, Phone, Mail } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useTranslations } from '@/lib/i18n/useTranslations';
 
@@ -41,13 +41,13 @@ export default function RestaurantPage() {
   const isUA = locale === 'ua';
 
   return (
-    <main className="pt-24">
+    <main>
       {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&q=80)',
+            backgroundImage: 'url(/images/r-hero.webp)',
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/40 to-neutral-900/60" />
@@ -92,7 +92,7 @@ export default function RestaurantPage() {
               className="relative aspect-square"
             >
               <Image
-                src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80"
+                src="/images/re1.webp"
                 alt={isUA ? 'Інтер\'єр ресторану' : 'Restaurant Interior'}
                 fill
                 className="object-cover rounded-sm"
@@ -105,7 +105,7 @@ export default function RestaurantPage() {
               className="relative aspect-square"
             >
               <Image
-                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80"
+                src="/images/re2.webp"
                 alt={isUA ? 'Авторська кухня' : 'Author\'s Cuisine'}
                 fill
                 className="object-cover rounded-sm"
@@ -147,8 +147,8 @@ export default function RestaurantPage() {
                 <ul className="space-y-4">
                   {category.items.map((item, itemIndex) => (
                     <li key={itemIndex} className="flex justify-between items-start">
-                      <span className="text-neutral-700">{isUA ? item.ua : item.en}</span>
-                      <span className="font-medium text-primary-700">{item.price} ₴</span>
+                      <span className="text-neutral-700 w-[65%]">{isUA ? item.ua : item.en}</span>
+                      <span className="font-medium text-primary-700 w-[35%] text-right whitespace-nowrap">{item.price} ₴</span>
                     </li>
                   ))}
                 </ul>
@@ -158,39 +158,14 @@ export default function RestaurantPage() {
         </div>
       </section>
 
-      {/* Hours & Contact */}
+      {/* Contact */}
       <section className="section-padding bg-surface">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+          <div className="max-w-2xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-            >
-              <div className="flex items-start space-x-4 mb-6">
-                <Clock className="w-6 h-6 text-primary-600 mt-1" />
-                <div>
-                  <h3 className="font-display font-medium text-xl text-neutral-900 mb-2">
-                    {t('restaurant.hours')}
-                  </h3>
-                  <ul className="space-y-2 text-neutral-600">
-                    <li className="flex justify-between">
-                      <span>{isUA ? 'Пн-Пт' : 'Mon-Fri'}</span>
-                      <span>08:00 — 22:00</span>
-                    </li>
-                    <li className="flex justify-between">
-                      <span>{isUA ? 'Сб-Нд' : 'Sat-Sun'}</span>
-                      <span>09:00 — 23:00</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
             >
               <div className="space-y-4">
                 <div className="flex items-center space-x-4">
