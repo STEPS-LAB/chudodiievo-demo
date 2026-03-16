@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
-import { CalendarDays, Minus, Plus, Users } from 'lucide-react';
+import { CalendarDays, Minus, Plus, Users, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface BookingBarProps {
@@ -14,6 +14,8 @@ interface BookingData {
   checkOut: string;
   guests: number;
 }
+
+type SearchStatus = 'idle' | 'loading' | 'success';
 
 export default function BookingBar({ onSearch }: BookingBarProps) {
   const { locale } = useLanguage();
@@ -28,14 +30,25 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
   });
   const [guests, setGuests] = useState(2);
   const [showCalendar, setShowCalendar] = useState(false);
+  const [searchStatus, setSearchStatus] = useState<SearchStatus>('idle');
 
   const dateDropdownRef = useRef<HTMLButtonElement>(null);
 
   const handleSearch = (e?: React.FormEvent) => {
     e?.preventDefault();
-    if (onSearch) {
-      onSearch({ checkIn, checkOut, guests });
-    }
+    setSearchStatus('loading');
+
+    // Simulate search with 3 second delay
+    setTimeout(() => {
+      setSearchStatus('success');
+      if (onSearch) {
+        onSearch({ checkIn, checkOut, guests });
+      }
+      // Reset status after success message is shown
+      setTimeout(() => {
+        setSearchStatus('idle');
+      }, 3000);
+    }, 3000);
   };
 
   const datesDisplayFull = isUA
@@ -53,13 +66,16 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
     dateCheckInLabel: isUA ? 'Заїзд' : 'Check-in',
     dateCheckOutLabel: isUA ? 'Виїзд' : 'Check-out',
     searchButton: isUA ? 'ЗНАЙТИ' : 'FIND',
+    searchLoading: isUA ? 'AI підбирає найкращий номер для вашого відпочинку...' : 'AI is finding the best room for your relaxation...',
+    searchSuccess: isUA ? 'Підходящий номер знайдено. Перенаправляємо до бронювання...' : 'Suitable room found. Redirecting to booking...',
   };
 
   return (
-    <form
-      onSubmit={handleSearch}
-      className="mx-auto flex w-full max-w-5xl flex-col gap-3 rounded-sm bg-surface p-4 shadow-lg sm:flex-row sm:items-center"
-    >
+    <div className="mx-auto w-full max-w-5xl rounded-sm bg-surface p-4 shadow-lg">
+      <form
+        onSubmit={handleSearch}
+        className="flex flex-col gap-3 sm:flex-row sm:items-center"
+      >
       {/* Dates Input Button */}
       <div className="relative w-full sm:w-[400px]">
         <button
@@ -163,5 +179,29 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
         {copy.searchButton}
       </button>
     </form>
+
+    {/* Search Status Message */}
+    <div
+      className={`grid transition-all duration-500 ease-in-out ${
+        searchStatus !== 'idle' ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+      }`}
+    >
+      <div className="overflow-hidden">
+        <div className="flex items-center gap-3 rounded-sm bg-neutral-100/90 p-4 text-sm">
+          {searchStatus === 'loading' ? (
+            <>
+              <Loader2 className="h-5 w-5 animate-spin text-neutral-500" />
+              <span className="text-neutral-700">{copy.searchLoading}</span>
+            </>
+          ) : (
+            <>
+              <div className="h-2 w-2 rounded-full bg-green-600" />
+              <span className="text-neutral-700">{copy.searchSuccess}</span>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
   );
 }
