@@ -20,10 +20,10 @@ const activities = {
   en: [
     { icon: Bike, key: 'cycling', name: 'Cycling', description: 'Rides around the resort', image: '/images/velo.webp', duration: '250 UAH/hour', level: 'Any level' },
     { icon: Flower2, key: 'banya', name: 'Banya & Hot Tub', description: 'Wood-fired sauna and hot tub', image: '/images/laznya.webp', duration: 'from 800 UAH', level: 'Complex 2600 UAH' },
-    { icon: Bike, key: 'atv', name: 'ATVs', description: 'Extreme forest riding', image: 'https://images.unsplash.com/photo-1563294029-b4f56e1c9133?w=800&q=80', duration: 'from 1600 UAH', level: 'Extreme' },
-    { icon: Fish, key: 'boats', name: 'Boats & Catamarans', description: 'Lake cruises', image: 'https://images.unsplash.com/photo-1544551763-46a8723ba3f9?w=800&q=80', duration: 'from 150 UAH', level: 'Any level' },
-    { icon: Fish, key: 'fishing', name: 'Fishing', description: 'Amateur and sport fishing', image: 'https://images.unsplash.com/photo-1544209978-71468935cd7e?w=800&q=80', duration: 'from 500 UAH', level: 'Any level' },
-    { icon: Bike, key: 'tennis', name: 'Tennis', description: 'Tennis court and rental', image: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=800&q=80', duration: '400 UAH/hour', level: 'Any level' },
+    { icon: Bike, key: 'atv', name: 'ATVs', description: 'Extreme forest riding', image: '/images/quadro.webp', duration: 'from 1600 UAH', level: 'Extreme' },
+    { icon: Fish, key: 'boats', name: 'Boats & Catamarans', description: 'Lake cruises', image: '/images/boats.webp', duration: 'from 150 UAH', level: 'Any level' },
+    { icon: Fish, key: 'fishing', name: 'Fishing', description: 'Amateur and sport fishing', image: '/images/fishing.webp', duration: 'from 500 UAH', level: 'Any level' },
+    { icon: Bike, key: 'tennis', name: 'Tennis', description: 'Tennis court and rental', image: '/images/tennis.webp', duration: '400 UAH/hour', level: 'Any level' },
     { icon: Bike, key: 'football', name: 'Football', description: 'Football field', image: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80', duration: 'Free', level: 'Any level' },
   ],
 };
