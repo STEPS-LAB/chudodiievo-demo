@@ -167,7 +167,7 @@ export default function BlogPage() {
                 className={`px-6 py-3 rounded-sm text-sm font-medium transition-all duration-200 ${
                   activeCategory === category.key
                     ? 'bg-primary-700 text-white'
-                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                    : 'bg-neutral-100 text-neutral-700 md:hover:bg-neutral-200'
                 }`}
               >
                 {isUA ? category.ua : category.en}
@@ -191,7 +191,7 @@ export default function BlogPage() {
                       src={post.image}
                       alt={isUA ? post.title.ua : post.title.en}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="object-cover transition-transform duration-700 md:group-hover:scale-105"
                     />
                   </div>
 
@@ -206,7 +206,7 @@ export default function BlogPage() {
                     </div>
                   </div>
 
-                  <h3 className="font-display font-medium text-xl text-neutral-900 mb-3 group-hover:text-primary-700 transition-colors">
+                  <h3 className="font-display font-medium text-xl text-neutral-900 mb-3 md:group-hover:text-primary-700 transition-colors">
                     {isUA ? post.title.ua : post.title.en}
                   </h3>
 
@@ -214,9 +214,9 @@ export default function BlogPage() {
                     {isUA ? post.excerpt.ua : post.excerpt.en}
                   </p>
 
-                  <div className="flex items-center text-primary-600 group-hover:text-primary-700 transition-colors">
+                  <div className="flex items-center text-primary-600 md:group-hover:text-primary-700 transition-colors">
                     <span className="font-medium">{t('blog.readArticle')}</span>
-                    <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-2" />
+                    <ArrowRight className="w-4 h-4 ml-2 transition-transform md:group-hover:translate-x-2" />
                   </div>
                 </Link>
               </motion.article>

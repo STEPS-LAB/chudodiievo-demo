@@ -2,32 +2,28 @@
 
 import { motion } from 'framer-motion';
 import { useIntersectionObserver } from '@/lib/hooks';
-import { Bike, Fish, Flower2, Heart } from 'lucide-react';
+import { Bike, Fish, Flower2 } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 
 const activities = {
   ua: [
-    { icon: Bike, key: 'cycling', name: 'Велопрогулянки', description: 'Прогулянки околицями курорту', image: 'https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=800&q=80' },
-    { icon: Flower2, key: 'banya', name: 'Лазня та чан', description: 'Лазня на дровах та гарячий чан', image: 'https://images.unsplash.com/photo-1543489822-c49534f3271f?w=800&q=80' },
-    { icon: Heart, key: 'massage', name: 'Масаж', description: 'Сеанси загального масажу', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80' },
-    { icon: Bike, key: 'atv', name: 'Квадроцикли', description: 'Екстремальне катання в лісі', image: 'https://images.unsplash.com/photo-1563294029-b4f56e1c9133?w=800&q=80' },
-    { icon: Fish, key: 'boats', name: 'Човни та катамарани', description: 'Прогулянки озером', image: 'https://images.unsplash.com/photo-1544551763-46a8723ba3f9?w=800&q=80' },
-    { icon: Fish, key: 'fishing', name: 'Риболовля', description: 'Любительська та спортивна', image: 'https://images.unsplash.com/photo-1544209978-71468935cd7e?w=800&q=80' },
-    { icon: Bike, key: 'tennis', name: 'Теніс', description: 'Тенісний корт та прокат', image: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=800&q=80' },
-    { icon: Bike, key: 'football', name: 'Мініфутбол', description: 'Поле для мініфутболу', image: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80' },
-    { icon: Bike, key: 'table-tennis', name: 'Настільний теніс', description: 'Класичний настільний теніс', image: 'https://images.unsplash.com/photo-1534158914592-062992bbe900?w=800&q=80' },
+    { icon: Bike, key: 'cycling', name: 'Велопрогулянки', description: 'Прогулянки околицями курорту', image: '/images/velo.webp', duration: '250 грн/год', level: 'Будь-який рівень' },
+    { icon: Flower2, key: 'banya', name: 'Лазня та чан', description: 'Лазня на дровах та гарячий чан', image: '/images/laznya.webp', duration: 'від 800 грн', level: 'Комплекс 2600 грн' },
+    { icon: Bike, key: 'atv', name: 'Квадроцикли', description: 'Екстремальне катання в лісі', image: '/images/quadro.webp', duration: 'від 1600 грн', level: 'Екстрим' },
+    { icon: Fish, key: 'boats', name: 'Човни та катамарани', description: 'Прогулянки озером', image: '/images/boats.webp', duration: 'від 150 грн', level: 'Будь-який рівень' },
+    { icon: Fish, key: 'fishing', name: 'Риболовля', description: 'Любительська та спортивна', image: '/images/fishing.webp', duration: 'від 500 грн', level: 'Будь-який рівень' },
+    { icon: Bike, key: 'tennis', name: 'Теніс', description: 'Тенісний корт', image: '/images/tennis.webp', duration: '400 грн/год', level: 'Будь-який рівень' },
+    { icon: Bike, key: 'football', name: 'Футбол', description: 'Поле для мініфутболу', image: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80', duration: 'Безкоштовно', level: 'Будь-який рівень' },
   ],
   en: [
-    { icon: Bike, key: 'cycling', name: 'Cycling', description: 'Rides around the resort', image: 'https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=800&q=80' },
-    { icon: Flower2, key: 'banya', name: 'Banya & Hot Tub', description: 'Wood-fired sauna and hot tub', image: 'https://images.unsplash.com/photo-1543489822-c49534f3271f?w=800&q=80' },
-    { icon: Heart, key: 'massage', name: 'Massage', description: 'General massage sessions', image: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&q=80' },
-    { icon: Bike, key: 'atv', name: 'ATVs', description: 'Extreme forest riding', image: 'https://images.unsplash.com/photo-1563294029-b4f56e1c9133?w=800&q=80' },
-    { icon: Fish, key: 'boats', name: 'Boats & Catamarans', description: 'Lake cruises', image: 'https://images.unsplash.com/photo-1544551763-46a8723ba3f9?w=800&q=80' },
-    { icon: Fish, key: 'fishing', name: 'Fishing', description: 'Amateur and sport fishing', image: 'https://images.unsplash.com/photo-1544209978-71468935cd7e?w=800&q=80' },
-    { icon: Bike, key: 'tennis', name: 'Tennis', description: 'Tennis court and rental', image: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=800&q=80' },
-    { icon: Bike, key: 'football', name: 'Mini Football', description: 'Mini football field', image: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80' },
-    { icon: Bike, key: 'table-tennis', name: 'Table Tennis', description: 'Classic table tennis', image: 'https://images.unsplash.com/photo-1534158914592-062992bbe900?w=800&q=80' },
+    { icon: Bike, key: 'cycling', name: 'Cycling', description: 'Rides around the resort', image: '/images/velo.webp', duration: '250 UAH/hour', level: 'Any level' },
+    { icon: Flower2, key: 'banya', name: 'Banya & Hot Tub', description: 'Wood-fired sauna and hot tub', image: '/images/laznya.webp', duration: 'from 800 UAH', level: 'Complex 2600 UAH' },
+    { icon: Bike, key: 'atv', name: 'ATVs', description: 'Extreme forest riding', image: '/images/quadro.webp', duration: 'from 1600 UAH', level: 'Extreme' },
+    { icon: Fish, key: 'boats', name: 'Boats & Catamarans', description: 'Lake cruises', image: '/images/boats.webp', duration: 'from 150 UAH', level: 'Any level' },
+    { icon: Fish, key: 'fishing', name: 'Fishing', description: 'Amateur and sport fishing', image: '/images/fishing.webp', duration: 'from 500 UAH', level: 'Any level' },
+    { icon: Bike, key: 'tennis', name: 'Tennis', description: 'Tennis court and rental', image: '/images/tennis.webp', duration: '400 UAH/hour', level: 'Any level' },
+    { icon: Bike, key: 'football', name: 'Football', description: 'Football field', image: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80', duration: 'Free', level: 'Any level' },
   ],
 };
 
@@ -86,7 +82,7 @@ export default function RelaxationSection() {
               <img
                 src={activity.image}
                 alt={activity.name}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-110"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-neutral-900/20 to-transparent" />

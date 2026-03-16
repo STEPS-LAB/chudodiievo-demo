@@ -50,7 +50,7 @@ export default function RelatedRooms({ rooms }: RelatedRoomsProps) {
 
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-xl font-display font-medium text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors">
+                    <h3 className="text-xl font-display font-medium text-neutral-900 mb-2 md:group-hover:text-primary-600 transition-colors">
                       {room.name.ua}
                     </h3>
                     <p className="text-sm text-neutral-500 mb-4 line-clamp-2">
@@ -78,7 +78,7 @@ export default function RelatedRooms({ rooms }: RelatedRoomsProps) {
                         </div>
                         <span className="text-xs text-neutral-500">за ніч</span>
                       </div>
-                      <span className="flex items-center text-sm font-medium text-primary-600 group-hover:translate-x-2 transition-transform">
+                      <span className="flex items-center text-sm font-medium text-primary-600 md:group-hover:translate-x-2 transition-transform">
                         Детальніше
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </span>
