@@ -9,15 +9,11 @@ import { useTranslations } from '@/lib/i18n/useTranslations';
 const footerLinks = {
   navigation: [
     { href: '/', key: 'home' },
+    { href: '/#about', key: 'about' },
     { href: '/#rooms', key: 'rooms' },
     { href: '/restaurant', key: 'restaurant' },
     { href: '/activities', key: 'activities' },
-  ],
-  info: [
-    { href: '/#about', key: 'about' },
-    { href: '/blog', key: 'blog' },
-    { href: '/faq', key: 'faq' },
-    { href: '/contacts', key: 'contacts' },
+    { href: '/pool', key: 'pool' },
   ],
 };
 
@@ -51,7 +47,7 @@ export default function Footer() {
   return (
     <footer className="bg-neutral-900 text-neutral-300">
       <div className="container py-16 lg:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <button onClick={scrollToTop} className="mb-6">
@@ -83,9 +79,9 @@ export default function Footer() {
             <h3 className="font-display font-medium text-white mb-6">
               {t('footer.navigation')}
             </h3>
-            <ul className="space-y-3">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-3">
               {footerLinks.navigation.map((link) => (
-                <li key={link.key}>
+                <li key={link.key} className="list-none">
                   <Link
                     href={link.href}
                     className="text-neutral-400 hover:text-white transition-colors duration-200"
@@ -94,26 +90,7 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          {/* Info Column */}
-          <div>
-            <h3 className="font-display font-medium text-white mb-6">
-              {t('common.about')}
-            </h3>
-            <ul className="space-y-3">
-              {footerLinks.info.map((link) => (
-                <li key={link.key}>
-                  <Link
-                    href={link.href}
-                    className="text-neutral-400 hover:text-white transition-colors duration-200"
-                  >
-                    {t(`common.${link.key}`)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            </div>
           </div>
 
           {/* Contact Column */}
@@ -158,20 +135,10 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-neutral-800">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm text-neutral-500">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-neutral-500 text-center md:text-left">
               {t('footer.copyright')}
             </p>
-            <div className="flex items-center justify-between w-full md:w-auto md:justify-end space-x-6">
-              <span className="text-sm text-neutral-500">
-                {isUA ? 'Політика конфіденційності' : 'Privacy Policy'}
-              </span>
-              <span className="text-sm text-neutral-500 text-right">
-                {isUA ? 'Умови використання' : 'Terms of Use'}
-              </span>
-            </div>
-          </div>
-          <div className="mt-4 md:mt-0 text-center">
             <p className="text-sm text-neutral-500">
               Developed by{' '}
               <a
@@ -183,6 +150,14 @@ export default function Footer() {
                 STEPS LAB
               </a>
             </p>
+            <div className="flex items-center justify-between w-full md:w-auto md:justify-end space-x-6">
+              <span className="text-sm text-neutral-500">
+                {isUA ? 'Політика конфіденційності' : 'Privacy Policy'}
+              </span>
+              <span className="text-sm text-neutral-500 text-right">
+                {isUA ? 'Умови використання' : 'Terms of Use'}
+              </span>
+            </div>
           </div>
         </div>
       </div>
