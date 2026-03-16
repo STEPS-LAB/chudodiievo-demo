@@ -158,7 +158,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-neutral-800">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 relative">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-neutral-500">
               {t('footer.copyright')}
             </p>
@@ -170,19 +170,19 @@ export default function Footer() {
                 {isUA ? 'Умови використання' : 'Terms of Use'}
               </span>
             </div>
-            <div className="absolute left-1/2 -translate-x-1/2">
-              <p className="text-sm text-neutral-500">
-                Developed by{' '}
-                <a
-                  href="https://stepslab.vercel.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary-400 hover:text-primary-300 transition-colors"
-                >
-                  STEPS LAB
-                </a>
-              </p>
-            </div>
+          </div>
+          <div className="mt-4 md:mt-0 text-center">
+            <p className="text-sm text-neutral-500">
+              Developed by{' '}
+              <a
+                href="https://stepslab.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-400 hover:text-primary-300 transition-colors tracking-wid"
+              >
+                STEPS LAB
+              </a>
+            </p>
           </div>
         </div>
       </div>

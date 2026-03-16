@@ -58,7 +58,7 @@ export default function ResortMap() {
         {/* Map Container */}
         <div className="relative max-w-4xl mx-auto">
           {/* Map SVG */}
-          <div className="aspect-[16/10] bg-gradient-to-br from-neutral-50 to-white rounded-sm overflow-hidden shadow-lg relative">
+          <div className="aspect-square sm:aspect-[16/10] bg-gradient-to-br from-neutral-50 to-white rounded-sm overflow-hidden shadow-lg relative">
             {/* Decorative Map Background */}
             <svg
               viewBox="0 0 500 320"
