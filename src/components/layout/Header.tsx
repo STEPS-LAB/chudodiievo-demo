@@ -194,8 +194,8 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
       </header>
 
       {/* Mobile Menu Drawer */}
-      {menuOpen && (
-        <AnimatePresence>
+      <AnimatePresence>
+        {menuOpen && (
           <>
             {/* Backdrop */}
             <motion.div
@@ -294,8 +294,8 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
               </nav>
             </motion.aside>
           </>
-        </AnimatePresence>
-      )}
+        )}
+      </AnimatePresence>
 
       {/* Booking Modal */}
       <BookingModal isOpen={bookingModalOpen} onClose={() => setBookingModalOpen(false)} />
