@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { ArrowRight, Users, Maximize } from 'lucide-react';
 import { useIntersectionObserver } from '@/lib/hooks';
 import { getFeaturedRooms } from '@/lib/config/rooms';
@@ -52,61 +51,54 @@ export default function RoomsSection() {
               animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <Link href={`/rooms/${room.slug}`} className="group block">
-                <div className="bg-white rounded-sm shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                  {/* Image */}
-                  <div className="image-zoom-container relative aspect-[4/3] overflow-hidden">
-                    <img
-                      src={room.images[0]}
-                      alt={room.name.ua}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                    {room.featured && (
-                      <span className="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm text-xs font-medium uppercase tracking-wider">
-                        Featured
-                      </span>
-                    )}
+              <div className="bg-white rounded-sm shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                {/* Image */}
+                <div className="image-zoom-container relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={room.images[0]}
+                    alt={room.name.ua}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-display font-medium text-neutral-900 mb-2">
+                    {room.name.ua}
+                  </h3>
+                  <p className="text-sm text-neutral-500 mb-4 line-clamp-2">
+                    {room.shortDescription.ua}
+                  </p>
+
+                  {/* Amenities */}
+                  <div className="flex items-center space-x-4 mb-4 text-sm text-neutral-500">
+                    <div className="flex items-center space-x-1">
+                      <Users className="w-4 h-4" />
+                      <span>{room.maxGuests}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Maximize className="w-4 h-4" />
+                      <span>{room.size} м²</span>
+                    </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-display font-medium text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors">
-                      {room.name.ua}
-                    </h3>
-                    <p className="text-sm text-neutral-500 mb-4 line-clamp-2">
-                      {room.shortDescription.ua}
-                    </p>
-
-                    {/* Amenities */}
-                    <div className="flex items-center space-x-4 mb-4 text-sm text-neutral-500">
-                      <div className="flex items-center space-x-1">
-                        <Users className="w-4 h-4" />
-                        <span>{room.maxGuests}</span>
+                  {/* Price & CTA */}
+                  <div className="flex items-center justify-between pt-4 border-t border-neutral-100">
+                    <div>
+                      <span className="text-xs text-neutral-500">від</span>
+                      <div className="text-lg font-medium text-primary-700">
+                        {room.price.toLocaleString()} ₴
                       </div>
-                      <div className="flex items-center space-x-1">
-                        <Maximize className="w-4 h-4" />
-                        <span>{room.size} м²</span>
-                      </div>
+                      <span className="text-xs text-neutral-500">за ніч</span>
                     </div>
-
-                    {/* Price & CTA */}
-                    <div className="flex items-center justify-between pt-4 border-t border-neutral-100">
-                      <div>
-                        <span className="text-xs text-neutral-500">від</span>
-                        <div className="text-lg font-medium text-primary-700">
-                          {room.price.toLocaleString()} ₴
-                        </div>
-                        <span className="text-xs text-neutral-500">за ніч</span>
-                      </div>
-                      <span className="flex items-center text-sm font-medium text-primary-600 group-hover:translate-x-2 transition-transform">
-                        Детальніше
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </span>
-                    </div>
+                    <span className="flex items-center text-sm font-medium text-primary-600">
+                      Детальніше
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </span>
                   </div>
                 </div>
-              </Link>
+              </div>
             </motion.div>
           ))}
         </div>

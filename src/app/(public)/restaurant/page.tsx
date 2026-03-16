@@ -2,8 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
-import { Clock, MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
+import { Clock, MapPin, Phone, Mail } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useTranslations } from '@/lib/i18n/useTranslations';
 
@@ -156,13 +155,6 @@ export default function RestaurantPage() {
               </motion.div>
             ))}
           </div>
-
-          <div className="text-center mt-12">
-            <Link href="/menu" className="luxury-button inline-flex items-center">
-              {isUA ? 'Переглянути повне меню' : 'View Full Menu'}
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -221,12 +213,6 @@ export default function RestaurantPage() {
                 </div>
               </div>
             </motion.div>
-          </div>
-
-          <div className="text-center mt-12">
-            <Link href="/contacts" className="luxury-button">
-              {t('restaurant.reservation')}
-            </Link>
           </div>
         </div>
       </section>

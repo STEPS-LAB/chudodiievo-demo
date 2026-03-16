@@ -73,8 +73,8 @@ export default function Header() {
       >
         <div className="container flex items-center justify-between h-[4.5rem] min-h-[4.5rem]">
           {/* Logo */}
-          <button
-            onClick={scrollToTop}
+          <Link
+            href="/"
             className={`transition-colors ${
               isScrolled ? 'text-[var(--color-neutral-900)]' : 'text-white'
             }`}
@@ -87,7 +87,7 @@ export default function Header() {
                 filter: isScrolled ? 'grayscale(100%) brightness(0)' : 'none',
               }}
             />
-          </button>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-8 md:flex" aria-label="Main">

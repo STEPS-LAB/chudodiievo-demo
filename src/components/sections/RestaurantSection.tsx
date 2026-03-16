@@ -2,8 +2,6 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 import { useIntersectionObserver } from '@/lib/hooks';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 
@@ -92,14 +90,6 @@ export default function RestaurantSection() {
                 </div>
               ))}
             </div>
-
-            <Link
-              href="/restaurant"
-              className="luxury-button inline-flex items-center"
-            >
-              {isUA ? 'Дізнатися більше' : 'Learn More'}
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Link>
           </motion.div>
         </div>
       </div>
