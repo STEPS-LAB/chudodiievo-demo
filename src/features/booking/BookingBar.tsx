@@ -100,7 +100,7 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
               className="fixed inset-0 z-40"
               onClick={() => setShowCalendar(false)}
             />
-            <div className="absolute left-0 top-full z-50 mt-2 rounded-sm bg-white p-4 shadow-xl sm:min-w-[340px]">
+            <div className="absolute left-0 top-full z-50 mt-2 w-full sm:w-[400px] rounded-sm bg-white p-4 shadow-xl">
               <p className="mb-3 text-xs uppercase tracking-[0.16em] text-neutral-500">
                 {copy.calendarLabel}
               </p>
@@ -108,33 +108,49 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
                 {/* Check-in Input */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-sm text-neutral-500">{copy.dateCheckInLabel}</label>
-                  <input
-                    type="date"
-                    min={today}
-                    value={checkIn}
-                    onChange={(e) => {
-                      const v = e.target.value;
-                      setCheckIn(v);
-                      if (checkOut && v >= checkOut) {
-                        const nextDay = new Date(v);
-                        nextDay.setDate(nextDay.getDate() + 1);
-                        setCheckOut(nextDay.toISOString().split('T')[0]);
-                      }
+                  <div
+                    onClick={(e) => {
+                      const input = e.currentTarget.querySelector('input');
+                      if (input) input.showPicker();
                     }}
-                    className="box-border h-10 w-full min-w-0 rounded border border-neutral-200 bg-white px-3 py-2 text-base text-neutral-900 outline-none transition focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
-                  />
+                    className="flex h-10 w-full cursor-pointer items-center rounded border border-neutral-200 bg-white px-3 text-sm text-neutral-900 transition hover:bg-neutral-50"
+                  >
+                    <input
+                      type="date"
+                      min={today}
+                      value={checkIn}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        setCheckIn(v);
+                        if (checkOut && v >= checkOut) {
+                          const nextDay = new Date(v);
+                          nextDay.setDate(nextDay.getDate() + 1);
+                          setCheckOut(nextDay.toISOString().split('T')[0]);
+                        }
+                      }}
+                      className="h-full w-full bg-transparent text-sm text-neutral-900 outline-none"
+                    />
+                  </div>
                 </div>
 
                 {/* Check-out Input */}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-sm text-neutral-500">{copy.dateCheckOutLabel}</label>
-                  <input
-                    type="date"
-                    min={checkIn}
-                    value={checkOut}
-                    onChange={(e) => setCheckOut(e.target.value)}
-                    className="box-border h-10 w-full min-w-0 rounded border border-neutral-200 bg-white px-3 py-2 text-base text-neutral-900 outline-none transition focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
-                  />
+                  <div
+                    onClick={(e) => {
+                      const input = e.currentTarget.querySelector('input');
+                      if (input) input.showPicker();
+                    }}
+                    className="flex h-10 w-full cursor-pointer items-center rounded border border-neutral-200 bg-white px-3 text-sm text-neutral-900 transition hover:bg-neutral-50"
+                  >
+                    <input
+                      type="date"
+                      min={checkIn}
+                      value={checkOut}
+                      onChange={(e) => setCheckOut(e.target.value)}
+                      className="h-full w-full bg-transparent text-sm text-neutral-900 outline-none"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

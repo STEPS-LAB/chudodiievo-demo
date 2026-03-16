@@ -145,12 +145,12 @@ export default function AIConcierge() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-40 flex items-center gap-3 bg-neutral-900 text-neutral-200 rounded-sm shadow-large px-5 py-3.5 hover:bg-neutral-800 transition-colors ${
+        className={`fixed bottom-20 md:bottom-6 right-6 z-40 flex items-center gap-3 bg-neutral-900 text-neutral-200 rounded-sm shadow-large px-5 py-3.5 hover:bg-neutral-800 transition-colors ${
           isScrolled ? 'pointer-events-auto' : 'pointer-events-none'
         }`}
         aria-label="Open AI Concierge"
       >
-        <MessageSquare className="w-4 h-4 text-secondary-500" />
+        <MessageSquare className="w-5 h-5 text-secondary-500" />
         <span className="text-xs font-medium tracking-[0.2em] uppercase hidden sm:block">
           {locale === 'ua' ? 'ЗАПИТАЙТЕ ЩО ЗАВГОДНО ПРО ЧУДОДІЄВО' : 'ASK ANYTHING ABOUT CHUDODIEVO'}
         </span>

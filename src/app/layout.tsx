@@ -2,6 +2,8 @@ import { ReactNode } from 'react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import AIConcierge from '@/features/ai-concierge/AIConcierge';
+import MobileBookingBar from '@/features/booking/MobileBookingBar';
+import MainWrapper from '@/components/layout/MainWrapper';
 import { LanguageProvider } from '@/lib/i18n/LanguageProvider';
 import '@/styles/globals.css';
 
@@ -14,9 +16,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <LanguageProvider>
           <div className="min-h-screen flex flex-col">
             <Header />
-            <main className="flex-1">{children}</main>
+            <MainWrapper>{children}</MainWrapper>
             <Footer />
             <AIConcierge />
+            <MobileBookingBar />
           </div>
         </LanguageProvider>
       </body>

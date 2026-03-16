@@ -162,11 +162,11 @@ export default function Footer() {
             <p className="text-sm text-neutral-500">
               {t('footer.copyright')}
             </p>
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center justify-between w-full md:w-auto md:justify-end space-x-6">
               <span className="text-sm text-neutral-500">
                 {isUA ? 'Політика конфіденційності' : 'Privacy Policy'}
               </span>
-              <span className="text-sm text-neutral-500">
+              <span className="text-sm text-neutral-500 text-right">
                 {isUA ? 'Умови використання' : 'Terms of Use'}
               </span>
             </div>
