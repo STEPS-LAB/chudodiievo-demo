@@ -2,29 +2,50 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Bike, Fish, Flower2, Clock, Users } from 'lucide-react';
+import { Clock, Users, Volleyball } from 'lucide-react';
+import { FaBicycle, FaSpa, FaMotorcycle, FaSailboat, FaFish, FaFutbol, FaBath } from 'react-icons/fa6';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 
 export const dynamic = 'force-dynamic';
 
-const activities = {
+const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  cycling: FaBicycle,
+  banya: FaBath,
+  atv: FaMotorcycle,
+  boats: FaSailboat,
+  fishing: FaFish,
+  tennis: Volleyball,
+  football: FaFutbol,
+};
+
+interface Activity {
+  iconKey: string;
+  key: string;
+  name: string;
+  description: string;
+  image: string;
+  duration: string;
+  level: string;
+}
+
+const activities: Record<'ua' | 'en', Activity[]> = {
   ua: [
-    { icon: Bike, key: 'cycling', name: 'Велопрогулянки', description: 'Прогулянки околицями курорту', image: '/images/velo.webp', duration: '250 грн/год', level: 'Будь-який рівень' },
-    { icon: Flower2, key: 'banya', name: 'Лазня та чан', description: 'Лазня на дровах та гарячий чан', image: '/images/laznya.webp', duration: 'від 800 грн', level: 'Комплекс 2600 грн' },
-    { icon: Bike, key: 'atv', name: 'Квадроцикли', description: 'Екстремальне катання в лісі', image: '/images/quadro.webp', duration: 'від 1600 грн', level: 'Екстрим' },
-    { icon: Fish, key: 'boats', name: 'Човни та катамарани', description: 'Прогулянки озером', image: '/images/boats.webp', duration: 'від 150 грн', level: 'Будь-який рівень' },
-    { icon: Fish, key: 'fishing', name: 'Риболовля', description: 'Любительська та спортивна', image: '/images/fishing.webp', duration: 'від 500 грн', level: 'Будь-який рівень' },
-    { icon: Bike, key: 'tennis', name: 'Теніс', description: 'Тенісний корт', image: '/images/tennis.webp', duration: '400 грн/год', level: 'Будь-який рівень' },
-    { icon: Bike, key: 'football', name: 'Футбол', description: 'Поле для мініфутболу', image: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80', duration: 'Безкоштовно', level: 'Будь-який рівень' },
+    { iconKey: 'cycling', key: 'cycling', name: 'Велопрогулянки', description: 'Прогулянки околицями курорту', image: '/images/velo.webp', duration: '250 грн/год', level: 'Будь-який рівень' },
+    { iconKey: 'banya', key: 'banya', name: 'Лазня та чан', description: 'Лазня на дровах та гарячий чан', image: '/images/laznya.webp', duration: 'від 800 грн', level: 'Комплекс 2600 грн' },
+    { iconKey: 'atv', key: 'atv', name: 'Квадроцикли', description: 'Екстремальне катання в лісі', image: '/images/quadro.webp', duration: 'від 1600 грн', level: 'Екстрим' },
+    { iconKey: 'boats', key: 'boats', name: 'Човни та катамарани', description: 'Прогулянки озером', image: '/images/boats.webp', duration: 'від 150 грн', level: 'Будь-який рівень' },
+    { iconKey: 'fishing', key: 'fishing', name: 'Риболовля', description: 'Любительська та спортивна', image: '/images/fishing.webp', duration: 'від 500 грн', level: 'Будь-який рівень' },
+    { iconKey: 'tennis', key: 'tennis', name: 'Теніс', description: 'Тенісний корт', image: '/images/tennis.webp', duration: '400 грн/год', level: 'Будь-який рівень' },
+    { iconKey: 'football', key: 'football', name: 'Футбол', description: 'Поле для мініфутболу', image: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80', duration: 'Безкоштовно', level: 'Будь-який рівень' },
   ],
   en: [
-    { icon: Bike, key: 'cycling', name: 'Cycling', description: 'Rides around the resort', image: '/images/velo.webp', duration: '250 UAH/hour', level: 'Any level' },
-    { icon: Flower2, key: 'banya', name: 'Banya & Hot Tub', description: 'Wood-fired sauna and hot tub', image: '/images/laznya.webp', duration: 'from 800 UAH', level: 'Complex 2600 UAH' },
-    { icon: Bike, key: 'atv', name: 'ATVs', description: 'Extreme forest riding', image: '/images/quadro.webp', duration: 'from 1600 UAH', level: 'Extreme' },
-    { icon: Fish, key: 'boats', name: 'Boats & Catamarans', description: 'Lake cruises', image: '/images/boats.webp', duration: 'from 150 UAH', level: 'Any level' },
-    { icon: Fish, key: 'fishing', name: 'Fishing', description: 'Amateur and sport fishing', image: '/images/fishing.webp', duration: 'from 500 UAH', level: 'Any level' },
-    { icon: Bike, key: 'tennis', name: 'Tennis', description: 'Tennis court and rental', image: '/images/tennis.webp', duration: '400 UAH/hour', level: 'Any level' },
-    { icon: Bike, key: 'football', name: 'Football', description: 'Football field', image: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80', duration: 'Free', level: 'Any level' },
+    { iconKey: 'cycling', key: 'cycling', name: 'Cycling', description: 'Rides around the resort', image: '/images/velo.webp', duration: '250 UAH/hour', level: 'Any level' },
+    { iconKey: 'banya', key: 'banya', name: 'Banya & Hot Tub', description: 'Wood-fired sauna and hot tub', image: '/images/laznya.webp', duration: 'from 800 UAH', level: 'Complex 2600 UAH' },
+    { iconKey: 'atv', key: 'atv', name: 'ATVs', description: 'Extreme forest riding', image: '/images/quadro.webp', duration: 'from 1600 UAH', level: 'Extreme' },
+    { iconKey: 'boats', key: 'boats', name: 'Boats & Catamarans', description: 'Lake cruises', image: '/images/boats.webp', duration: 'from 150 UAH', level: 'Any level' },
+    { iconKey: 'fishing', key: 'fishing', name: 'Fishing', description: 'Amateur and sport fishing', image: '/images/fishing.webp', duration: 'from 500 UAH', level: 'Any level' },
+    { iconKey: 'tennis', key: 'tennis', name: 'Tennis', description: 'Tennis court and rental', image: '/images/tennis.webp', duration: '400 UAH/hour', level: 'Any level' },
+    { iconKey: 'football', key: 'football', name: 'Football', description: 'Football field', image: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80', duration: 'Free', level: 'Any level' },
   ],
 };
 
@@ -127,7 +148,9 @@ export default function ActivitiesPage() {
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {activitiesList.map((activity, index) => (
+            {activitiesList.map((activity, index) => {
+              const IconComponent = ICON_MAP[activity.iconKey];
+              return (
               <motion.div
                 key={activity.key}
                 initial={{ opacity: 0, y: 30 }}
@@ -148,7 +171,7 @@ export default function ActivitiesPage() {
 
                 <div className="absolute inset-0 p-6 flex flex-col justify-end">
                   <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-sm flex items-center justify-center mb-4">
-                    <activity.icon className="w-6 h-6 text-white" />
+                    <IconComponent className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="text-xl font-display font-medium text-white mb-2">
                     {activity.name}
@@ -168,7 +191,8 @@ export default function ActivitiesPage() {
                   </div>
                 </div>
               </motion.div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
