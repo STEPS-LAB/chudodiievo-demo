@@ -56,9 +56,21 @@ export default function ActivitiesPage() {
       {/* Hero Section */}
       <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 z-0 bg-cover bg-no-repeat"
           style={{
             backgroundImage: 'url(/images/d-hero.webp)',
+            backgroundPosition: 'center',
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/40 to-neutral-900/60" />
+        </div>
+
+        {/* Mobile-specific overlay for better image composition */}
+        <div
+          className="absolute inset-0 z-0 bg-cover bg-no-repeat md:hidden"
+          style={{
+            backgroundImage: 'url(/images/d-hero.webp)',
+            backgroundPosition: '65% center',
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/40 to-neutral-900/60" />
