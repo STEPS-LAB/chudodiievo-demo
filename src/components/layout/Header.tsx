@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useTranslations } from '@/lib/i18n/useTranslations';
+import { useHeader } from './HeaderContext';
 
 const NAV_ITEMS = [
   { href: '/', key: 'home' },
@@ -16,9 +17,14 @@ const NAV_ITEMS = [
   { href: '/contacts', key: 'contacts' },
 ] as const;
 
-export default function Header() {
+interface HeaderProps {
+  variant?: 'light' | 'dark';
+}
+
+export default function Header({ variant: pageVariant }: HeaderProps) {
   const { locale, setLocale } = useLanguage();
   const t = useTranslations();
+  const { variant: contextVariant } = useHeader();
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
@@ -37,6 +43,13 @@ export default function Header() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // Use page variant if provided, otherwise use context variant
+  const effectiveVariant = pageVariant || contextVariant;
+  
+  // Force dark variant when specified (for pages without hero)
+  const forceDark = effectiveVariant === 'dark';
+  const useDarkHeader = forceDark || isScrolled;
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -66,7 +79,7 @@ export default function Header() {
       <header
         ref={headerRef}
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 h-[4.5rem] min-h-[4.5rem] ${
-          isScrolled
+          useDarkHeader
             ? 'bg-white/90 backdrop-blur-md shadow-sm'
             : 'bg-transparent backdrop-blur-md'
         }`}
@@ -76,7 +89,7 @@ export default function Header() {
           <Link
             href="/"
             className={`transition-colors ${
-              isScrolled ? 'text-[var(--color-neutral-900)]' : 'text-white'
+              useDarkHeader ? 'text-[var(--color-neutral-900)]' : 'text-white'
             }`}
           >
             <img
@@ -84,7 +97,7 @@ export default function Header() {
               alt={locale === 'ua' ? 'Чудодієво' : 'Chudodievo'}
               className="h-8 w-auto transition-all duration-300"
               style={{
-                filter: isScrolled ? 'grayscale(100%) brightness(0)' : 'none',
+                filter: useDarkHeader ? 'grayscale(100%) brightness(0)' : 'none',
               }}
             />
           </Link>
@@ -96,7 +109,7 @@ export default function Header() {
                 key={key}
                 href={href}
                 className={`group relative text-sm font-light tracking-[0.06em] transition hover:opacity-80 ${
-                  isScrolled ? 'text-[var(--color-neutral-900)]' : 'text-white'
+                  useDarkHeader ? 'text-[var(--color-neutral-900)]' : 'text-white'
                 }`}
               >
                 {t(`common.${key}`)}
@@ -109,15 +122,15 @@ export default function Header() {
           <div className="flex items-center gap-2">
             {/* Language Switch */}
             <div className={`flex items-center gap-2 rounded-sm p-1 ${
-              isScrolled ? 'bg-neutral-200' : 'bg-white/10 backdrop-blur border border-white/30'
+              useDarkHeader ? 'bg-neutral-200' : 'bg-white/10 backdrop-blur border border-white/30'
             }`}>
               {(['ua', 'en'] as const).map((code) => (
                 <button
                   key={code}
                   className={`rounded-sm px-3 py-1.5 text-xs uppercase tracking-[0.14em] transition ${
                     locale === code
-                      ? isScrolled ? 'bg-primary text-white' : 'bg-primary text-white'
-                      : isScrolled ? 'text-neutral-600 hover:bg-neutral-300' : 'text-white/90 hover:bg-white/20'
+                      ? 'bg-primary text-white'
+                      : useDarkHeader ? 'text-neutral-600 hover:bg-neutral-300' : 'text-white/90 hover:bg-white/20'
                   }`}
                   onClick={() => setLocale(code)}
                   type="button"
@@ -145,17 +158,17 @@ export default function Header() {
             >
               <span
                 className={`h-[1.5px] w-5 rounded-full transition-colors ${
-                  isScrolled ? 'bg-[var(--color-neutral-900)]' : 'bg-white'
+                  useDarkHeader ? 'bg-[var(--color-neutral-900)]' : 'bg-white'
                 }`}
               />
               <span
                 className={`h-[1.5px] w-5 rounded-full transition-colors ${
-                  isScrolled ? 'bg-[var(--color-neutral-900)]' : 'bg-white'
+                  useDarkHeader ? 'bg-[var(--color-neutral-900)]' : 'bg-white'
                 }`}
               />
               <span
                 className={`h-[1.5px] w-5 rounded-full transition-colors ${
-                  isScrolled ? 'bg-[var(--color-neutral-900)]' : 'bg-white'
+                  useDarkHeader ? 'bg-[var(--color-neutral-900)]' : 'bg-white'
                 }`}
               />
             </button>

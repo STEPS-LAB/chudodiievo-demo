@@ -1,17 +1,18 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useTranslations } from '@/lib/i18n/useTranslations';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useHeader } from '@/components/layout/HeaderContext';
 
 export const dynamic = 'force-dynamic';
 
 export default function ContactsPage() {
   const { locale } = useLanguage();
   const t = useTranslations();
+  const { setVariant } = useHeader();
   const isUA = locale === 'ua';
 
   const [formData, setFormData] = useState({
@@ -21,6 +22,11 @@ export default function ContactsPage() {
     message: '',
   });
 
+  useEffect(() => {
+    setVariant('dark');
+    return () => setVariant('light');
+  }, [setVariant]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission
@@ -29,43 +35,12 @@ export default function ContactsPage() {
 
   return (
     <main className="pt-24">
-      {/* Hero Section */}
-      <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=80)',
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/40 to-neutral-900/60" />
-        </div>
-
-        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-medium text-white mb-6">
-              {t('contacts.title')}
-            </h1>
-            <p className="text-xl text-neutral-200 max-w-2xl mx-auto">
-              {t('contacts.subtitle')}
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Contact Info & Form */}
-      <section className="section-padding bg-surface">
+      <section className="section-padding bg-neutral-100">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
             {/* Contact Information */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-            >
+            <div>
               <h2 className="font-display font-medium text-3xl text-neutral-900 mb-8">
                 {t('contacts.title')}
               </h2>
@@ -78,7 +53,7 @@ export default function ContactsPage() {
                   <div>
                     <h3 className="font-medium text-neutral-900 mb-1">{t('contacts.address')}</h3>
                     <p className="text-neutral-600">
-                      {isUA ? 'Київська область, с. Чудодієво' : 'Kyiv region, v. Chudodievo'}
+                      {isUA ? 'Житомирська область, с. Вишпіль, вул. Лісова 47' : 'Zhytomyr region, v. Vyshpil, Lisova st. 47'}
                     </p>
                   </div>
                 </div>
@@ -129,14 +104,10 @@ export default function ContactsPage() {
                   className="object-cover"
                 />
               </div>
-            </motion.div>
+            </div>
 
             {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-            >
+            <div className="bg-white p-8 rounded-sm">
               <h2 className="font-display font-medium text-3xl text-neutral-900 mb-8">
                 {isUA ? 'Напишіть нам' : 'Write to Us'}
               </h2>
@@ -151,8 +122,8 @@ export default function ContactsPage() {
                     id="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="luxury-input"
-                    placeholder={isUA ? 'Іван Петренко' : 'John Doe'}
+                    className="luxury-input bg-neutral-50"
+                    placeholder={isUA ? 'Імʼя' : 'Name'}
                     required
                   />
                 </div>
@@ -166,7 +137,7 @@ export default function ContactsPage() {
                     id="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="luxury-input"
+                    className="luxury-input bg-neutral-50"
                     placeholder="example@email.com"
                     required
                   />
@@ -181,7 +152,7 @@ export default function ContactsPage() {
                     id="phone"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="luxury-input"
+                    className="luxury-input bg-neutral-50"
                     placeholder="+38 (___) ___-__-__"
                   />
                 </div>
@@ -194,7 +165,7 @@ export default function ContactsPage() {
                     id="message"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="luxury-input min-h-[150px] resize-y"
+                    className="luxury-input min-h-[150px] resize-y bg-neutral-50"
                     placeholder={isUA ? 'Ваше повідомлення...' : 'Your message...'}
                     required
                   />
@@ -204,32 +175,7 @@ export default function ContactsPage() {
                   {isUA ? 'Відправити' : 'Send Message'}
                 </button>
               </form>
-
-              {/* Quick Contact */}
-              <div className="mt-8 p-6 bg-neutral-50 rounded-sm">
-                <div className="flex items-start space-x-4">
-                  <MessageCircle className="w-6 h-6 text-primary-600 mt-1" />
-                  <div>
-                    <h3 className="font-medium text-neutral-900 mb-2">
-                      {isUA ? 'Швидкий зв\'язок' : 'Quick Contact'}
-                    </h3>
-                    <p className="text-sm text-neutral-600 mb-3">
-                      {isUA
-                        ? 'Відповідаємо протягом 15 хвилин у робочий час'
-                        : 'We respond within 15 minutes during business hours'}
-                    </p>
-                    <a
-                      href="https://wa.me/380123456789"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-primary-600 hover:text-primary-700 transition-colors"
-                    >
-                      {isUA ? 'Написати у WhatsApp' : 'Chat on WhatsApp'}
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
