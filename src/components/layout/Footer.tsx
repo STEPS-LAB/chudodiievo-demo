@@ -9,7 +9,7 @@ import { useTranslations } from '@/lib/i18n/useTranslations';
 const footerLinks = {
   navigation: [
     { href: '/', key: 'home' },
-    { href: '/rooms', key: 'rooms' },
+    { href: '/#rooms', key: 'rooms' },
     { href: '/restaurant', key: 'restaurant' },
     { href: '/activities', key: 'activities' },
   ],

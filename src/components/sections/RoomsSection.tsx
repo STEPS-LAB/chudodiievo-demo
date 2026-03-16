@@ -15,12 +15,10 @@ export default function RoomsSection() {
     ua: {
       subtitle: 'Простір для вашого ідеального відпочинку',
       title: 'Номери та Котеджі',
-      viewAll: 'Переглянути всі будиночки',
     },
     en: {
       subtitle: 'Space for your perfect getaway',
       title: 'Rooms & Cottages',
-      viewAll: 'View All Cottages',
     },
   };
 
@@ -112,19 +110,6 @@ export default function RoomsSection() {
             </motion.div>
           ))}
         </div>
-
-        {/* View All */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isVisible ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-center mt-12"
-        >
-          <Link href="/rooms" className="luxury-button-secondary">
-            {t.viewAll}
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Link>
-        </motion.div>
       </div>
     </section>
   );

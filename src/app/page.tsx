@@ -28,7 +28,9 @@ export default function HomePage() {
       <AboutSection />
 
       {/* Rooms Section */}
-      <RoomsSection />
+      <div id="rooms">
+        <RoomsSection />
+      </div>
 
       {/* Restaurant Section */}
       <RestaurantSection />

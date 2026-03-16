@@ -9,7 +9,7 @@ import { useTranslations } from '@/lib/i18n/useTranslations';
 const NAV_ITEMS = [
   { href: '/', key: 'home' },
   { href: '/#about', key: 'about' },
-  { href: '/rooms', key: 'rooms' },
+  { href: '/#rooms', key: 'rooms' },
   { href: '/restaurant', key: 'restaurant' },
   { href: '/activities', key: 'activities' },
   { href: '/blog', key: 'blog' },
@@ -129,7 +129,7 @@ export default function Header() {
 
             {/* Book Button */}
             <Link
-              href="/rooms"
+              href="/#rooms"
               className="hidden items-center justify-center rounded-sm bg-primary px-4 py-2.5 text-xs font-medium uppercase tracking-[0.14em] text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:bg-primary-900 md:inline-flex"
             >
               {t('common.bookNow')}
@@ -229,7 +229,7 @@ export default function Header() {
                   className="mt-6"
                 >
                   <Link
-                    href="/rooms"
+                    href="/#rooms"
                     onClick={() => setMenuOpen(false)}
                     className="flex w-full items-center justify-center rounded-sm bg-primary px-4 py-3 text-xs font-medium uppercase tracking-[0.1em] text-white shadow-sm transition-all duration-300 hover:bg-primary-900"
                   >
