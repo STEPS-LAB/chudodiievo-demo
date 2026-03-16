@@ -148,7 +148,7 @@ export default function PoolSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="max-w-4xl mx-auto"
+          className="max-w-4xl mx-auto px-4"
         >
           <h3 className="text-2xl font-display font-medium text-neutral-900 text-center mb-8">
             {t.pricing.title}
@@ -161,26 +161,26 @@ export default function PoolSection() {
                 {t.pricing.weekdays}
               </h4>
               <div className="space-y-3">
-                <div className="grid grid-cols-[65%_35%] gap-4">
-                  <span className="text-neutral-600">{t.pricing.sunLounger}</span>
-                  <span className="font-medium text-neutral-900 text-right whitespace-nowrap">{prices.weekdays.sunLounger} {t.pricing.uah}</span>
+                <div className="grid grid-cols-[65%_35%] gap-4 items-start">
+                  <span className="text-neutral-600 py-1">{t.pricing.sunLounger}</span>
+                  <span className="font-medium text-neutral-900 text-right whitespace-nowrap py-1 pr-6">{prices.weekdays.sunLounger} {t.pricing.uah}</span>
                 </div>
-                <div className="grid grid-cols-[65%_35%] gap-4">
-                  <span className="text-neutral-600">{t.pricing.beachBed}</span>
-                  <span className="font-medium text-neutral-900 text-right whitespace-nowrap">{prices.weekdays.beachBed} {t.pricing.uah}</span>
+                <div className="grid grid-cols-[65%_35%] gap-4 items-start">
+                  <span className="text-neutral-600 py-1">{t.pricing.beachBed}</span>
+                  <span className="font-medium text-neutral-900 text-right whitespace-nowrap py-1 pr-6">{prices.weekdays.beachBed} {t.pricing.uah}</span>
                 </div>
-                <div className="grid grid-cols-[65%_35%] gap-4">
-                  <span className="text-neutral-600">{t.pricing.bungalow}</span>
-                  <span className="font-medium text-neutral-900 text-right whitespace-nowrap">{prices.weekdays.bungalow} {t.pricing.uah}</span>
+                <div className="grid grid-cols-[65%_35%] gap-4 items-start">
+                  <span className="text-neutral-600 py-1">{t.pricing.bungalow}</span>
+                  <span className="font-medium text-neutral-900 text-right whitespace-nowrap py-1 pr-6">{prices.weekdays.bungalow} {t.pricing.uah}</span>
                 </div>
                 <div className="border-t border-neutral-200 pt-3 space-y-2">
-                  <div className="grid grid-cols-[65%_35%] gap-4">
-                    <span className="text-neutral-600">{t.pricing.children}</span>
-                    <span className="font-medium text-neutral-900 text-right whitespace-nowrap">{prices.weekdays.children} {t.pricing.uah}</span>
+                  <div className="grid grid-cols-[65%_35%] gap-4 items-start">
+                    <span className="text-neutral-600 py-1">{t.pricing.children}</span>
+                    <span className="font-medium text-neutral-900 text-right whitespace-nowrap py-1 pr-6">{prices.weekdays.children} {t.pricing.uah}</span>
                   </div>
-                  <div className="grid grid-cols-[65%_35%] gap-4">
-                    <span className="text-neutral-600">{t.pricing.hotelGuest}</span>
-                    <span className="font-medium text-neutral-900 text-right whitespace-nowrap">{prices.weekdays.hotelGuest} {t.pricing.uah}</span>
+                  <div className="grid grid-cols-[65%_35%] gap-4 items-start">
+                    <span className="text-neutral-600 py-1">{t.pricing.hotelGuest}</span>
+                    <span className="font-medium text-neutral-900 text-right whitespace-nowrap py-1 pr-6">{prices.weekdays.hotelGuest} {t.pricing.uah}</span>
                   </div>
                 </div>
               </div>
@@ -192,26 +192,26 @@ export default function PoolSection() {
                 {t.pricing.weekends}
               </h4>
               <div className="space-y-3">
-                <div className="grid grid-cols-[65%_35%] gap-4">
-                  <span className="text-neutral-600">{t.pricing.sunLounger}</span>
-                  <span className="font-medium text-neutral-900 text-right whitespace-nowrap">{prices.weekends.sunLounger} {t.pricing.uah}</span>
+                <div className="grid grid-cols-[65%_35%] gap-4 items-start">
+                  <span className="text-neutral-600 py-1">{t.pricing.sunLounger}</span>
+                  <span className="font-medium text-neutral-900 text-right whitespace-nowrap py-1 pr-6">{prices.weekends.sunLounger} {t.pricing.uah}</span>
                 </div>
-                <div className="grid grid-cols-[65%_35%] gap-4">
-                  <span className="text-neutral-600">{t.pricing.beachBed}</span>
-                  <span className="font-medium text-neutral-900 text-right whitespace-nowrap">{prices.weekends.beachBed} {t.pricing.uah}</span>
+                <div className="grid grid-cols-[65%_35%] gap-4 items-start">
+                  <span className="text-neutral-600 py-1">{t.pricing.beachBed}</span>
+                  <span className="font-medium text-neutral-900 text-right whitespace-nowrap py-1 pr-6">{prices.weekends.beachBed} {t.pricing.uah}</span>
                 </div>
-                <div className="grid grid-cols-[65%_35%] gap-4">
-                  <span className="text-neutral-600">{t.pricing.bungalow}</span>
-                  <span className="font-medium text-neutral-900 text-right whitespace-nowrap">{prices.weekends.bungalow} {t.pricing.uah}</span>
+                <div className="grid grid-cols-[65%_35%] gap-4 items-start">
+                  <span className="text-neutral-600 py-1">{t.pricing.bungalow}</span>
+                  <span className="font-medium text-neutral-900 text-right whitespace-nowrap py-1 pr-6">{prices.weekends.bungalow} {t.pricing.uah}</span>
                 </div>
                 <div className="border-t border-neutral-200 pt-3 space-y-2">
-                  <div className="grid grid-cols-[65%_35%] gap-4">
-                    <span className="text-neutral-600">{t.pricing.children}</span>
-                    <span className="font-medium text-neutral-900 text-right whitespace-nowrap">{prices.weekends.children} {t.pricing.uah}</span>
+                  <div className="grid grid-cols-[65%_35%] gap-4 items-start">
+                    <span className="text-neutral-600 py-1">{t.pricing.children}</span>
+                    <span className="font-medium text-neutral-900 text-right whitespace-nowrap py-1 pr-6">{prices.weekends.children} {t.pricing.uah}</span>
                   </div>
-                  <div className="grid grid-cols-[65%_35%] gap-4">
-                    <span className="text-neutral-600">{t.pricing.hotelGuest}</span>
-                    <span className="font-medium text-neutral-900 text-right whitespace-nowrap">{prices.weekends.hotelGuest} {t.pricing.uah}</span>
+                  <div className="grid grid-cols-[65%_35%] gap-4 items-start">
+                    <span className="text-neutral-600 py-1">{t.pricing.hotelGuest}</span>
+                    <span className="font-medium text-neutral-900 text-right whitespace-nowrap py-1 pr-6">{prices.weekends.hotelGuest} {t.pricing.uah}</span>
                   </div>
                 </div>
               </div>
