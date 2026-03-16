@@ -174,7 +174,7 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
       {/* Search Button */}
       <button
         type="submit"
-        className="flex h-14 flex-1 items-center justify-center rounded-sm bg-primary px-6 text-sm font-medium uppercase tracking-[0.16em] text-white transition-all duration-300 hover:scale-[1.02] hover:bg-primary-900 disabled:cursor-not-allowed disabled:opacity-70 sm:flex-none"
+        className="flex h-14 w-full items-center justify-center rounded-sm bg-primary px-6 text-sm font-medium uppercase tracking-[0.16em] text-white transition-all duration-300 hover:scale-[1.02] hover:bg-primary-900 disabled:cursor-not-allowed disabled:opacity-70 sm:flex-none sm:w-auto"
       >
         {copy.searchButton}
       </button>
