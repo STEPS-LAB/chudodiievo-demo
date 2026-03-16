@@ -29,17 +29,20 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
-  const [shouldHideCloseBtn, setShouldHideCloseBtn] = useState(false);
+  const isClosingRef = useRef(false);
   const headerRef = useRef<HTMLElement>(null);
 
   const handleCloseMenu = useCallback(() => {
-    setShouldHideCloseBtn(true);
+    if (isClosingRef.current) return;
+    isClosingRef.current = true;
     setMenuOpen(false);
-    setTimeout(() => setShouldHideCloseBtn(false), 400);
+    setTimeout(() => {
+      isClosingRef.current = false;
+    }, 400);
   }, []);
 
   const handleOpenMenu = useCallback(() => {
-    setShouldHideCloseBtn(false);
+    if (isClosingRef.current) return;
     setMenuOpen(true);
   }, []);
 
@@ -209,6 +212,59 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
               }}
             />
 
+            {/* Close Button - with delayed exit to prevent touch-through */}
+            <motion.button
+              key="close-btn"
+              type="button"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              onTouchStart={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleCloseMenu();
+                return false;
+              }}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleCloseMenu();
+                return false;
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+              }}
+              className="fixed right-6 top-6 z-[62] flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-neutral-900)] shadow-lg outline-none md:hidden ios-no-flicker"
+              aria-label="Close menu"
+              style={{ 
+                WebkitTapHighlightColor: 'transparent',
+                WebkitUserSelect: 'none',
+                userSelect: 'none',
+                WebkitAppearance: 'none',
+                WebkitTransform: 'translate3d(0, 0, 0)',
+                transform: 'translate3d(0, 0, 0)',
+                WebkitBackfaceVisibility: 'hidden',
+                backfaceVisibility: 'hidden',
+                cursor: 'default',
+                touchAction: 'none',
+                pointerEvents: 'auto',
+              }}
+            >
+              <span className="relative flex h-5 w-5 shrink-0 items-center justify-center" aria-hidden>
+                <span
+                  className="absolute h-[1.5px] w-5 rounded-full bg-[var(--color-neutral-900)]"
+                  style={{ transform: 'rotate(45deg)' }}
+                />
+                <span
+                  className="absolute h-[1.5px] w-5 rounded-full bg-[var(--color-neutral-900)]"
+                  style={{ transform: 'rotate(-45deg)' }}
+                />
+              </span>
+            </motion.button>
+
             {/* Menu Panel */}
             <motion.aside
               initial={{ x: '100%' }}
@@ -239,58 +295,6 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
             </motion.aside>
           </>
         </AnimatePresence>
-      )}
-
-      {/* Close Button - hidden immediately on close to prevent flicker, but menu animates */}
-      {menuOpen && !shouldHideCloseBtn && (
-        <div
-          className="fixed right-6 top-6 z-[62] md:hidden"
-          style={{ 
-            WebkitTransform: 'translate3d(0, 0, 0)',
-            transform: 'translate3d(0, 0, 0)',
-            WebkitBackfaceVisibility: 'hidden',
-            backfaceVisibility: 'hidden',
-            pointerEvents: 'auto',
-          }}
-        >
-          <div
-            onTouchStart={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleCloseMenu();
-              return false;
-            }}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleCloseMenu();
-              return false;
-            }}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-neutral-900)] shadow-lg outline-none ios-no-flicker"
-            role="button"
-            aria-label="Close menu"
-            style={{ 
-              WebkitTapHighlightColor: 'transparent',
-              WebkitUserSelect: 'none',
-              userSelect: 'none',
-              WebkitAppearance: 'none',
-              cursor: 'default',
-              touchAction: 'none',
-              pointerEvents: 'auto',
-            }}
-          >
-            <span className="relative flex h-5 w-5 shrink-0 items-center justify-center" aria-hidden>
-              <span
-                className="absolute h-[1.5px] w-5 rounded-full bg-[var(--color-neutral-900)]"
-                style={{ transform: 'rotate(45deg)' }}
-              />
-              <span
-                className="absolute h-[1.5px] w-5 rounded-full bg-[var(--color-neutral-900)]"
-                style={{ transform: 'rotate(-45deg)' }}
-              />
-            </span>
-          </div>
-        </div>
       )}
 
       {/* Booking Modal */}
