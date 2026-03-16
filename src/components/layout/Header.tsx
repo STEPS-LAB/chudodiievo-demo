@@ -33,10 +33,16 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
   const headerRef = useRef<HTMLElement>(null);
 
   const handleCloseMenu = useCallback(() => {
+    if (isClosing) return;
     setIsClosing(true);
     setMenuOpen(false);
     setTimeout(() => setIsClosing(false), 400);
-  }, []);
+  }, [isClosing]);
+
+  const handleOpenMenu = useCallback(() => {
+    if (isClosing) return;
+    setMenuOpen(true);
+  }, [isClosing]);
 
   const scrollToTop = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -160,7 +166,7 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
             {/* Burger Menu (Mobile) */}
             <button
               type="button"
-              onClick={() => setMenuOpen((v) => !v)}
+              onClick={handleOpenMenu}
               className="flex flex-col justify-center gap-1.5 rounded p-2 md:hidden"
               aria-label="Toggle menu"
               aria-expanded={menuOpen}
@@ -186,8 +192,8 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
       </header>
 
       {/* Mobile Menu Drawer */}
-      <AnimatePresence>
-        {menuOpen && (
+      {menuOpen && (
+        <AnimatePresence>
           <>
             {/* Backdrop */}
             <motion.div
@@ -233,11 +239,11 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
               </nav>
             </motion.aside>
           </>
-        )}
-      </AnimatePresence>
+        </AnimatePresence>
+      )}
 
-      {/* Close Button - uses isClosing state to prevent flicker */}
-      {menuOpen && !isClosing && (
+      {/* Close Button - outside AnimatePresence to prevent flicker */}
+      {menuOpen && (
         <div
           className="fixed right-6 top-6 z-[62] md:hidden"
           style={{ 
@@ -245,6 +251,7 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
             transform: 'translate3d(0, 0, 0)',
             WebkitBackfaceVisibility: 'hidden',
             backfaceVisibility: 'hidden',
+            pointerEvents: 'auto',
           }}
         >
           <div
@@ -252,8 +259,15 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
               e.preventDefault();
               e.stopPropagation();
               handleCloseMenu();
+              return false;
             }}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-neutral-900)] shadow-lg outline-none ios-no-flicker active:scale-100"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleCloseMenu();
+              return false;
+            }}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-neutral-900)] shadow-lg outline-none ios-no-flicker"
             role="button"
             aria-label="Close menu"
             style={{ 
@@ -263,6 +277,7 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
               WebkitAppearance: 'none',
               cursor: 'default',
               touchAction: 'none',
+              pointerEvents: 'auto',
             }}
           >
             <span className="relative flex h-5 w-5 shrink-0 items-center justify-center" aria-hidden>
