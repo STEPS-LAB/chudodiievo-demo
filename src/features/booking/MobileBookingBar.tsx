@@ -10,15 +10,19 @@ export default function MobileBookingBar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 20);
+    const onScroll = () => setIsScrolled(window.scrollY > window.innerHeight - 100);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Hide on home, restaurant, contacts, and activities pages
-  const isHiddenPage = pathname === '/' || pathname === '/restaurant' || pathname === '/contacts' || pathname === '/activities';
-  const shouldBeVisible = !isHiddenPage;
+  // Hide only on contacts page
+  const isHiddenPage = pathname === '/contacts';
+  if (isHiddenPage) return null;
+
+  // Pages with hero section - show bar only after scrolling past hero
+  const hasHeroPage = pathname === '/' || pathname === '/restaurant' || pathname === '/activities';
+  const shouldBeVisible = !hasHeroPage || isScrolled;
 
   return (
     <motion.div
