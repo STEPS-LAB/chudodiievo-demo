@@ -144,13 +144,19 @@ export default function Header() {
               aria-expanded={menuOpen}
             >
               <span
-                className={`h-[1.5px] w-5 rounded-full bg-white transition-colors`}
+                className={`h-[1.5px] w-5 rounded-full transition-colors ${
+                  isScrolled ? 'bg-[var(--color-neutral-900)]' : 'bg-white'
+                }`}
               />
               <span
-                className={`h-[1.5px] w-5 rounded-full bg-white transition-colors`}
+                className={`h-[1.5px] w-5 rounded-full transition-colors ${
+                  isScrolled ? 'bg-[var(--color-neutral-900)]' : 'bg-white'
+                }`}
               />
               <span
-                className={`h-[1.5px] w-5 rounded-full bg-white transition-colors`}
+                className={`h-[1.5px] w-5 rounded-full transition-colors ${
+                  isScrolled ? 'bg-[var(--color-neutral-900)]' : 'bg-white'
+                }`}
               />
             </button>
           </div>
