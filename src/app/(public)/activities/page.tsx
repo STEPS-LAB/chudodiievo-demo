@@ -125,13 +125,13 @@ export default function ActivitiesPage() {
   const programsList = programs[locale as 'ua' | 'en'];
 
   return (
-    <main className="pt-24">
+    <main>
       {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1551632811-561732d1e306?w=1920&q=80)',
+            backgroundImage: 'url(/images/d-hero.webp)',
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/40 to-neutral-900/60" />
