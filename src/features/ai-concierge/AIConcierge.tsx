@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Sparkles, MessageSquare } from 'lucide-react';
+import { MessageSquare, X, Send, Sparkles } from 'lucide-react';
 import { useScrollPosition } from '@/lib/hooks';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 
@@ -154,7 +154,6 @@ export default function AIConcierge() {
         <span className="text-xs font-medium tracking-[0.2em] uppercase hidden sm:block">
           {locale === 'ua' ? 'ЗАПИТАЙТЕ ЩО ЗАВГОДНО ПРО ЧУДОДІЄВО' : 'ASK ANYTHING ABOUT CHUDODIEVO'}
         </span>
-        <MessageCircle className="w-5 h-5 text-secondary-500 sm:hidden" />
       </motion.button>
 
       {/* Chat Window */}
