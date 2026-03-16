@@ -14,27 +14,6 @@ const iconColors = {
   activity: 'fill-green-500',
 };
 
-const iconPaths: Record<string, React.JSX.Element> = {
-  restaurant: (
-    <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M17 15v7M13 15v7M21 15v7M15 2a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h2z" />
-  ),
-  spa: (
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zM8 11h8M8 15h8M10 7h4" />
-  ),
-  cottage: (
-    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM9 22V12h6v10" />
-  ),
-  lake: (
-    <path d="M2 12c.6 0 1.3.4 2 1s1.4 1 2 1 1.3-.4 2-1 1.4-1 2-1 1.3.4 2 1 1.4 1 2 1 1.3-.4 2-1 1.4-1 2-1M2 17c.6 0 1.3.4 2 1s1.4 1 2 1 1.3-.4 2-1 1.4-1 2-1 1.3.4 2 1 1.4 1 2 1 1.3-.4 2-1 1.4-1 2-1" />
-  ),
-  reception: (
-    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-  ),
-  activity: (
-    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zM19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8" />
-  ),
-};
-
 export default function ResortMap() {
   const { ref, isVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
   const { locale } = useLanguage();
