@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useTranslations } from '@/lib/i18n/useTranslations';
 
@@ -91,12 +91,14 @@ export default function RestaurantPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative aspect-square"
             >
-              <Image
-                src="/images/re1.webp"
-                alt={isUA ? 'Інтер\'єр ресторану' : 'Restaurant Interior'}
-                fill
-                className="object-cover rounded-sm"
-              />
+              <div className="image-zoom-container relative w-full h-full overflow-hidden rounded-sm shadow-lg shadow-neutral-500">
+                <Image
+                  src="/images/re1.webp"
+                  alt={isUA ? 'Інтер\'єр ресторану' : 'Restaurant Interior'}
+                  fill
+                  className="object-cover rounded-sm"
+                />
+              </div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -104,12 +106,14 @@ export default function RestaurantPage() {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="relative aspect-square"
             >
-              <Image
-                src="/images/re2.webp"
-                alt={isUA ? 'Авторська кухня' : 'Author\'s Cuisine'}
-                fill
-                className="object-cover rounded-sm"
-              />
+              <div className="image-zoom-container relative w-full h-full overflow-hidden rounded-sm shadow-lg shadow-neutral-500">
+                <Image
+                  src="/images/re2.webp"
+                  alt={isUA ? 'Авторська кухня' : 'Author\'s Cuisine'}
+                  fill
+                  className="object-cover rounded-sm"
+                />
+              </div>
             </motion.div>
           </div>
         </div>
@@ -161,31 +165,56 @@ export default function RestaurantPage() {
       {/* Contact */}
       <section className="section-padding bg-surface">
         <div className="container">
-          <div className="max-w-2xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
+              className="md:ml-[20%]"
             >
-              <div className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <MapPin className="w-6 h-6 text-primary-600" />
+              <h2 className="font-display font-medium text-2xl text-neutral-900 mb-8 text-left">
+                {isUA ? 'Де нас знайти?' : 'Where to find us?'}
+              </h2>
+              <div className="space-y-4 text-left">
+                <div className="flex items-start space-x-4">
+                  <MapPin className="w-6 h-6 text-primary-600 mt-0.5 flex-shrink-0" />
                   <span className="text-neutral-600">
                     {isUA ? 'Головний корпус, 1 поверх' : 'Main Building, 1st Floor'}
                   </span>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <Phone className="w-6 h-6 text-primary-600" />
+                  <Phone className="w-6 h-6 text-primary-600 flex-shrink-0" />
                   <a href="tel:+380123456789" className="text-neutral-600 hover:text-primary-600 transition-colors">
                     +38 (012) 345-67-89
                   </a>
                 </div>
                 <div className="flex items-center space-x-4">
-                  <Mail className="w-6 h-6 text-primary-600" />
+                  <Mail className="w-6 h-6 text-primary-600 flex-shrink-0" />
                   <a href="mailto:restaurant@chudodievo.com" className="text-neutral-600 hover:text-primary-600 transition-colors">
                     restaurant@chudodievo.com
                   </a>
                 </div>
+                <div className="flex items-center space-x-4">
+                  <Clock className="w-6 h-6 text-primary-600 flex-shrink-0" />
+                  <span className="text-neutral-600">
+                    {isUA ? '08:00 — 22:00' : '08:00 — 22:00'}
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative aspect-square md:aspect-auto md:h-[400px]"
+            >
+              <div className="image-zoom-container relative w-full h-full overflow-hidden rounded-sm shadow-lg shadow-neutral-500">
+                <Image
+                  src="/images/re3.webp"
+                  alt={isUA ? 'Ресторан' : 'Restaurant'}
+                  fill
+                  className="object-cover rounded-sm"
+                />
               </div>
             </motion.div>
           </div>
