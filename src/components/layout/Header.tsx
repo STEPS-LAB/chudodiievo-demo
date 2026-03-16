@@ -190,31 +190,61 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
               transition={{ duration: 0.25 }}
               className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-md md:hidden"
               aria-hidden="true"
-              onClick={() => setMenuOpen(false)}
+              onTouchEnd={() => setMenuOpen(false)}
+              onClick={(e) => {
+                e.preventDefault();
+                setMenuOpen(false);
+              }}
             />
 
-            {/* Close Button */}
-            <motion.button
-              type="button"
-              onClick={() => setMenuOpen(false)}
-              className="fixed right-6 top-6 z-[62] flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-neutral-900)] shadow-lg outline-none transition-opacity active:opacity-70 md:hidden"
-              aria-label="Close menu"
-              initial={{ opacity: 0, rotate: -90 }}
-              animate={{ opacity: 1, rotate: 0 }}
-              exit={{ opacity: 0, rotate: -90 }}
-              transition={{ duration: 0.25, ease: [0.22, 0.61, 0.36, 1] }}
-            >
-              <span className="relative flex h-5 w-5 shrink-0 items-center justify-center" aria-hidden>
-                <span
-                  className="absolute h-[1.5px] w-5 rounded-full bg-[var(--color-neutral-900)]"
-                  style={{ transform: 'rotate(45deg)' }}
-                />
-                <span
-                  className="absolute h-[1.5px] w-5 rounded-full bg-[var(--color-neutral-900)]"
-                  style={{ transform: 'rotate(-45deg)' }}
-                />
-              </span>
-            </motion.button>
+            {/* Close Button - minimal animation to prevent iOS flicker */}
+            <AnimatePresence>
+              {menuOpen && (
+                <motion.button
+                  key="close-btn"
+                  type="button"
+                  onTouchStart={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setMenuOpen(false);
+                  }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setMenuOpen(false);
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="fixed right-6 top-6 z-[62] flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-neutral-900)] shadow-lg outline-none md:hidden hover:opacity-100 active:opacity-100 ios-no-flicker"
+                  aria-label="Close menu"
+                  style={{ 
+                    WebkitTapHighlightColor: 'transparent',
+                    WebkitUserSelect: 'none',
+                    userSelect: 'none',
+                    WebkitTransform: 'translate3d(0, 0, 0)',
+                    transform: 'translate3d(0, 0, 0)',
+                    WebkitBackfaceVisibility: 'hidden',
+                    backfaceVisibility: 'hidden',
+                    WebkitAppearance: 'none',
+                    cursor: 'default',
+                    pointerEvents: 'auto',
+                  }}
+                >
+                  <span className="relative flex h-5 w-5 shrink-0 items-center justify-center" aria-hidden>
+                    <span
+                      className="absolute h-[1.5px] w-5 rounded-full bg-[var(--color-neutral-900)]"
+                      style={{ transform: 'rotate(45deg)' }}
+                    />
+                    <span
+                      className="absolute h-[1.5px] w-5 rounded-full bg-[var(--color-neutral-900)]"
+                      style={{ transform: 'rotate(-45deg)' }}
+                    />
+                  </span>
+                </motion.button>
+              )}
+            </AnimatePresence>
 
             {/* Menu Panel */}
             <motion.aside

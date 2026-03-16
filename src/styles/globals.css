@@ -227,3 +227,31 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(0);
   }
 }
+
+/* Fix for iOS Safari button flickering */
+@media (hover: none) and (-webkit-touch-callout: default) {
+  .ios-no-flicker {
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-highlight: none !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  .ios-no-flicker,
+  .ios-no-flicker:hover,
+  .ios-no-flicker:active,
+  .ios-no-flicker:focus {
+    opacity: 1 !important;
+    transform: translate3d(0, 0, 0) !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+  }
+  
+  .ios-no-flicker::before,
+  .ios-no-flicker::after {
+    display: none !important;
+  }
+}
