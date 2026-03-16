@@ -206,7 +206,7 @@ export default function Header() {
               aria-modal="true"
               aria-label="Menu"
             >
-              <nav className="flex flex-col gap-1 pt-24 pb-8 pl-8 pr-6" aria-label="Mobile">
+              <nav className="flex flex-col gap-4 pt-24 pb-8 pl-8 pr-6" aria-label="Mobile">
                 {NAV_ITEMS.map(({ key, href }, i) => (
                   <motion.a
                     key={key}
@@ -221,21 +221,6 @@ export default function Header() {
                     {t(`common.${key}`)}
                   </motion.a>
                 ))}
-                {/* Mobile Book Button */}
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.04 + NAV_ITEMS.length * 0.05, duration: 0.3, ease: 'easeOut' }}
-                  className="mt-6"
-                >
-                  <Link
-                    href="/#rooms"
-                    onClick={() => setMenuOpen(false)}
-                    className="flex w-full items-center justify-center rounded-sm bg-primary px-4 py-3 text-xs font-medium uppercase tracking-[0.1em] text-white shadow-sm transition-all duration-300 hover:bg-primary-900"
-                  >
-                    {t('common.bookNow')}
-                  </Link>
-                </motion.div>
               </nav>
             </motion.aside>
           </>
