@@ -29,20 +29,19 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
+  const [shouldHideCloseBtn, setShouldHideCloseBtn] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
 
   const handleCloseMenu = useCallback(() => {
-    if (isClosing) return;
-    setIsClosing(true);
+    setShouldHideCloseBtn(true);
     setMenuOpen(false);
-    setTimeout(() => setIsClosing(false), 400);
-  }, [isClosing]);
+    setTimeout(() => setShouldHideCloseBtn(false), 400);
+  }, []);
 
   const handleOpenMenu = useCallback(() => {
-    if (isClosing) return;
+    setShouldHideCloseBtn(false);
     setMenuOpen(true);
-  }, [isClosing]);
+  }, []);
 
   const scrollToTop = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -242,8 +241,8 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
         </AnimatePresence>
       )}
 
-      {/* Close Button - outside AnimatePresence to prevent flicker */}
-      {menuOpen && (
+      {/* Close Button - hidden immediately on close to prevent flicker, but menu animates */}
+      {menuOpen && !shouldHideCloseBtn && (
         <div
           className="fixed right-6 top-6 z-[62] md:hidden"
           style={{ 
