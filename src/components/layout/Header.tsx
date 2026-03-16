@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useTranslations } from '@/lib/i18n/useTranslations';
 import { useHeader } from './HeaderContext';
+import BookingModal from '@/components/booking/BookingModal';
 
 const NAV_ITEMS = [
   { href: '/', key: 'home' },
@@ -27,6 +28,7 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
   const { variant: contextVariant } = useHeader();
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
 
   const scrollToTop = useCallback((e: React.MouseEvent) => {
@@ -141,12 +143,12 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
             </div>
 
             {/* Book Button */}
-            <Link
-              href="/#rooms"
-              className="hidden items-center justify-center rounded-sm bg-primary px-4 py-2.5 text-xs font-medium uppercase tracking-[0.14em] text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:bg-primary-900 md:inline-flex"
+            <button
+              onClick={() => setBookingModalOpen(true)}
+              className="hidden items-center justify-center rounded-sm bg-primary px-4 py-2.5 text-xs font-medium uppercase tracking-[0.14em] text-white shadow-md transition-all duration-300 hover:scale-[1.02] hover:bg-primary-900 md:inline-flex cursor-pointer"
             >
               {t('common.bookNow')}
-            </Link>
+            </button>
 
             {/* Burger Menu (Mobile) */}
             <button
@@ -245,6 +247,9 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
           </>
         )}
       </AnimatePresence>
+
+      {/* Booking Modal */}
+      <BookingModal isOpen={bookingModalOpen} onClose={() => setBookingModalOpen(false)} />
     </>
   );
 }

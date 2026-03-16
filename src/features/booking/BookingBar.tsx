@@ -113,7 +113,7 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
                       const input = e.currentTarget.querySelector('input');
                       if (input) input.showPicker();
                     }}
-                    className="flex h-10 w-full cursor-pointer items-center rounded border border-neutral-200 bg-white px-3 text-sm text-neutral-900 transition hover:bg-neutral-50"
+                    className="flex h-10 w-full cursor-pointer items-center rounded-sm border border-neutral-200 bg-white px-3 text-sm text-neutral-900 transition hover:bg-neutral-50"
                   >
                     <input
                       type="date"
@@ -141,7 +141,7 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
                       const input = e.currentTarget.querySelector('input');
                       if (input) input.showPicker();
                     }}
-                    className="flex h-10 w-full cursor-pointer items-center rounded border border-neutral-200 bg-white px-3 text-sm text-neutral-900 transition hover:bg-neutral-50"
+                    className="flex h-10 w-full cursor-pointer items-center rounded-sm border border-neutral-200 bg-white px-3 text-sm text-neutral-900 transition hover:bg-neutral-50"
                   >
                     <input
                       type="date"
