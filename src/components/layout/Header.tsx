@@ -12,7 +12,7 @@ const NAV_ITEMS = [
   { href: '/#rooms', key: 'rooms' },
   { href: '/restaurant', key: 'restaurant' },
   { href: '/activities', key: 'activities' },
-  { href: '/blog', key: 'blog' },
+  { href: '/#pool', key: 'pool' },
   { href: '/contacts', key: 'contacts' },
 ] as const;
 

@@ -3,6 +3,7 @@ import AboutSection from '@/components/sections/AboutSection';
 import RoomsSection from '@/components/sections/RoomsSection';
 import RestaurantSection from '@/components/sections/RestaurantSection';
 import RelaxationSection from '@/components/sections/RelaxationSection';
+import PoolSection from '@/components/sections/PoolSection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import ResortMap from '@/components/map/ResortMap';
 
@@ -37,6 +38,11 @@ export default function HomePage() {
 
       {/* Relaxation Section */}
       <RelaxationSection />
+
+      {/* Pool Section */}
+      <div id="pool">
+        <PoolSection />
+      </div>
 
       {/* Resort Map Section */}
       <ResortMap />
