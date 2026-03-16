@@ -1,10 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
-import { mapLocations, type MapLocation } from '@/lib/config/map';
+import { motion } from 'framer-motion';
+import { mapLocations } from '@/lib/config/map';
 import { useIntersectionObserver } from '@/lib/hooks';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 
@@ -40,7 +37,6 @@ const iconPaths: Record<string, React.JSX.Element> = {
 
 export default function ResortMap() {
   const { ref, isVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
-  const [selectedLocation, setSelectedLocation] = useState<MapLocation | null>(null);
   const { locale } = useLanguage();
 
   return (
@@ -123,9 +119,6 @@ export default function ResortMap() {
                   initial={{ scale: 0 }}
                   animate={isVisible ? { scale: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.2 }}
-                  className="cursor-pointer"
-                  onClick={() => setSelectedLocation(location)}
-                  whileHover={{ scale: 1.1 }}
                 >
                   {/* Pulse Effect */}
                   <circle
@@ -174,61 +167,6 @@ export default function ResortMap() {
               ))}
             </svg>
           </div>
-
-          {/* Info Card */}
-          <AnimatePresence>
-            {selectedLocation && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-80 luxury-card p-6"
-              >
-                <button
-                  onClick={() => setSelectedLocation(null)}
-                  className="absolute top-4 right-4 text-neutral-400 hover:text-neutral-600 transition-colors"
-                  aria-label="Close"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-
-                <div className="flex items-start space-x-4 mb-4">
-                  <div className={`w-10 h-10 rounded-sm flex items-center justify-center ${iconColors[selectedLocation.icon].replace('fill-', 'bg-').replace('500', '100')}`}>
-                    <svg
-                      viewBox="0 0 24 24"
-                      className={`w-5 h-5 ${iconColors[selectedLocation.icon].replace('fill-', 'text-')}`}
-                      fill="currentColor"
-                    >
-                      {iconPaths[selectedLocation.icon]}
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-display font-medium text-neutral-900">
-                      {locale === 'ua' ? selectedLocation.title.ua : selectedLocation.title.en}
-                    </h3>
-                    <p className="text-sm text-neutral-500 mt-1">
-                      {locale === 'ua' ? selectedLocation.description.ua : selectedLocation.description.en}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-3">
-                  <Link
-                    href={selectedLocation.page}
-                    className="luxury-button py-2 px-4 text-sm"
-                  >
-                    {locale === 'ua' ? 'Переглянути' : 'View'}
-                  </Link>
-                  {selectedLocation.aiPrompt && (
-                    <button className="text-sm text-primary-600 hover:text-primary-700 transition-colors flex items-center">
-                      <span>{locale === 'ua' ? 'Запитати AI' : 'Ask AI'}</span>
-                      <ArrowRight className="w-3 h-3 ml-1" />
-                    </button>
-                  )}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </div>
     </section>
