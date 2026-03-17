@@ -1,13 +1,16 @@
 import { ReactNode } from 'react';
+import { Metadata } from 'next';
 import { Inter, Montserrat } from 'next/font/google';
+import dynamic from 'next/dynamic';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import AIConcierge from '@/features/ai-concierge/AIConcierge';
-import MobileBookingBar from '@/features/booking/MobileBookingBar';
 import MainWrapper from '@/components/layout/MainWrapper';
 import { LanguageProvider } from '@/lib/i18n/LanguageProvider';
 import { HeaderProvider } from '@/components/layout/HeaderContext';
 import '@/styles/globals.css';
+
+const AIConcierge = dynamic(() => import('@/features/ai-concierge/AIConcierge'), { ssr: false });
+const MobileBookingBar = dynamic(() => import('@/features/booking/MobileBookingBar'), { ssr: false });
 
 // Optimize fonts - load only necessary weights and subsets
 const inter = Inter({
@@ -28,7 +31,10 @@ const montserrat = Montserrat({
   fallback: ['system-ui', 'sans-serif'],
 });
 
-export const dynamic = 'force-dynamic';
+export const metadata: Metadata = {
+  metadataBase: new URL('https://chudodiievo-demo.vercel.app'),
+  robots: { index: true, follow: true },
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

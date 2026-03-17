@@ -7,7 +7,11 @@ import { useState } from 'react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useTranslations } from '@/lib/i18n/useTranslations';
 
-export const dynamic = 'force-dynamic';
+export const metadata = {
+  title: 'FAQ | Чудодієво',
+  description: 'Відповіді на поширені запитання про бронювання, розміщення та послуги курорту Чудодієво.',
+  openGraph: { title: 'Поширені запитання | Чудодієво', type: 'website' },
+};
 
 const faqs = [
   {

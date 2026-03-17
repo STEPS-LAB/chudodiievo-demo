@@ -6,7 +6,11 @@ import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useTranslations } from '@/lib/i18n/useTranslations';
 
-export const dynamic = 'force-dynamic';
+export const metadata = {
+  title: 'Ресторан | Чудодієво',
+  description: 'Авторська кухня з місцевих продуктів. Ресторан відкритий щодня 08:00–22:00.',
+  openGraph: { title: 'Ресторан | Чудодієво', description: 'Авторська кухня у серці природи', type: 'website' },
+};
 
 const menuCategories = [
   {
@@ -44,12 +48,17 @@ export default function RestaurantPage() {
     <main>
       {/* Hero Section */}
       <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: 'url(/images/r-hero.webp)',
-          }}
-        >
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/r-hero.webp"
+            alt="Ресторан Чудодієво"
+            fill
+            priority
+            fetchPriority="high"
+            loading="eager"
+            className="object-cover object-center"
+            sizes="100vw"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/40 to-neutral-900/60" />
         </div>
 

@@ -186,7 +186,7 @@ npm run test:e2e
 ### Змінні оточення
 
 ```env
-NEXT_PUBLIC_SITE_URL=https://chudodievo.com
+NEXT_PUBLIC_SITE_URL=https://chudodiievo-demo.vercel.app
 ```
 
 ## 📈 SEO

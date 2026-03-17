@@ -17,6 +17,7 @@ export const metadata = {
     type: 'website',
     locale: 'uk_UA',
     siteName: 'Чудодієво',
+    images: [{ url: '/images/hero.webp', width: 1200, height: 630, alt: 'Чудодієво — розкішний курорт' }],
   },
 };
 

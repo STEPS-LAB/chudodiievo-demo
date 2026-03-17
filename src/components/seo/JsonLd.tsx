@@ -22,7 +22,7 @@ export const resortSchema = {
   name: 'Чудодієво',
   alternateName: 'Chudodievo',
   description: 'Luxury escape in nature in the heart of Ukrainian Polissia',
-  url: 'https://chudodievo.com',
+  url: 'https://chudodiievo-demo.vercel.app',
   telephone: '+380123456789',
   address: {
     '@type': 'PostalAddress',
@@ -36,7 +36,7 @@ export const resortSchema = {
     longitude: 29.0,
   },
   image: [
-    'https://chudodievo.com/images/hero.jpg',
+    'https://chudodiievo-demo.vercel.app/images/hero.jpg',
   ],
   priceRange: '₴₴₴',
   starRating: {

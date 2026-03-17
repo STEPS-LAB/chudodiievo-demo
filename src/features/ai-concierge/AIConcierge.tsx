@@ -263,7 +263,7 @@ export default function AIConcierge() {
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder={locale === 'ua' ? 'Запитайте щось...' : 'Ask something...'}
-                    disabled={status === 'loading' || status === 'success'}
+                    disabled={isTyping}
                     className="flex-1 px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-sm text-sm focus:outline-none focus:border-primary-400 transition-colors"
                   />
                   <button

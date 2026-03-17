@@ -23,8 +23,7 @@ export default function Hero({
   const { locale } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleSearch = (data: { checkIn: string; checkOut: string; guests: number }) => {
-    console.log('Search:', data);
+  const handleSearch = (_data: { checkIn: string; checkOut: string; guests: number }) => {
     // Redirect to rooms or handle search
   };
 

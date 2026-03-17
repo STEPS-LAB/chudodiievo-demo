@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useScrollPosition } from '@/lib/hooks';
 import type { Room } from '@/lib/config/rooms';
 
@@ -18,11 +19,15 @@ export default function RoomHero({ room }: RoomHeroProps) {
         style={{ y: isScrolled ? 100 : 0 }}
         className="absolute inset-0 z-0"
       >
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${room.images[0]})`,
-          }}
+        <Image
+          src={room.images[0]}
+          alt={room.name.ua}
+          fill
+          priority
+          fetchPriority="high"
+          loading="eager"
+          className="object-cover object-center"
+          sizes="100vw"
         />
         {/* Overlay Gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/50 via-neutral-900/30 to-neutral-900/70" />

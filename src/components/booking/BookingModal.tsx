@@ -177,8 +177,6 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
               {/* Submit Button */}
               <button
                 onClick={() => {
-                  // Handle booking submission
-                  console.log('Booking:', { checkIn, checkOut, guests });
                   onClose();
                 }}
                 className="w-full h-[52px] bg-[var(--color-primary)] hover:bg-primary-900 text-white text-sm font-medium uppercase tracking-[0.1em] rounded-sm transition-colors duration-300"

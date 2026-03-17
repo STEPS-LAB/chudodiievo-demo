@@ -6,7 +6,11 @@ import { Clock, Users, Volleyball } from 'lucide-react';
 import { FaBicycle, FaSpa, FaMotorcycle, FaSailboat, FaFish, FaFutbol, FaBath } from 'react-icons/fa6';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 
-export const dynamic = 'force-dynamic';
+export const metadata = {
+  title: 'Дозвілля | Чудодієво',
+  description: 'Велопрогулянки, лазня, квадроцикли, риболовля, теніс — активний відпочинок у Чудодієво.',
+  openGraph: { title: 'Дозвілля | Чудодієво', description: 'Активний відпочинок у серці Полісся', type: 'website' },
+};
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   cycling: FaBicycle,
@@ -76,24 +80,18 @@ export default function ActivitiesPage() {
     <main>
       {/* Hero Section */}
       <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-no-repeat"
-          style={{
-            backgroundImage: 'url(/images/d-hero.webp)',
-            backgroundPosition: 'center',
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/40 to-neutral-900/60" />
-        </div>
-
-        {/* Mobile-specific overlay for better image composition */}
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-no-repeat md:hidden"
-          style={{
-            backgroundImage: 'url(/images/d-hero.webp)',
-            backgroundPosition: '65% center',
-          }}
-        >
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/d-hero.webp"
+            alt="Дозвілля та активний відпочинок у Чудодієво"
+            fill
+            priority
+            fetchPriority="high"
+            loading="eager"
+            className="object-cover"
+            style={{ objectPosition: 'center' }}
+            sizes="100vw"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/40 to-neutral-900/60" />
         </div>
 
@@ -165,6 +163,7 @@ export default function ActivitiesPage() {
                     fill
                     className="object-cover transition-transform duration-700 md:group-hover:scale-110"
                     loading="lazy"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-neutral-900/20 to-transparent" />

@@ -186,7 +186,7 @@ The project is configured for Vercel deployment:
 ### Environment Variables
 
 ```env
-NEXT_PUBLIC_SITE_URL=https://chudodievo.com
+NEXT_PUBLIC_SITE_URL=https://chudodiievo-demo.vercel.app
 ```
 
 ## 📈 SEO

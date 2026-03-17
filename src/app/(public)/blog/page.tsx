@@ -8,7 +8,11 @@ import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useTranslations } from '@/lib/i18n/useTranslations';
 import { useState } from 'react';
 
-export const dynamic = 'force-dynamic';
+export const metadata = {
+  title: 'Блог | Чудодієво',
+  description: 'Новини, поради та натхнення від курорту Чудодієво — природа, кухня, велнес та події.',
+  openGraph: { title: 'Блог | Чудодієво', type: 'website' },
+};
 
 const blogPosts = [
   {

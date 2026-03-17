@@ -5,7 +5,11 @@ import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useEffect } from 'react';
 import { useHeader } from '@/components/layout/HeaderContext';
 
-export const dynamic = 'force-dynamic';
+export const metadata = {
+  title: 'Контакти | Чудодієво',
+  description: 'Зв\'яжіться з нами: рецепція, ресторан, басейн. Адреса: Житомирська обл., с. Вишпіль, вул. Лісова 47.',
+  openGraph: { title: 'Контакти | Чудодієво', type: 'website' },
+};
 
 export default function ContactsPage() {
   const { locale } = useLanguage();
