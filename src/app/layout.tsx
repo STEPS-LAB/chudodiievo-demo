@@ -30,11 +30,12 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://chudodiievo-demo.vercel.app'),
-  robots: { index: true, follow: true },
-  icons: {
-    icon: '/favicon.svg',
-    apple: '/favicon.svg',
+  title: {
+    default: 'Чудодієво | Розкішний відпочинок на природі',
+    template: '%s | Чудодієво',
   },
+  description: 'Відкрийте для себе ідеальне поєднання розкоші та природи в серці українського Полісся',
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
