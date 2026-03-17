@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useIntersectionObserver } from '@/lib/hooks';
 import { Trees, Gem, Heart, Utensils } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
+import Image from 'next/image';
 
 const features = [
   { icon: Trees, key: 'nature' },
@@ -98,33 +99,49 @@ export default function AboutSection() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
                 <div className="image-zoom-container rounded-sm overflow-hidden">
-                  <img
+                  <Image
                     src="/images/about1.webp"
                     alt="Chudodievo nature"
+                    width={400}
+                    height={320}
                     className="w-full h-64 object-cover"
+                    loading="lazy"
+                    sizes="(max-width: 768px) 50vw, 400px"
                   />
                 </div>
                 <div className="image-zoom-container rounded-sm overflow-hidden">
-                  <img
+                  <Image
                     src="/images/about2.webp"
                     alt="Luxury resort"
+                    width={400}
+                    height={240}
                     className="w-full h-48 object-cover"
+                    loading="lazy"
+                    sizes="(max-width: 768px) 50vw, 400px"
                   />
                 </div>
               </div>
               <div className="space-y-4 pt-8">
                 <div className="image-zoom-container rounded-sm overflow-hidden">
-                  <img
+                  <Image
                     src="/images/about3.webp"
                     alt="Resort amenities"
+                    width={400}
+                    height={240}
                     className="w-full h-48 object-cover"
+                    loading="lazy"
+                    sizes="(max-width: 768px) 50vw, 400px"
                   />
                 </div>
                 <div className="image-zoom-container rounded-sm overflow-hidden">
-                  <img
+                  <Image
                     src="/images/about4.webp"
                     alt="Wellness"
+                    width={400}
+                    height={320}
                     className="w-full h-64 object-cover"
+                    loading="lazy"
+                    sizes="(max-width: 768px) 50vw, 400px"
                   />
                 </div>
               </div>

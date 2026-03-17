@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useIntersectionObserver } from '@/lib/hooks';
 import { Mountain, Bike, Fish, Flower2, Bird, Stars } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const activities = [
   { icon: Mountain, key: 'hiking', name: 'Піші прогулянки', description: 'Еко-стежки крізь вікові ліси', image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80' },
@@ -49,11 +50,12 @@ export default function ExperiencesSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group relative overflow-hidden rounded-sm aspect-[4/3]"
             >
-              <img
+              <Image
                 src={activity.image}
                 alt={activity.name}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-110"
-                loading="lazy"
+                fill
+                className="object-cover transition-transform duration-700 md:group-hover:scale-110"
+                sizes="(max-width: 768px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-neutral-900/20 to-transparent" />
               

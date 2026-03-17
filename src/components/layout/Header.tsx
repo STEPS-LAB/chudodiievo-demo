@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useTranslations } from '@/lib/i18n/useTranslations';
@@ -109,13 +110,16 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
               useDarkHeader ? 'text-[var(--color-neutral-900)]' : 'text-white'
             }`}
           >
-            <img
+            <Image
               src="/images/logo.svg"
               alt={locale === 'ua' ? 'Чудодієво' : 'Chudodievo'}
+              width={120}
+              height={32}
               className="h-8 w-auto transition-all duration-300"
               style={{
                 filter: useDarkHeader ? 'grayscale(100%) brightness(0)' : 'none',
               }}
+              priority
             />
           </Link>
 

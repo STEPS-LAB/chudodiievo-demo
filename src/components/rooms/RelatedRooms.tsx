@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Users, Maximize } from 'lucide-react';
 import type { Room } from '@/lib/config/rooms';
 
@@ -40,11 +41,12 @@ export default function RelatedRooms({ rooms }: RelatedRoomsProps) {
                 <div className="luxury-card overflow-hidden">
                   {/* Image */}
                   <div className="image-zoom-container relative aspect-[4/3] overflow-hidden">
-                    <img
+                    <Image
                       src={room.images[0]}
                       alt={room.name.ua}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   </div>
 

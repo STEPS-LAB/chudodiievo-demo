@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Users, Maximize } from 'lucide-react';
+import Image from 'next/image';
 
 interface RoomDescriptionProps {
   name: string;
@@ -74,11 +75,12 @@ export default function RoomDescription({
             className="relative"
           >
             <div className="image-zoom-container rounded-sm overflow-hidden aspect-[4/3]">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=800&q=80"
                 alt="Room detail"
-                className="w-full h-full object-cover"
-                loading="lazy"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
             {/* Decorative Element */}

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
 interface RoomGalleryProps {
   images: string[];
@@ -32,31 +33,31 @@ export default function RoomGallery({ images }: RoomGalleryProps) {
               className="md:col-span-2 image-zoom-container rounded-sm overflow-hidden cursor-pointer aspect-video"
               onClick={() => setSelectedImage(0)}
             >
-              <img
+              <Image
                 src={images[0]}
                 alt="Room main view"
-                className="w-full h-full object-cover"
-                loading="lazy"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 66vw"
               />
             </div>
 
             {/* Secondary Images */}
-            <div className="space-y-4">
-              {images.slice(1, 3).map((image, index) => (
-                <div
-                  key={index}
-                  className="image-zoom-container rounded-sm overflow-hidden cursor-pointer aspect-video"
-                  onClick={() => setSelectedImage(index + 1)}
-                >
-                  <img
-                    src={image}
-                    alt={`Room view ${index + 2}`}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-              ))}
-            </div>
+            {images.slice(1, 3).map((image, index) => (
+              <div
+                key={index}
+                className="image-zoom-container rounded-sm overflow-hidden cursor-pointer aspect-video"
+                onClick={() => setSelectedImage(index + 1)}
+              >
+                <Image
+                  src={image}
+                  alt={`Room view ${index + 2}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+              </div>
+            ))}
           </div>
 
           {/* View All Button */}
@@ -64,6 +65,7 @@ export default function RoomGallery({ images }: RoomGalleryProps) {
             <button
               onClick={() => setSelectedImage(0)}
               className="luxury-button-secondary"
+              type="button"
             >
               View All Photos
             </button>
@@ -92,9 +94,8 @@ export default function RoomGallery({ images }: RoomGalleryProps) {
               onClick={() => setSelectedImage(null)}
               className="fixed top-6 right-6 z-50 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors"
               aria-label="Close lightbox"
-            >
-              <X className="w-6 h-6" />
-            </motion.button>
+              type="button"
+            />
 
             {/* Navigation Buttons */}
             <motion.button
@@ -107,6 +108,7 @@ export default function RoomGallery({ images }: RoomGalleryProps) {
               }}
               className="fixed left-6 top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors"
               aria-label="Previous image"
+              type="button"
             >
               <ChevronLeft className="w-6 h-6" />
             </motion.button>
@@ -121,6 +123,7 @@ export default function RoomGallery({ images }: RoomGalleryProps) {
               }}
               className="fixed right-6 top-1/2 -translate-y-1/2 z-50 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors"
               aria-label="Next image"
+              type="button"
             >
               <ChevronRight className="w-6 h-6" />
             </motion.button>
@@ -143,10 +146,12 @@ export default function RoomGallery({ images }: RoomGalleryProps) {
               className="fixed inset-0 z-40 flex items-center justify-center p-4 sm:p-12"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
+              <Image
                 src={images[selectedImage]}
                 alt={`Room view ${selectedImage + 1}`}
-                className="max-w-full max-h-full object-contain"
+                fill
+                className="object-contain"
+                sizes="100vw"
               />
             </motion.div>
           </>

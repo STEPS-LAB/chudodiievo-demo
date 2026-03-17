@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, Users, Check, ChevronRight, Sparkles } from 'lucide-react';
 import { format } from 'date-fns';
 import { uk } from 'date-fns/locale';
+import Image from 'next/image';
 
 type BookingStep = 'dates' | 'guests' | 'room' | 'summary';
 
@@ -437,10 +438,13 @@ function RoomStep({
                 ? 'border-primary-500 bg-primary-50'
                 : 'border-neutral-200 hover:border-primary-300'
             }`}
+            type="button"
           >
-            <img
+            <Image
               src={room.image}
               alt={room.name}
+              width={80}
+              height={80}
               className="w-20 h-20 object-cover rounded-sm flex-shrink-0"
             />
             <div className="flex-1">
@@ -450,7 +454,7 @@ function RoomStep({
               </p>
             </div>
             {bookingData.selectedRoom === room.id && (
-              <Check className="w-5 h-5 text-primary-600" />
+              <Check className="w-5 h-5 text-primary-600" aria-hidden="true" />
             )}
           </button>
         ))}

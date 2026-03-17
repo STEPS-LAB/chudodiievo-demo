@@ -2,6 +2,7 @@
 
 import { useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Instagram, Facebook, Mail, Phone, MapPin, Clock } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useTranslations } from '@/lib/i18n/useTranslations';
@@ -50,15 +51,21 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <button onClick={scrollToTop} className="mb-6">
-              <img src="/images/logo.svg" alt={isUA ? 'Чудодієво' : 'Chudodievo'} className="h-10 w-auto" />
+            <button onClick={scrollToTop} className="mb-6" aria-label="Scroll to top">
+              <Image
+                src="/images/logo.svg"
+                alt={isUA ? 'Чудодієво' : 'Chudodievo'}
+                width={140}
+                height={40}
+                className="h-10 w-auto"
+              />
             </button>
             <p className="text-neutral-400 mb-6 max-w-sm">
               {t('footer.description')}
             </p>
 
             {/* Social Links */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-4" role="navigation" aria-label="Social media links">
               {socialLinks.map((link) => (
                 <a
                   key={link.label}
@@ -68,7 +75,7 @@ export default function Footer() {
                   className="w-10 h-10 bg-neutral-800 rounded-sm flex items-center justify-center hover:bg-primary-600 transition-colors duration-300"
                   aria-label={link.label}
                 >
-                  <link.icon className="w-5 h-5" />
+                  <link.icon className="w-5 h-5" aria-hidden="true" />
                 </a>
               ))}
             </div>
@@ -79,9 +86,9 @@ export default function Footer() {
             <h3 className="font-display font-medium text-white mb-6">
               {t('footer.navigation')}
             </h3>
-            <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-3" role="list">
               {footerLinks.navigation.map((link) => (
-                <li key={link.key} className="list-none">
+                <li key={link.key}>
                   <Link
                     href={link.href}
                     className="text-neutral-400 hover:text-white transition-colors duration-200"
@@ -90,7 +97,7 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           {/* Contact Column */}
@@ -98,15 +105,15 @@ export default function Footer() {
             <h3 className="font-display font-medium text-white mb-6">
               {t('footer.contact')}
             </h3>
-            <ul className="space-y-4">
+            <ul className="space-y-4" role="list">
               <li className="flex items-start space-x-3">
-                <MapPin className="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" />
-                <span className="text-neutral-400">
+                <MapPin className="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" aria-hidden="true" />
+                <address className="text-neutral-400 not-italic">
                   {isUA ? 'Житомирська область,\nс. Вишпіль, вул. Лісова 47' : 'Zhytomyr region,\nv. Vyshpil, Lisova st. 47'}
-                </span>
+                </address>
               </li>
               <li className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-primary-500 flex-shrink-0" />
+                <Phone className="w-5 h-5 text-primary-500 flex-shrink-0" aria-hidden="true" />
                 <a
                   href="tel:+380123456789"
                   className="text-neutral-400 hover:text-white transition-colors"
@@ -115,7 +122,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-primary-500 flex-shrink-0" />
+                <Mail className="w-5 h-5 text-primary-500 flex-shrink-0" aria-hidden="true" />
                 <a
                   href="mailto:info@chudodievo.com"
                   className="text-neutral-400 hover:text-white transition-colors"
@@ -124,7 +131,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex items-start space-x-3">
-                <Clock className="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" />
+                <Clock className="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" aria-hidden="true" />
                 <span className="text-neutral-400">
                   09:00 — 21:00
                 </span>
@@ -150,13 +157,13 @@ export default function Footer() {
                 STEPS LAB
               </a>
             </p>
-            <div className="flex items-center justify-between w-full md:w-auto md:justify-end space-x-6">
-              <span className="text-sm text-neutral-500">
+            <div className="flex flex-col md:flex-row items-center justify-between w-full md:w-auto md:justify-end space-y-2 md:space-y-0 md:space-x-6">
+              <a href="/privacy" className="text-sm text-neutral-500 hover:text-white transition-colors">
                 {isUA ? 'Політика конфіденційності' : 'Privacy Policy'}
-              </span>
-              <span className="text-sm text-neutral-500 text-right">
+              </a>
+              <a href="/terms" className="text-sm text-neutral-500 hover:text-white transition-colors">
                 {isUA ? 'Умови використання' : 'Terms of Use'}
-              </span>
+              </a>
             </div>
           </div>
         </div>

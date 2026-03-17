@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useCallback, useEffect, useState } from 'react';
 import { Star, Quote } from 'lucide-react';
 import { useIntersectionObserver } from '@/lib/hooks';
+import Image from 'next/image';
 
 const testimonials = [
   {
@@ -96,7 +97,7 @@ export default function TestimonialsSection() {
                 >
                   <div className="bg-white p-8 sm:p-12 text-center rounded-sm shadow-md h-full">
                     <Quote className="w-12 h-12 text-primary-200 mx-auto mb-6" />
-                    
+
                     <div className="flex justify-center mb-6">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star
@@ -111,10 +112,13 @@ export default function TestimonialsSection() {
                     </p>
 
                     <div className="flex items-center justify-center space-x-4">
-                      <img
+                      <Image
                         src={testimonial.image}
                         alt={testimonial.name}
+                        width={56}
+                        height={56}
                         className="w-14 h-14 rounded-full object-cover"
+                        loading="lazy"
                       />
                       <div className="text-left">
                         <div className="font-medium text-neutral-900">
@@ -141,6 +145,7 @@ export default function TestimonialsSection() {
               onClick={prev}
               className="w-12 h-12 rounded-full border border-neutral-200 flex items-center justify-center hover:bg-neutral-50 transition-colors"
               aria-label="Previous testimonial"
+              type="button"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -158,6 +163,7 @@ export default function TestimonialsSection() {
                       : 'bg-neutral-300'
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
+                  type="button"
                 />
               ))}
             </div>
@@ -166,6 +172,7 @@ export default function TestimonialsSection() {
               onClick={next}
               className="w-12 h-12 rounded-full border border-neutral-200 flex items-center justify-center hover:bg-neutral-50 transition-colors"
               aria-label="Next testimonial"
+              type="button"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

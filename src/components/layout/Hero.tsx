@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
-import Link from 'next/link';
+import Image from 'next/image';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import BookingBar from '@/features/booking/BookingBar';
 
@@ -33,13 +33,19 @@ export default function Hero({
       ref={containerRef}
       className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden"
     >
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
-      >
+      {/* Background Image with priority for LCP optimization */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={backgroundImage}
+          alt={subtitle || (locale === 'ua' ? 'Розкішний відпочинок на природі' : 'Luxury Escape in Nature')}
+          fill
+          priority
+          fetchPriority="high"
+          loading="eager"
+          className="object-cover bg-center bg-no-repeat"
+          sizes="100vw"
+          quality={85}
+        />
         {/* Overlay Gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/40 to-neutral-900/60" />
       </div>

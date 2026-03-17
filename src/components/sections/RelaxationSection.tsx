@@ -5,6 +5,7 @@ import { useIntersectionObserver } from '@/lib/hooks';
 import { Bike, Fish, Flower2 } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
+import Image from 'next/image';
 
 const activities = {
   ua: [
@@ -79,11 +80,13 @@ export default function RelaxationSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group relative overflow-hidden rounded-sm aspect-[4/3]"
             >
-              <img
+              <Image
                 src={activity.image}
                 alt={activity.name}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 md:group-hover:scale-110"
+                fill
+                className="object-cover transition-transform duration-700 md:group-hover:scale-110"
                 loading="lazy"
+                sizes="(max-width: 768px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-neutral-900/20 to-transparent" />
 

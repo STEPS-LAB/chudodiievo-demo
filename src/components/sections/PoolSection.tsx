@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useIntersectionObserver } from '@/lib/hooks';
 import { Waves, Thermometer, Utensils, Music, Baby, Armchair } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
+import Image from 'next/image';
 
 export default function PoolSection() {
   const { ref, isVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
@@ -134,11 +135,13 @@ export default function PoolSection() {
           className="mb-16"
         >
           <div className="image-zoom-container rounded-sm overflow-hidden aspect-[4/5] sm:aspect-[16/9] md:aspect-[21/9]">
-            <img
+            <Image
               src="/images/pool.webp"
               alt={isUA ? 'Басейн' : 'Pool'}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
               loading="lazy"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 70vw"
             />
           </div>
         </motion.div>
