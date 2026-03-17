@@ -31,6 +31,10 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL('https://chudodiievo-demo.vercel.app'),
   robots: { index: true, follow: true },
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
