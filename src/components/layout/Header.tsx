@@ -55,8 +55,18 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
     });
   }, []);
 
+  // Optimized scroll handler with requestAnimationFrame to prevent forced reflow
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 20);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);

@@ -55,11 +55,11 @@ h1, h2, h3, h4, h5, h6 {
   .section-padding {
     @apply px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32;
   }
-  
+
   .section-padding-double {
     @apply px-4 sm:px-6 lg:px-8 py-32 sm:py-48 lg:py-64;
   }
-  
+
   .container-narrow {
     @apply max-w-4xl mx-auto;
   }
@@ -71,7 +71,7 @@ h1, h2, h3, h4, h5, h6 {
   .container-wide {
     @apply max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8;
   }
-  
+
   .luxury-card {
     @apply bg-surface rounded-sm shadow-soft md:hover:shadow-medium transition-shadow duration-300;
   }
@@ -94,78 +94,25 @@ h1, h2, h3, h4, h5, h6 {
            active:scale-[0.98] focus:outline-none focus:ring-2
            focus:ring-primary-500 focus:ring-offset-2;
   }
-  
+
   .luxury-input {
-    @apply w-full px-4 py-3 bg-surface border border-neutral-200 
+    @apply w-full px-4 py-3 bg-surface border border-neutral-200
            rounded-sm text-neutral-900 placeholder-neutral-400
-           focus:outline-none focus:border-primary-400 focus:ring-1 
+           focus:outline-none focus:border-primary-400 focus:ring-1
            focus:ring-primary-400 transition-colors duration-200;
   }
-  
+
   .text-gradient {
     @apply bg-gradient-to-r from-primary via-primary-500 to-secondary-600
            bg-clip-text text-transparent;
   }
-  
+
   .glass {
     @apply bg-white/80 backdrop-blur-md border border-white/30 shadow-sm;
   }
 
   .glass-dark {
     @apply bg-neutral-900/70 backdrop-blur-md border border-neutral-800/20;
-  }
-}
-
-/* Custom scrollbar */
-@layer utilities {
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .scrollbar-thin {
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-neutral-300) transparent;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 6px;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: var(--color-neutral-300);
-    border-radius: 3px;
-  }
-}
-
-/* Animation utilities */
-@layer utilities {
-  .animate-delay-100 {
-    animation-delay: 100ms;
-  }
-  
-  .animate-delay-200 {
-    animation-delay: 200ms;
-  }
-  
-  .animate-delay-300 {
-    animation-delay: 300ms;
-  }
-  
-  .animate-delay-400 {
-    animation-delay: 400ms;
-  }
-  
-  .animate-delay-500 {
-    animation-delay: 500ms;
   }
 }
 
@@ -205,11 +152,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Parallax effect base */
-.parallax {
-  will-change: transform;
-}
-
 /* Smooth page transitions */
 .page-transition {
   animation: pageEnter 0.5s ease-out;
@@ -236,7 +178,7 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-highlight: none !important;
     -webkit-overflow-scrolling: touch !important;
   }
-  
+
   .ios-no-flicker,
   .ios-no-flicker:hover,
   .ios-no-flicker:active,
@@ -247,7 +189,7 @@ h1, h2, h3, h4, h5, h6 {
     filter: none !important;
     -webkit-filter: none !important;
   }
-  
+
   .ios-no-flicker::before,
   .ios-no-flicker::after {
     display: none !important;

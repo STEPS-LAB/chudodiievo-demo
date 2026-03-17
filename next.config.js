@@ -20,6 +20,30 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   reactProductionProfiling: false,
+  // Modern JavaScript target - removes unnecessary polyfills
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  // Optimize webpack bundling
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Reduce CSS bundle size
+      config.optimization.splitChunks = {
+        ...config.optimization.splitChunks,
+        cacheGroups: {
+          ...config.optimization.splitChunks.cacheGroups,
+          // Extract CSS into separate chunk
+          styles: {
+            name: 'styles',
+            type: 'css/mini-extract',
+            chunks: 'all',
+            enforce: true,
+          },
+        },
+      };
+    }
+    return config;
+  },
 };
 
 module.exports = nextConfig;
