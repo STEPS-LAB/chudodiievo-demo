@@ -33,17 +33,6 @@ export const dynamic = 'force-dynamic';
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="uk" suppressHydrationWarning className={`${inter.variable} ${montserrat.variable}`}>
-      <head>
-        {/* Preload hero image for faster LCP */}
-        <link
-          rel="preload"
-          as="image"
-          href="/images/hero.webp"
-          fetchPriority="high"
-          imageSrcSet="/images/hero.webp"
-          imageSizes="100vw"
-        />
-      </head>
       <body className={`antialiased font-sans`}>
         <LanguageProvider>
           <HeaderProvider>

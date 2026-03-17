@@ -44,9 +44,7 @@ export default function Hero({
           loading="eager"
           className="object-cover bg-center bg-no-repeat"
           sizes="100vw"
-          quality={90}
-          placeholder="blur"
-          blurDataURL="data:image/webp;base64,UklGRhYAAABXRUJQVlA4IBoAAAAwAQCdASoBAAEAAUAmJYgCdAEO/hOMAAD++O9P+P/pn7H/qf+Z/6n/sf+x/7n/wf/R/+n/9g=="
+          quality={85}
         />
         {/* Overlay Gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-900/60 via-neutral-900/40 to-neutral-900/60" />
