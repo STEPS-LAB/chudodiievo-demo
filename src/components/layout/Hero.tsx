@@ -2,7 +2,6 @@
 
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown } from 'lucide-react';
 import Image from 'next/image';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import BookingBar from '@/features/booking/BookingBar';
@@ -11,14 +10,12 @@ interface HeroProps {
   title?: string;
   subtitle?: string;
   backgroundImage?: string;
-  showScrollIndicator?: boolean;
 }
 
 export default function Hero({
   title,
   subtitle,
   backgroundImage = '/images/hero.webp',
-  showScrollIndicator = true,
 }: HeroProps) {
   const { locale } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -80,25 +77,6 @@ export default function Hero({
           <BookingBar onSearch={handleSearch} />
         </motion.div>
       </div>
-
-      {/* Scroll Indicator */}
-      {showScrollIndicator && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="flex flex-col items-center text-white/60"
-          >
-            <span className="text-xs uppercase tracking-widest mb-2">Scroll</span>
-            <ArrowDown className="w-5 h-5" />
-          </motion.div>
-        </motion.div>
-      )}
     </section>
   );
 }
