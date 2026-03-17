@@ -6,7 +6,8 @@ import Image from 'next/image';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useTranslations } from '@/lib/i18n/useTranslations';
 import { useHeader } from './HeaderContext';
-import BookingModal from '@/components/booking/BookingModal';
+import dynamic from 'next/dynamic';
+const BookingModal = dynamic(() => import('@/components/booking/BookingModal'), { ssr: false });
 
 const NAV_ITEMS = [
   { href: '/', key: 'home' },
@@ -141,13 +142,13 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
           {/* Actions */}
           <div className="flex items-center gap-2">
             {/* Language Switch */}
-            <div className={`flex items-center gap-2 rounded-sm p-1 ${
+            <div className={`flex items-center gap-1 rounded-sm p-0.5 ${
               useDarkHeader ? 'bg-neutral-200' : 'bg-white/10 backdrop-blur border border-white/30'
             }`}>
               {(['ua', 'en'] as const).map((code) => (
                 <button
                   key={code}
-                  className={`rounded-sm px-3 py-1.5 text-xs uppercase tracking-[0.14em] transition ${
+                  className={`flex h-11 min-w-[2.75rem] items-center justify-center rounded-sm px-3 text-xs uppercase tracking-[0.14em] transition ${
                     locale === code
                       ? 'bg-primary text-white'
                       : useDarkHeader ? 'text-neutral-600 hover:bg-neutral-300' : 'text-white/90 hover:bg-white/20'
@@ -172,7 +173,7 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
             <button
               type="button"
               onClick={handleOpenMenu}
-              className="flex flex-col justify-center gap-1.5 rounded p-2 md:hidden"
+              className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded md:hidden"
               aria-label="Toggle menu"
               aria-expanded={menuOpen}
             >
@@ -283,8 +284,8 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
         </>
       )}
 
-      {/* Booking Modal */}
-      <BookingModal isOpen={bookingModalOpen} onClose={() => setBookingModalOpen(false)} />
+      {/* Booking Modal — only loaded when opened */}
+      {bookingModalOpen && <BookingModal isOpen={bookingModalOpen} onClose={() => setBookingModalOpen(false)} />}
     </>
   );
 }

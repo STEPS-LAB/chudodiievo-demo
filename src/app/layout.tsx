@@ -12,7 +12,7 @@ import '@/styles/globals.css';
 // Optimize fonts - load only necessary weights and subsets
 const inter = Inter({
   subsets: ['latin', 'cyrillic'],
-  weight: ['400', '500', '600'], // Only load necessary weights
+  weight: ['400', '500'],
   display: 'swap',
   variable: '--font-inter',
   preload: true,
@@ -21,10 +21,10 @@ const inter = Inter({
 
 const montserrat = Montserrat({
   subsets: ['latin', 'cyrillic'],
-  weight: ['500', '600'], // Only load necessary weights (mainly for headings)
+  weight: ['500'],
   display: 'swap',
   variable: '--font-montserrat',
-  preload: true,
+  preload: false,
   fallback: ['system-ui', 'sans-serif'],
 });
 

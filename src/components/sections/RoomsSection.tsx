@@ -73,12 +73,12 @@ export default function RoomsSection() {
                     <h3 className="text-xl font-display font-medium text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors">
                       {room.name.ua}
                     </h3>
-                    <p className="text-sm text-neutral-500 mb-4 line-clamp-2">
+                    <p className="text-sm text-neutral-600 mb-4 line-clamp-2">
                       {room.shortDescription.ua}
                     </p>
 
                     {/* Amenities */}
-                    <div className="flex items-center space-x-4 mb-4 text-sm text-neutral-500">
+                    <div className="flex items-center space-x-4 mb-4 text-sm text-neutral-600">
                       <div className="flex items-center space-x-1">
                         <Users className="w-4 h-4" />
                         <span>{room.maxGuests}</span>
@@ -92,11 +92,11 @@ export default function RoomsSection() {
                     {/* Price & CTA */}
                     <div className="flex items-center justify-between pt-4 border-t border-neutral-100">
                       <div>
-                        <span className="text-xs text-neutral-500">від</span>
+                        <span className="text-xs text-neutral-600">від</span>
                         <div className="text-lg font-medium text-primary-700">
                           {room.price.toLocaleString()} ₴
                         </div>
-                        <span className="text-xs text-neutral-500">за ніч</span>
+                        <span className="text-xs text-neutral-600">за ніч</span>
                       </div>
                       <span className="flex items-center text-sm font-medium text-primary-600 group-hover:translate-x-2 transition-transform">
                         Детальніше

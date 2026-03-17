@@ -86,7 +86,7 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
         >
           <CalendarDays className="h-5 w-5 shrink-0 text-neutral-500" />
           <div className="flex min-w-0 flex-1 items-center justify-between gap-2">
-            <span className="text-xs text-neutral-500">{copy.searchDates}:</span>
+            <span className="text-xs text-neutral-600">{copy.searchDates}:</span>
             <span className="truncate font-medium text-neutral-900">
               {datesDisplayFull}
             </span>
@@ -161,7 +161,7 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
       {/* Guests Selector */}
       <div className="flex h-14 w-full items-center gap-3 rounded-sm bg-white px-4 shadow-sm transition hover:bg-neutral-50 sm:w-[340px]">
         <Users className="h-5 w-5 shrink-0 text-neutral-500" />
-        <span className="text-xs text-neutral-500">{copy.searchGuests}:</span>
+        <span className="text-xs text-neutral-600">{copy.searchGuests}:</span>
         <div className="ml-auto flex items-center gap-3">
           <button
             type="button"

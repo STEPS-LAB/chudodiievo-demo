@@ -1,11 +1,13 @@
+import dynamic from 'next/dynamic';
 import Hero from '@/components/layout/Hero';
-import AboutSection from '@/components/sections/AboutSection';
-import RoomsSection from '@/components/sections/RoomsSection';
-import RestaurantSection from '@/components/sections/RestaurantSection';
-import RelaxationSection from '@/components/sections/RelaxationSection';
-import PoolSection from '@/components/sections/PoolSection';
-import TestimonialsSection from '@/components/sections/TestimonialsSection';
-import ResortMap from '@/components/map/ResortMap';
+
+const AboutSection = dynamic(() => import('@/components/sections/AboutSection'));
+const RoomsSection = dynamic(() => import('@/components/sections/RoomsSection'));
+const RestaurantSection = dynamic(() => import('@/components/sections/RestaurantSection'));
+const RelaxationSection = dynamic(() => import('@/components/sections/RelaxationSection'));
+const PoolSection = dynamic(() => import('@/components/sections/PoolSection'));
+const ResortMap = dynamic(() => import('@/components/map/ResortMap'));
+const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'));
 
 export const metadata = {
   title: 'Чудодієво | Розкішний відпочинок на природі',
