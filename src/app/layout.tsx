@@ -1,16 +1,13 @@
 import { ReactNode } from 'react';
 import { Metadata } from 'next';
 import { Inter, Montserrat } from 'next/font/google';
-import dynamic from 'next/dynamic';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import MainWrapper from '@/components/layout/MainWrapper';
+import ClientWidgets from '@/components/layout/ClientWidgets';
 import { LanguageProvider } from '@/lib/i18n/LanguageProvider';
 import { HeaderProvider } from '@/components/layout/HeaderContext';
 import '@/styles/globals.css';
-
-const AIConcierge = dynamic(() => import('@/features/ai-concierge/AIConcierge'), { ssr: false });
-const MobileBookingBar = dynamic(() => import('@/features/booking/MobileBookingBar'), { ssr: false });
 
 // Optimize fonts - load only necessary weights and subsets
 const inter = Inter({
@@ -46,8 +43,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <Header />
               <MainWrapper>{children}</MainWrapper>
               <Footer />
-              <AIConcierge />
-              <MobileBookingBar />
+              <ClientWidgets />
             </div>
           </HeaderProvider>
         </LanguageProvider>
