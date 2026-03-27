@@ -3,7 +3,6 @@
 import { useState, useRef } from 'react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { CalendarDays, Minus, Plus, Users, Loader2 } from 'lucide-react';
-import { format } from 'date-fns';
 
 interface BookingBarProps {
   onSearch?: (data: BookingData) => void;
@@ -16,6 +15,22 @@ interface BookingData {
 }
 
 type SearchStatus = 'idle' | 'loading' | 'success';
+
+function formatDate(value: string, locale: 'ua' | 'en', short = false) {
+  const [year, month, day] = value.split('-');
+  if (!year || !month || !day) return value;
+
+  if (locale === 'en' && short) {
+    return `${month}/${day}/${year.slice(-2)}`;
+  }
+
+  if (locale === 'ua' || !short) {
+    const y = short ? year.slice(-2) : year;
+    return `${day}.${month}.${y}`;
+  }
+
+  return `${month}/${day}/${year}`;
+}
 
 export default function BookingBar({ onSearch }: BookingBarProps) {
   const { locale } = useLanguage();
@@ -52,12 +67,8 @@ export default function BookingBar({ onSearch }: BookingBarProps) {
   };
 
   const datesDisplayFull = isUA
-    ? `${format(new Date(checkIn), 'dd.MM.yyyy')} — ${format(new Date(checkOut), 'dd.MM.yyyy')}`
-    : `${format(new Date(checkIn), 'dd.MM.yyyy')} — ${format(new Date(checkOut), 'dd.MM.yyyy')}`;
-
-  const datesDisplayShort = isUA
-    ? `${format(new Date(checkIn), 'dd.MM.yy')} — ${format(new Date(checkOut), 'dd.MM.yy')}`
-    : `${format(new Date(checkIn), 'MM/dd/yy')} — ${format(new Date(checkOut), 'MM/dd/yy')}`;
+    ? `${formatDate(checkIn, 'ua')} — ${formatDate(checkOut, 'ua')}`
+    : `${formatDate(checkIn, 'en')} — ${formatDate(checkOut, 'en')}`;
 
   const copy = {
     searchDates: isUA ? 'Дати' : 'Dates',

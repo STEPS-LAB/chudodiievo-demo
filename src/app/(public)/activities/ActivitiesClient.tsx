@@ -3,17 +3,87 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Clock, Users, Volleyball } from 'lucide-react';
-import { FaBicycle, FaSpa, FaMotorcycle, FaSailboat, FaFish, FaFutbol, FaBath } from 'react-icons/fa6';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 
+type IconProps = { className?: string };
+
+function BikeIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="6.5" cy="17.5" r="3.5" />
+      <circle cx="17.5" cy="17.5" r="3.5" />
+      <path d="M6.5 17.5 10 10h4l-2 4" />
+      <path d="M14 6h2l2 4" />
+      <path d="M10 10 8.5 6H6" />
+    </svg>
+  );
+}
+
+function BathIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 12V7a2 2 0 0 1 2-2h2" />
+      <path d="M4 12h16v3a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4v-3Z" />
+      <path d="M8 19v2" />
+      <path d="M16 19v2" />
+    </svg>
+  );
+}
+
+function AtvIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="7" cy="17" r="2.5" />
+      <circle cx="17" cy="17" r="2.5" />
+      <path d="M6 17h5l2-6h5" />
+      <path d="M9 11h4l1 3" />
+      <path d="M16 7h3l2 4" />
+    </svg>
+  );
+}
+
+function BoatIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 3v9" />
+      <path d="M12 4l6 5H12" />
+      <path d="M3 15l9 4 9-4-9-3-9 3Z" />
+      <path d="M5 20h14" />
+    </svg>
+  );
+}
+
+function FishIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 12s3-5 9-5 9 5 9 5-3 5-9 5-9-5-9-5Z" />
+      <path d="M21 12l-3-3 1 3-1 3 3-3Z" />
+      <circle cx="10" cy="11" r="1" />
+    </svg>
+  );
+}
+
+function FootballIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7l2.5 2-1 3h-3l-1-3L12 7Z" />
+      <path d="M7.5 10.5l2-1.5" />
+      <path d="M16.5 10.5l-2-1.5" />
+      <path d="M9 16l-2 1" />
+      <path d="M15 16l2 1" />
+    </svg>
+  );
+}
+
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  cycling: FaBicycle,
-  banya: FaBath,
-  atv: FaMotorcycle,
-  boats: FaSailboat,
-  fishing: FaFish,
+  cycling: BikeIcon,
+  banya: BathIcon,
+  atv: AtvIcon,
+  boats: BoatIcon,
+  fishing: FishIcon,
   tennis: Volleyball,
-  football: FaFutbol,
+  football: FootballIcon,
 };
 
 interface Activity {

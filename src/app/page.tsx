@@ -1,13 +1,5 @@
-import dynamic from 'next/dynamic';
 import Hero from '@/components/layout/Hero';
-
-const AboutSection = dynamic(() => import('@/components/sections/AboutSection'));
-const RoomsSection = dynamic(() => import('@/components/sections/RoomsSection'));
-const RestaurantSection = dynamic(() => import('@/components/sections/RestaurantSection'));
-const RelaxationSection = dynamic(() => import('@/components/sections/RelaxationSection'));
-const PoolSection = dynamic(() => import('@/components/sections/PoolSection'));
-const ResortMap = dynamic(() => import('@/components/map/ResortMap'));
-const TestimonialsSection = dynamic(() => import('@/components/sections/TestimonialsSection'));
+import HomeSections from '@/app/home-sections';
 
 export const metadata = {
   title: 'Чудодієво | Розкішний відпочинок на природі',
@@ -27,31 +19,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-
-      {/* About Section */}
-      <AboutSection />
-
-      {/* Rooms Section */}
-      <div id="rooms">
-        <RoomsSection />
-      </div>
-
-      {/* Restaurant Section */}
-      <RestaurantSection />
-
-      {/* Relaxation Section */}
-      <RelaxationSection />
-
-      {/* Pool Section */}
-      <div id="pool">
-        <PoolSection />
-      </div>
-
-      {/* Resort Map Section */}
-      <ResortMap />
-
-      {/* Testimonials Section */}
-      <TestimonialsSection />
+      <HomeSections />
     </>
   );
 }
