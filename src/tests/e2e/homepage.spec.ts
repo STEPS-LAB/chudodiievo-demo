@@ -16,7 +16,7 @@ test.describe('Homepage', () => {
     
     // Click on Rooms navigation
     await page.click('text=Номери');
-    await expect(page).toHaveURL(/\/ua\/rooms/);
+    await expect(page).toHaveURL(/\/ua(\/)?(#rooms)?$/);
   });
 
   test('should display booking form', async ({ page }) => {

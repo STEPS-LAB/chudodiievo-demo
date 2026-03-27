@@ -37,7 +37,7 @@ export default function RelatedRooms({ rooms }: RelatedRoomsProps) {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <Link href={`/rooms/${room.slug}`} className="group block">
+              <Link href="/contacts" className="group block">
                 <div className="luxury-card overflow-hidden">
                   {/* Image */}
                   <div className="image-zoom-container relative aspect-[4/3] overflow-hidden">

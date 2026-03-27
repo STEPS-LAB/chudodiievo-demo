@@ -87,7 +87,7 @@ export const mapLocations: MapLocation[] = [
     },
     coordinates: { x: 320, y: 200 },
     icon: 'cottage',
-    page: '/rooms/lake-house',
+    page: '/contacts',
     aiPrompt: {
       ua: 'Чим особливий Озерний Будинок?',
       en: 'What makes the Lake House special?',
@@ -105,7 +105,7 @@ export const mapLocations: MapLocation[] = [
     },
     coordinates: { x: 100, y: 180 },
     icon: 'cottage',
-    page: '/rooms/forest-cottage',
+    page: '/contacts',
     aiPrompt: {
       ua: 'Чи є у Лісовому Котеджі сауна?',
       en: 'Does the Forest Cottage have a sauna?',
@@ -123,7 +123,7 @@ export const mapLocations: MapLocation[] = [
     },
     coordinates: { x: 220, y: 160 },
     icon: 'cottage',
-    page: '/rooms/premium-suite',
+    page: '/contacts',
     aiPrompt: {
       ua: 'Що входить у послуги консьєржа для Преміум Люксу?',
       en: 'What concierge services are included for Premium Suite?',

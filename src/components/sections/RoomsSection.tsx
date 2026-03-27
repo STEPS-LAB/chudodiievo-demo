@@ -53,7 +53,7 @@ export default function RoomsSection() {
               animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <Link href={`/rooms/${room.id}`} className="block group">
+              <Link href="/contacts" className="block group">
                 <div className="bg-white rounded-sm shadow-md overflow-hidden md:hover:shadow-lg transition-shadow">
                   {/* Image */}
                   <div className="image-zoom-container relative aspect-[4/3] overflow-hidden">

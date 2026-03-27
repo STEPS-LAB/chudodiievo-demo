@@ -91,7 +91,7 @@ export default function Footer() {
                 <li key={link.key}>
                   <Link
                     href={link.href}
-                    className="text-neutral-300 underline underline-offset-2 decoration-neutral-600 hover:text-white hover:decoration-white transition-colors duration-200"
+                    className="text-neutral-300 hover:text-white transition-colors duration-200"
                   >
                     {t(`common.${link.key}`)}
                   </Link>
@@ -116,7 +116,7 @@ export default function Footer() {
                 <Phone className="w-5 h-5 text-primary-500 flex-shrink-0" aria-hidden="true" />
                 <a
                   href="tel:+380123456789"
-                  className="text-neutral-300 underline underline-offset-2 decoration-neutral-600 hover:text-white hover:decoration-white transition-colors"
+                  className="text-neutral-300 hover:text-white transition-colors"
                 >
                   +38 (012) 345-67-89
                 </a>
@@ -125,7 +125,7 @@ export default function Footer() {
                 <Mail className="w-5 h-5 text-primary-500 flex-shrink-0" aria-hidden="true" />
                 <a
                   href="mailto:info@chudodievo.com"
-                  className="text-neutral-300 underline underline-offset-2 decoration-neutral-600 hover:text-white hover:decoration-white transition-colors"
+                  className="text-neutral-300 hover:text-white transition-colors"
                 >
                   info@chudodievo.com
                 </a>
@@ -152,16 +152,16 @@ export default function Footer() {
                 href="https://stepslab.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary-300 underline underline-offset-2 decoration-primary-600 hover:text-primary-200 hover:decoration-primary-300 transition-colors"
+                className="text-primary-300 hover:text-primary-200 transition-colors"
               >
                 STEPS LAB
               </a>
             </p>
             <div className="flex flex-col md:flex-row items-center justify-between w-full md:w-auto md:justify-end space-y-2 md:space-y-0 md:space-x-6">
-              <a href="/privacy" className="text-sm text-neutral-400 underline underline-offset-2 decoration-neutral-600 hover:text-white hover:decoration-white transition-colors">
+              <a href="/privacy" className="text-sm text-neutral-400 hover:text-white transition-colors">
                 {isUA ? 'Політика конфіденційності' : 'Privacy Policy'}
               </a>
-              <a href="/terms" className="text-sm text-neutral-400 underline underline-offset-2 decoration-neutral-600 hover:text-white hover:decoration-white transition-colors">
+              <a href="/terms" className="text-sm text-neutral-400 hover:text-white transition-colors">
                 {isUA ? 'Умови використання' : 'Terms of Use'}
               </a>
             </div>

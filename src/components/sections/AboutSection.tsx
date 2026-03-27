@@ -146,9 +146,6 @@ export default function AboutSection() {
                 </div>
               </div>
             </div>
-
-            {/* Decorative Element */}
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-primary-100 rounded-sm -z-10" />
           </motion.div>
         </div>
       </div>
