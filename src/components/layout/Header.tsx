@@ -142,13 +142,13 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
           {/* Actions */}
           <div className="flex items-center gap-2">
             {/* Language Switch */}
-            <div className={`flex items-center gap-1 rounded-sm p-0.5 ${
+            <div className={`flex items-center gap-1 rounded-sm p-0 ${
               useDarkHeader ? 'bg-neutral-200' : 'bg-white/10 backdrop-blur border border-white/30'
             }`}>
               {(['ua', 'en'] as const).map((code) => (
                 <button
                   key={code}
-                  className={`flex h-11 min-w-[2.75rem] items-center justify-center rounded-sm px-3 text-xs uppercase tracking-[0.14em] transition ${
+                  className={`flex h-9 min-w-[2.75rem] items-center justify-center rounded-sm px-3 text-xs uppercase tracking-[0.14em] transition ${
                     locale === code
                       ? 'bg-primary text-white'
                       : useDarkHeader ? 'text-neutral-600 hover:bg-neutral-300' : 'text-white/90 hover:bg-white/20'
