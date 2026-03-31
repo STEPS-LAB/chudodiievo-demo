@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 
 const MobileBookingBar = dynamic(() => import('@/features/booking/MobileBookingBar'), { ssr: false });
+const AIConcierge = dynamic(() => import('@/features/ai-concierge/AIConcierge'), { ssr: false });
 
 export default function ClientWidgets() {
   const [mounted, setMounted] = useState(false);
@@ -40,6 +41,7 @@ export default function ClientWidgets() {
   return (
     <>
       <MobileBookingBar />
+      <AIConcierge />
     </>
   );
 }

@@ -165,20 +165,25 @@ export default function AIConcierge() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-neutral-900/50 z-40 lg:hidden"
+              className="fixed inset-0 bg-neutral-900/50 backdrop-blur-md z-40"
               onClick={() => setIsOpen(false)}
             />
 
             {/* Chat Panel */}
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.95 }}
-              className="fixed bottom-24 right-4 max-w-md bg-surface rounded-sm shadow-large z-50 overflow-hidden flex flex-col"
-              style={{ maxHeight: 'calc(100vh - 180px)' }}
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+              onClick={() => setIsOpen(false)}
             >
-              {/* Header */}
-              <div className="bg-gradient-to-r from-primary-600 to-secondary-600 px-6 py-4 flex items-center justify-between">
+              <motion.div
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                className="w-full max-w-md bg-surface rounded-sm shadow-large overflow-hidden flex flex-col"
+                style={{ maxHeight: 'calc(100vh - 2rem)' }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Header */}
+                <div className="bg-gradient-to-r from-primary-600 to-secondary-600 px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                     <Sparkles className="w-5 h-5 text-white" />
@@ -195,10 +200,10 @@ export default function AIConcierge() {
                 >
                   <X className="w-5 h-5" />
                 </button>
-              </div>
+                </div>
 
-              {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-4">
+                {/* Messages */}
+                <div className="flex-1 overflow-y-auto p-6 space-y-4">
                 {messages.map((message) => (
                   <motion.div
                     key={message.id}
@@ -233,49 +238,50 @@ export default function AIConcierge() {
                   </motion.div>
                 )}
                 <div ref={messagesEndRef} />
-              </div>
+                </div>
 
-              {/* Suggestions */}
-              {messages.length <= 2 && (
-                <div className="px-6 py-3 border-t border-neutral-100">
-                  <div className="flex flex-wrap gap-2">
-                    {suggestions.map((suggestion, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setInputValue(suggestion)}
-                        className="px-3 py-1.5 bg-neutral-50 hover:bg-primary-50 text-neutral-600 hover:text-primary-700 text-xs rounded-sm transition-colors"
-                      >
-                        {suggestion}
-                      </button>
-                    ))}
+                {/* Suggestions */}
+                {messages.length <= 2 && (
+                  <div className="px-6 py-3 border-t border-neutral-100">
+                    <div className="flex flex-wrap gap-2">
+                      {suggestions.map((suggestion, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setInputValue(suggestion)}
+                          className="px-3 py-1.5 bg-neutral-50 hover:bg-primary-50 text-neutral-600 hover:text-primary-700 text-xs rounded-sm transition-colors"
+                        >
+                          {suggestion}
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* Input */}
-              <form
-                onSubmit={handleSubmit}
-                className="p-4 border-t border-neutral-100"
-              >
-                <div className="flex items-center space-x-3">
-                  <input
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder={locale === 'ua' ? 'Запитайте щось...' : 'Ask something...'}
-                    disabled={isTyping}
-                    className="flex-1 px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-sm text-sm focus:outline-none focus:border-primary-400 transition-colors"
-                  />
-                  <button
-                    type="submit"
-                    disabled={!inputValue.trim() || isTyping}
-                    className="w-10 h-10 bg-primary-600 text-white rounded-sm flex items-center justify-center hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    <Send className="w-4 h-4" />
-                  </button>
-                </div>
-              </form>
-            </motion.div>
+                {/* Input */}
+                <form
+                  onSubmit={handleSubmit}
+                  className="p-4 border-t border-neutral-100"
+                >
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="text"
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      placeholder={locale === 'ua' ? 'Запитайте щось...' : 'Ask something...'}
+                      disabled={isTyping}
+                      className="flex-1 px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-sm text-sm focus:outline-none focus:border-primary-400 transition-colors"
+                    />
+                    <button
+                      type="submit"
+                      disabled={!inputValue.trim() || isTyping}
+                      className="w-10 h-10 bg-primary-600 text-white rounded-sm flex items-center justify-center hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <Send className="w-4 h-4" />
+                    </button>
+                  </div>
+                </form>
+              </motion.div>
+            </div>
           </>
         )}
       </AnimatePresence>
