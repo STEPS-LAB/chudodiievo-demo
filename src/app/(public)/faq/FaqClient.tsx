@@ -162,6 +162,9 @@ export default function FAQPage() {
                   <button
                     onClick={() => setOpenIndex(openIndex === index ? null : index)}
                     className="w-full flex items-center justify-between p-6 text-left bg-white hover:bg-neutral-50 transition-colors"
+                    type="button"
+                    aria-expanded={openIndex === index}
+                    aria-controls={`faq-answer-${index}`}
                   >
                     <span className="font-medium text-neutral-900 pr-8">
                       {isUA ? faq.question.ua : faq.question.en}
@@ -173,6 +176,7 @@ export default function FAQPage() {
                     />
                   </button>
                   <motion.div
+                    id={`faq-answer-${index}`}
                     initial={false}
                     animate={{
                       height: openIndex === index ? 'auto' : 0,

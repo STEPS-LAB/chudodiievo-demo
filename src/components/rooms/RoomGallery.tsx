@@ -95,7 +95,9 @@ export default function RoomGallery({ images }: RoomGalleryProps) {
               className="fixed top-6 right-6 z-50 w-12 h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors"
               aria-label="Close lightbox"
               type="button"
-            />
+            >
+              <X className="w-6 h-6" aria-hidden="true" />
+            </motion.button>
 
             {/* Navigation Buttons */}
             <motion.button
