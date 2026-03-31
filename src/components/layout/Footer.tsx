@@ -72,7 +72,7 @@ export default function Footer() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-neutral-800 rounded-sm flex items-center justify-center hover:bg-primary-600 transition-colors duration-300"
+                  className="w-12 h-12 bg-neutral-800 rounded-sm flex items-center justify-center hover:bg-primary-600 transition-colors duration-300"
                   aria-label={link.label}
                 >
                   <link.icon className="w-5 h-5" aria-hidden="true" />
@@ -86,12 +86,12 @@ export default function Footer() {
             <h3 className="font-display font-medium text-white mb-6">
               {t('footer.navigation')}
             </h3>
-            <ul className="grid grid-cols-2 gap-x-8 gap-y-3" role="list">
+            <ul className="grid grid-cols-2 gap-x-8 gap-y-2" role="list">
               {footerLinks.navigation.map((link) => (
                 <li key={link.key}>
                   <Link
                     href={link.href}
-                    className="text-neutral-300 hover:text-white transition-colors duration-200"
+                    className="inline-flex min-h-11 items-center text-neutral-200 underline decoration-neutral-500 underline-offset-4 hover:text-white transition-colors duration-200"
                   >
                     {t(`common.${link.key}`)}
                   </Link>
@@ -116,7 +116,7 @@ export default function Footer() {
                 <Phone className="w-5 h-5 text-primary-500 flex-shrink-0" aria-hidden="true" />
                 <a
                   href="tel:+380123456789"
-                  className="text-neutral-300 hover:text-white transition-colors"
+                  className="text-neutral-200 underline decoration-neutral-500 underline-offset-4 hover:text-white transition-colors"
                 >
                   +38 (012) 345-67-89
                 </a>
@@ -125,7 +125,7 @@ export default function Footer() {
                 <Mail className="w-5 h-5 text-primary-500 flex-shrink-0" aria-hidden="true" />
                 <a
                   href="mailto:info@chudodievo.com"
-                  className="text-neutral-300 hover:text-white transition-colors"
+                  className="text-neutral-200 underline decoration-neutral-500 underline-offset-4 hover:text-white transition-colors"
                 >
                   info@chudodievo.com
                 </a>
@@ -143,25 +143,25 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-neutral-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-neutral-400 text-center md:text-left">
+            <p className="text-sm text-neutral-300 text-center md:text-left">
               {t('footer.copyright')}
             </p>
-            <p className="text-sm text-neutral-400">
+            <p className="text-sm text-neutral-300">
               Developed by{' '}
               <a
                 href="https://stepslab.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary-300 hover:text-primary-200 transition-colors"
+                className="text-primary-200 underline decoration-primary-300 underline-offset-4 hover:text-white transition-colors"
               >
                 STEPS LAB
               </a>
             </p>
             <div className="flex flex-col md:flex-row items-center justify-between w-full md:w-auto md:justify-end space-y-2 md:space-y-0 md:space-x-6">
-              <a href="/privacy" className="text-sm text-neutral-400 hover:text-white transition-colors">
+              <a href="/privacy" className="inline-flex min-h-11 items-center text-sm text-neutral-300 underline decoration-neutral-500 underline-offset-4 hover:text-white transition-colors">
                 {isUA ? 'Політика конфіденційності' : 'Privacy Policy'}
               </a>
-              <a href="/terms" className="text-sm text-neutral-400 hover:text-white transition-colors">
+              <a href="/terms" className="inline-flex min-h-11 items-center text-sm text-neutral-300 underline decoration-neutral-500 underline-offset-4 hover:text-white transition-colors">
                 {isUA ? 'Умови використання' : 'Terms of Use'}
               </a>
             </div>
