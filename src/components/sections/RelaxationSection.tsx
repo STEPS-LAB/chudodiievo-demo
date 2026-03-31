@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useIntersectionObserver } from '@/lib/hooks';
+import { useIntersectionObserver } from '@/lib/hooks/useIntersectionObserver';
 import { Bike, Fish, Flower2 } from 'lucide-react';
 import Link from 'next/link';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';

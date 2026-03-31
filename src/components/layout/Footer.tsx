@@ -14,7 +14,7 @@ const footerLinks = {
     { href: '/#rooms', key: 'rooms' },
     { href: '/restaurant', key: 'restaurant' },
     { href: '/activities', key: 'activities' },
-    { href: '/pool', key: 'pool' },
+    { href: '/#pool', key: 'pool' },
   ],
 };
 

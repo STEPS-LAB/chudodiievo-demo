@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Users, Minus, Plus } from 'lucide-react';
+import { X, Users, Minus, Plus, Loader2 } from 'lucide-react';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -10,6 +10,17 @@ interface BookingModalProps {
 }
 
 export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
+  const formatDateLocal = (date: Date) => {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+  };
+
+  const parseDateInput = (value: string) => {
+    return new Date(`${value}T12:00:00`);
+  };
+
   const [checkIn, setCheckIn] = useState<Date>(() => {
     const today = new Date();
     const tomorrow = new Date(today);
@@ -23,6 +34,8 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     return checkout;
   });
   const [guests, setGuests] = useState(1);
+  const [searchStatus, setSearchStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+  const isSearching = searchStatus !== 'idle';
   const checkInInputRef = useRef<HTMLInputElement>(null);
   const checkOutInputRef = useRef<HTMLInputElement>(null);
 
@@ -41,11 +54,11 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
   // Close on Escape
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape' && !isSearching) onClose();
     };
     document.addEventListener('keydown', handleEsc);
     return () => document.removeEventListener('keydown', handleEsc);
-  }, [onClose]);
+  }, [onClose, isSearching]);
 
   const today = new Date();
   const tomorrow = new Date(today);
@@ -63,16 +76,18 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center"
-            onClick={onClose}
+            onClick={() => {
+              if (!isSearching) onClose();
+            }}
           >
             {/* Modal */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
+              transition={{ duration: 0.28, ease: 'easeOut' }}
               className="w-[95%] max-w-[400px] rounded-sm bg-white p-6 shadow-2xl max-h-[90vh] overflow-y-auto"
               role="dialog"
               aria-modal="true"
@@ -85,9 +100,12 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 Бронювання
               </h2>
               <button
-                onClick={onClose}
+                onClick={() => {
+                  if (!isSearching) onClose();
+                }}
                 className="flex h-10 w-10 items-center justify-center rounded-sm bg-neutral-50 hover:bg-neutral-100 transition-colors"
                 aria-label="Закрити"
+                disabled={isSearching}
               >
                 <X className="w-5 h-5 text-neutral-500" />
               </button>
@@ -104,10 +122,10 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   <input
                     ref={checkInInputRef}
                     type="date"
-                    min={tomorrow.toISOString().split('T')[0]}
-                    value={checkIn.toISOString().split('T')[0]}
+                    min={formatDateLocal(tomorrow)}
+                    value={formatDateLocal(checkIn)}
                     onChange={(e) => {
-                      const newDate = new Date(e.target.value);
+                      const newDate = parseDateInput(e.target.value);
                       setCheckIn(newDate);
                       if (checkOut <= newDate) {
                         const newCheckout = new Date(newDate);
@@ -115,12 +133,8 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                         setCheckOut(newCheckout);
                       }
                     }}
-                    className="luxury-input bg-white h-[52px] w-full"
+                    className="luxury-input bg-white h-[52px] w-full appearance-none"
                     style={{ colorScheme: 'light' }}
-                  />
-                  <div 
-                    className="absolute inset-0 cursor-pointer"
-                    onClick={() => checkInInputRef.current?.showPicker()}
                   />
                 </div>
               </div>
@@ -134,15 +148,11 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   <input
                     ref={checkOutInputRef}
                     type="date"
-                    min={minCheckOut.toISOString().split('T')[0]}
-                    value={checkOut.toISOString().split('T')[0]}
-                    onChange={(e) => setCheckOut(new Date(e.target.value))}
-                    className="luxury-input bg-white h-[52px] w-full"
+                    min={formatDateLocal(minCheckOut)}
+                    value={formatDateLocal(checkOut)}
+                    onChange={(e) => setCheckOut(parseDateInput(e.target.value))}
+                    className="luxury-input bg-white h-[52px] w-full appearance-none"
                     style={{ colorScheme: 'light' }}
-                  />
-                  <div 
-                    className="absolute inset-0 cursor-pointer"
-                    onClick={() => checkOutInputRef.current?.showPicker()}
                   />
                 </div>
               </div>
@@ -177,12 +187,43 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
               {/* Submit Button */}
               <button
                 onClick={() => {
-                  onClose();
+                  if (isSearching) return;
+                  setSearchStatus('loading');
+                  setTimeout(() => {
+                    setSearchStatus('success');
+                    setTimeout(() => {
+                      setSearchStatus('idle');
+                      onClose();
+                    }, 1100);
+                  }, 2600);
                 }}
-                className="w-full h-[52px] bg-[var(--color-primary)] hover:bg-primary-900 text-white text-sm font-medium uppercase tracking-[0.1em] rounded-sm transition-colors duration-300"
+                disabled={isSearching}
+                className="w-full h-[52px] bg-[var(--color-primary)] hover:bg-primary-900 text-white text-sm font-medium uppercase tracking-[0.1em] rounded-sm transition-colors duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 Підібрати номер
               </button>
+
+              <div
+                className={`grid transition-all duration-500 ease-in-out ${
+                  isSearching ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <div className="flex items-center gap-3 rounded-sm bg-neutral-100/90 p-4 text-sm">
+                    {searchStatus === 'loading' ? (
+                      <>
+                        <Loader2 className="h-5 w-5 animate-spin text-neutral-500" />
+                        <span className="text-neutral-700">AI підбирає найкращий номер для вашого відпочинку...</span>
+                      </>
+                    ) : (
+                      <>
+                        <div className="h-2 w-2 rounded-full bg-green-600" />
+                        <span className="text-neutral-700">Підходящий номер знайдено. Закриваємо вікно...</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
             </div>
           </motion.div>
           </motion.div>

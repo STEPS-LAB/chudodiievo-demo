@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useCallback, useEffect, useState } from 'react';
 import { Star, Quote } from 'lucide-react';
-import { useIntersectionObserver } from '@/lib/hooks';
+import { useIntersectionObserver } from '@/lib/hooks/useIntersectionObserver';
 import Image from 'next/image';
 
 const testimonials = [

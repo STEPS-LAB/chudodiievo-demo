@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useIntersectionObserver } from '@/lib/hooks';
+import { useIntersectionObserver } from '@/lib/hooks/useIntersectionObserver';
 import { Trees, Gem, Heart, Utensils } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import Image from 'next/image';

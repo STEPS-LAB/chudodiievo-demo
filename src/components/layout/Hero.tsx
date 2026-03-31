@@ -13,7 +13,7 @@ interface HeroProps {
 export default function Hero({
   title,
   subtitle,
-  backgroundImage = '/images/hero.webp',
+  backgroundImage = '/images/home-hero.webp',
 }: HeroProps) {
   const { locale } = useLanguage();
 

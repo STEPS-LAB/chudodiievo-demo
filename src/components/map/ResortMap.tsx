@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { mapLocations } from '@/lib/config/map';
-import { useIntersectionObserver } from '@/lib/hooks';
+import { useIntersectionObserver } from '@/lib/hooks/useIntersectionObserver';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 
 const iconColors = {

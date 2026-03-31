@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Check } from 'lucide-react';
-import { useIntersectionObserver } from '@/lib/hooks';
+import { useIntersectionObserver } from '@/lib/hooks/useIntersectionObserver';
 
 export default function NewsletterSection() {
   const { ref, isVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });

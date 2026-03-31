@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageSquare, X, Send, Sparkles } from 'lucide-react';
-import { useScrollPosition } from '@/lib/hooks';
+import { useScrollPosition } from '@/lib/hooks/useScrollPosition';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 
 interface Message {

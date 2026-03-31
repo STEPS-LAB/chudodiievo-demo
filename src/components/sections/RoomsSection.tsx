@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, Users, Maximize } from 'lucide-react';
-import { useIntersectionObserver } from '@/lib/hooks';
+import { useIntersectionObserver } from '@/lib/hooks/useIntersectionObserver';
 import { getFeaturedRooms } from '@/lib/config/rooms';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import Image from 'next/image';

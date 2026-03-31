@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useScrollPosition } from '@/lib/hooks';
+import { useScrollPosition } from '@/lib/hooks/useScrollPosition';
 import type { Room } from '@/lib/config/rooms';
 
 interface RoomHeroProps {

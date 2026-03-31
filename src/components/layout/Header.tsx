@@ -3,11 +3,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/lib/i18n/LanguageProvider';
 import { useTranslations } from '@/lib/i18n/useTranslations';
 import { useHeader } from './HeaderContext';
-import dynamic from 'next/dynamic';
-const BookingModal = dynamic(() => import('@/components/booking/BookingModal'), { ssr: false });
+import { motion, AnimatePresence } from 'framer-motion';
+import BookingModal from '@/components/booking/BookingModal';
 
 const NAV_ITEMS = [
   { href: '/', key: 'home' },
@@ -24,28 +25,57 @@ interface HeaderProps {
 }
 
 export default function Header({ variant: pageVariant }: HeaderProps) {
+  const router = useRouter();
+  const pathname = usePathname();
   const { locale, setLocale } = useLanguage();
   const t = useTranslations();
   const { variant: contextVariant } = useHeader();
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
-  const isClosingRef = useRef(false);
+  const [menuDragX, setMenuDragX] = useState(0);
   const headerRef = useRef<HTMLElement>(null);
+  const panelTouchStartXRef = useRef<number | null>(null);
+  const panelTouchStartYRef = useRef<number | null>(null);
+  const panelDragXRef = useRef(0);
+  const edgeTouchStartXRef = useRef<number | null>(null);
+  const edgeTouchStartYRef = useRef<number | null>(null);
 
   const handleCloseMenu = useCallback(() => {
-    if (isClosingRef.current) return;
-    isClosingRef.current = true;
     setMenuOpen(false);
-    setTimeout(() => {
-      isClosingRef.current = false;
-    }, 400);
+    panelDragXRef.current = 0;
+    setMenuDragX(0);
   }, []);
 
   const handleOpenMenu = useCallback(() => {
-    if (isClosingRef.current) return;
     setMenuOpen(true);
   }, []);
+
+  const handleNav = useCallback((href: string) => {
+    handleCloseMenu();
+    const [pathPart, hashPart] = href.split('#');
+    const targetPath = pathPart || '/';
+    const hashId = hashPart || '';
+    const hash = hashPart ? `#${hashPart}` : '';
+
+    if (!hash) {
+      router.push(targetPath);
+      return;
+    }
+
+    if (pathname === targetPath) {
+      requestAnimationFrame(() => {
+        const targetEl = document.getElementById(hashId);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        history.replaceState(null, '', `${targetPath}${hash}`);
+      });
+      return;
+    }
+
+    router.push(`${targetPath}${hash}`);
+  }, [handleCloseMenu, pathname, router]);
 
   const scrollToTop = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -77,6 +107,46 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
     document.addEventListener('keydown', handleEsc);
     return () => document.removeEventListener('keydown', handleEsc);
   }, [menuOpen]);
+
+  useEffect(() => {
+    if (menuOpen) return;
+    const EDGE_THRESHOLD = 40;
+    const SWIPE_OPEN_DISTANCE = 70;
+
+    const onTouchStart = (e: TouchEvent) => {
+      const x = e.touches[0]?.clientX;
+      const y = e.touches[0]?.clientY;
+      if (typeof x !== 'number') return;
+      if (typeof y !== 'number') return;
+      edgeTouchStartXRef.current = window.innerWidth - x <= EDGE_THRESHOLD ? x : null;
+      edgeTouchStartYRef.current = y;
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      const startX = edgeTouchStartXRef.current;
+      const startY = edgeTouchStartYRef.current;
+      edgeTouchStartXRef.current = null;
+      edgeTouchStartYRef.current = null;
+      if (typeof startX !== 'number') return;
+      if (typeof startY !== 'number') return;
+      const endX = e.changedTouches[0]?.clientX;
+      const endY = e.changedTouches[0]?.clientY;
+      if (typeof endX !== 'number') return;
+      if (typeof endY !== 'number') return;
+      const deltaX = startX - endX;
+      const deltaY = Math.abs(startY - endY);
+      if (deltaX > SWIPE_OPEN_DISTANCE && deltaX > deltaY) {
+        handleOpenMenu();
+      }
+    };
+
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchend', onTouchEnd, { passive: true });
+    return () => {
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [menuOpen, handleOpenMenu]);
 
   useEffect(() => {
     if (menuOpen) {
@@ -198,94 +268,102 @@ export default function Header({ variant: pageVariant }: HeaderProps) {
       </header>
 
       {/* Mobile Menu Drawer */}
-      {menuOpen && (
-        <>
-          {/* Backdrop - instant fade without motion for mobile performance */}
-          <div
-            className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-md md:hidden"
-            aria-hidden="true"
-            onTouchEnd={handleCloseMenu}
-            onClick={(e) => {
-              e.preventDefault();
-              handleCloseMenu();
-            }}
-          />
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.45 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-md md:hidden"
+              aria-hidden="true"
+              onClick={handleCloseMenu}
+            />
 
-          {/* Close Button - static without motion animation */}
-          <button
-            key="close-btn"
-            type="button"
-            onTouchStart={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleCloseMenu();
-              return false;
-            }}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              handleCloseMenu();
-              return false;
-            }}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              return false;
-            }}
-            className="fixed right-6 top-6 z-[62] flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-neutral-900)] shadow-lg outline-none md:hidden ios-no-flicker"
-            aria-label="Close menu"
-            style={{
-              WebkitTapHighlightColor: 'transparent',
-              WebkitUserSelect: 'none',
-              userSelect: 'none',
-              WebkitAppearance: 'none',
-              WebkitTransform: 'translate3d(0, 0, 0)',
-              transform: 'translate3d(0, 0, 0)',
-              WebkitBackfaceVisibility: 'hidden',
-              backfaceVisibility: 'hidden',
-              cursor: 'default',
-              touchAction: 'none',
-              pointerEvents: 'auto',
-            }}
-          >
-            <span className="relative flex h-5 w-5 shrink-0 items-center justify-center" aria-hidden>
-              <span
-                className="absolute h-[1.5px] w-5 rounded-full bg-[var(--color-neutral-900)]"
-                style={{ transform: 'rotate(45deg)' }}
-              />
-              <span
-                className="absolute h-[1.5px] w-5 rounded-full bg-[var(--color-neutral-900)]"
-                style={{ transform: 'rotate(-45deg)' }}
-              />
-            </span>
-          </button>
+            <button
+              key="close-btn"
+              type="button"
+              onClick={handleCloseMenu}
+              className="fixed right-6 top-6 z-[62] flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-neutral-900)] shadow-lg outline-none md:hidden ios-no-flicker"
+              aria-label="Close menu"
+            >
+              <span className="relative flex h-5 w-5 shrink-0 items-center justify-center" aria-hidden>
+                <span
+                  className="absolute h-[1.5px] w-5 rounded-full bg-[var(--color-neutral-900)]"
+                  style={{ transform: 'rotate(45deg)' }}
+                />
+                <span
+                  className="absolute h-[1.5px] w-5 rounded-full bg-[var(--color-neutral-900)]"
+                  style={{ transform: 'rotate(-45deg)' }}
+                />
+              </span>
+            </button>
 
-          {/* Menu Panel - slide animation using CSS instead of Framer Motion */}
-          <aside
-            className="fixed inset-y-0 right-0 z-[61] w-[min(88vw,320px)] bg-[var(--color-surface)] shadow-2xl md:hidden animate-slide-in"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Menu"
-          >
-            <nav className="flex flex-col gap-4 pt-24 pb-8 pl-8 pr-6" aria-label="Mobile">
-              {NAV_ITEMS.map(({ key, href }) => (
-                <a
-                  key={key}
-                  href={href}
-                  onClick={handleCloseMenu}
-                  className="font-light leading-relaxed text-[var(--color-neutral-900)] tracking-[0.04em] hover:opacity-70"
-                  style={{ fontWeight: 300, fontSize: '1.05rem' }}
-                >
-                  {t(`common.${key}`)}
-                </a>
-              ))}
-            </nav>
-          </aside>
-        </>
-      )}
+            <motion.aside
+              initial={{ x: '100%' }}
+              animate={{ x: menuDragX }}
+              exit={{ x: '100%' }}
+              transition={{ duration: 0.28, ease: 'easeOut' }}
+              className="fixed inset-y-0 right-0 z-[61] w-[min(88vw,320px)] bg-[var(--color-surface)] shadow-2xl md:hidden"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu"
+              onTouchStart={(e) => {
+                panelTouchStartXRef.current = e.touches[0]?.clientX ?? null;
+                panelTouchStartYRef.current = e.touches[0]?.clientY ?? null;
+                panelDragXRef.current = 0;
+              }}
+              onTouchMove={(e) => {
+                const startX = panelTouchStartXRef.current;
+                const startY = panelTouchStartYRef.current;
+                if (typeof startX !== 'number') return;
+                if (typeof startY !== 'number') return;
+                const currentX = e.touches[0]?.clientX;
+                const currentY = e.touches[0]?.clientY;
+                if (typeof currentX !== 'number') return;
+                if (typeof currentY !== 'number') return;
+                const verticalDelta = Math.abs(currentY - startY);
+                const delta = Math.max(0, currentX - startX);
+                if (delta <= verticalDelta) return;
+                const clamped = Math.min(160, delta);
+                panelDragXRef.current = clamped;
+                setMenuDragX(clamped);
+              }}
+              onTouchEnd={() => {
+                if (panelDragXRef.current > 80) {
+                  handleCloseMenu();
+                } else {
+                  panelDragXRef.current = 0;
+                  setMenuDragX(0);
+                }
+                panelTouchStartXRef.current = null;
+                panelTouchStartYRef.current = null;
+              }}
+            >
+              <nav className="flex flex-col gap-4 pt-24 pb-8 pl-8 pr-6" aria-label="Mobile">
+                {NAV_ITEMS.map(({ key, href }) => (
+                  <Link
+                    key={key}
+                    href={href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNav(href);
+                    }}
+                    className="font-light leading-relaxed text-[var(--color-neutral-900)] tracking-[0.04em] hover:opacity-70"
+                    style={{ fontWeight: 300, fontSize: '1.05rem' }}
+                  >
+                    {t(`common.${key}`)}
+                  </Link>
+                ))}
+              </nav>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* Booking Modal — only loaded when opened */}
-      {bookingModalOpen && <BookingModal isOpen={bookingModalOpen} onClose={() => setBookingModalOpen(false)} />}
+      <BookingModal isOpen={bookingModalOpen} onClose={() => setBookingModalOpen(false)} />
     </>
   );
 }

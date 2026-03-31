@@ -36,7 +36,7 @@ export const resortSchema = {
     longitude: 29.0,
   },
   image: [
-    'https://chudodiievo-demo.vercel.app/images/hero.jpg',
+    'https://chudodiievo-demo.vercel.app/images/home-hero.webp',
   ],
   priceRange: '₴₴₴',
   starRating: {
