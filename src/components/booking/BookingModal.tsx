@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Users, Minus, Plus, Loader2 } from 'lucide-react';
+import { X, Users, Minus, Plus, Loader2, Calendar } from 'lucide-react';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -19,6 +19,24 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
 
   const parseDateInput = (value: string) => {
     return new Date(`${value}T12:00:00`);
+  };
+
+  const displayDate = (date: Date) => {
+    const d = String(date.getDate()).padStart(2, '0');
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const y = date.getFullYear();
+    return `${d}.${m}.${y}`;
+  };
+
+  const openDatePicker = (ref: React.RefObject<HTMLInputElement | null>) => {
+    const input = ref.current as (HTMLInputElement & { showPicker?: () => void }) | null;
+    if (!input) return;
+    if (typeof input.showPicker === 'function') {
+      input.showPicker();
+      return;
+    }
+    input.focus();
+    input.click();
   };
 
   const [checkIn, setCheckIn] = useState<Date>(() => {
@@ -118,7 +136,23 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 <label className="block text-sm text-neutral-600 mb-2">
                   Дата заїзду
                 </label>
-                <div className="relative w-full">
+                <div
+                  className="relative w-full cursor-pointer"
+                  onClick={() => openDatePicker(checkInInputRef)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      openDatePicker(checkInInputRef);
+                    }
+                  }}
+                  aria-label="Оберіть дату заїзду"
+                >
+                  <div className="luxury-input bg-white h-[52px] w-full flex items-center justify-between px-4 pointer-events-none">
+                    <span className="text-neutral-900 text-[1.02rem]">{displayDate(checkIn)}</span>
+                    <Calendar className="w-5 h-5 text-neutral-900" />
+                  </div>
                   <input
                     ref={checkInInputRef}
                     type="date"
@@ -133,8 +167,9 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                         setCheckOut(newCheckout);
                       }
                     }}
-                    className="luxury-input bg-white h-[52px] w-full appearance-none"
+                    className="absolute inset-0 h-[52px] w-full opacity-0 pointer-events-none"
                     style={{ colorScheme: 'light' }}
+                    aria-label="Дата заїзду"
                   />
                 </div>
               </div>
@@ -144,15 +179,32 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                 <label className="block text-sm text-neutral-600 mb-2">
                   Дата виїзду
                 </label>
-                <div className="relative w-full">
+                <div
+                  className="relative w-full cursor-pointer"
+                  onClick={() => openDatePicker(checkOutInputRef)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      openDatePicker(checkOutInputRef);
+                    }
+                  }}
+                  aria-label="Оберіть дату виїзду"
+                >
+                  <div className="luxury-input bg-white h-[52px] w-full flex items-center justify-between px-4 pointer-events-none">
+                    <span className="text-neutral-900 text-[1.02rem]">{displayDate(checkOut)}</span>
+                    <Calendar className="w-5 h-5 text-neutral-900" />
+                  </div>
                   <input
                     ref={checkOutInputRef}
                     type="date"
                     min={formatDateLocal(minCheckOut)}
                     value={formatDateLocal(checkOut)}
                     onChange={(e) => setCheckOut(parseDateInput(e.target.value))}
-                    className="luxury-input bg-white h-[52px] w-full appearance-none"
+                    className="absolute inset-0 h-[52px] w-full opacity-0 pointer-events-none"
                     style={{ colorScheme: 'light' }}
+                    aria-label="Дата виїзду"
                   />
                 </div>
               </div>

@@ -1,10 +1,8 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
-
-const MobileBookingBar = dynamic(() => import('@/features/booking/MobileBookingBar'), { ssr: false });
-const AIConcierge = dynamic(() => import('@/features/ai-concierge/AIConcierge'), { ssr: false });
+import MobileBookingBar from '@/features/booking/MobileBookingBar';
+import AIConcierge from '@/features/ai-concierge/AIConcierge';
 
 export default function ClientWidgets() {
   const [mounted, setMounted] = useState(false);
