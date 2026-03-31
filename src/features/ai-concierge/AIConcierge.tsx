@@ -203,7 +203,7 @@ export default function AIConcierge() {
                 </div>
 
                 {/* Messages */}
-                <div className="flex-1 overflow-y-auto p-6 space-y-4">
+                <div className="flex-1 overflow-y-auto p-6 space-y-4" role="log" aria-live="polite" aria-label="AI chat messages">
                 {messages.map((message) => (
                   <motion.div
                     key={message.id}
@@ -263,7 +263,11 @@ export default function AIConcierge() {
                   className="p-4 border-t border-neutral-100"
                 >
                   <div className="flex items-center space-x-3">
+                    <label htmlFor="ai-concierge-input" className="sr-only">
+                      {locale === 'ua' ? 'Повідомлення для AI-консьєржа' : 'Message for AI concierge'}
+                    </label>
                     <input
+                      id="ai-concierge-input"
                       type="text"
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}

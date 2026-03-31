@@ -49,12 +49,17 @@ export default function NewsletterSection() {
 
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
             <div className="flex-1 relative">
+              <label htmlFor="newsletter-email" className="sr-only">
+                Email
+              </label>
               <input
+                id="newsletter-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Ваш email"
                 disabled={status === 'loading' || status === 'success'}
+                autoComplete="email"
                 className="w-full px-6 py-4 bg-white rounded-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all"
               />
               {status === 'success' && (
@@ -79,7 +84,7 @@ export default function NewsletterSection() {
           </form>
 
           {status === 'error' && (
-            <p className="mt-4 text-sm text-red-300">Сталася помилка</p>
+            <p className="mt-4 text-sm text-red-300" role="status" aria-live="polite">Сталася помилка</p>
           )}
         </motion.div>
       </div>

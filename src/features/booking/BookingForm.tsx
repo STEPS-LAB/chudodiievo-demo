@@ -253,10 +253,11 @@ function DatesStep({
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm text-neutral-600 mb-2">
+          <label htmlFor="booking-step-checkin" className="block text-sm text-neutral-600 mb-2">
             {t('checkIn')}
           </label>
           <input
+            id="booking-step-checkin"
             type="date"
             min={today.toISOString().split('T')[0]}
             value={bookingData.checkIn?.toISOString().split('T')[0] || ''}
@@ -270,10 +271,11 @@ function DatesStep({
           />
         </div>
         <div>
-          <label className="block text-sm text-neutral-600 mb-2">
+          <label htmlFor="booking-step-checkout" className="block text-sm text-neutral-600 mb-2">
             {t('checkOut')}
           </label>
           <input
+            id="booking-step-checkout"
             type="date"
             min={tomorrow.toISOString().split('T')[0]}
             value={bookingData.checkOut?.toISOString().split('T')[0] || ''}
@@ -289,6 +291,7 @@ function DatesStep({
       </div>
       <button
         onClick={onNext}
+        type="button"
         disabled={!bookingData.checkIn || !bookingData.checkOut}
         className="luxury-button w-full justify-center mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
       >
@@ -326,6 +329,7 @@ function GuestsStep({
         </label>
         <div className="flex items-center space-x-4">
           <button
+            type="button"
             onClick={() =>
               setBookingData({
                 ...bookingData,
@@ -333,6 +337,7 @@ function GuestsStep({
               })
             }
             className="w-10 h-10 rounded-sm border border-neutral-200 flex items-center justify-center hover:bg-neutral-50 transition-colors"
+            aria-label="Зменшити кількість дорослих"
           >
             -
           </button>
@@ -340,6 +345,7 @@ function GuestsStep({
             {bookingData.adults}
           </span>
           <button
+            type="button"
             onClick={() =>
               setBookingData({
                 ...bookingData,
@@ -347,6 +353,7 @@ function GuestsStep({
               })
             }
             className="w-10 h-10 rounded-sm border border-neutral-200 flex items-center justify-center hover:bg-neutral-50 transition-colors"
+            aria-label="Збільшити кількість дорослих"
           >
             +
           </button>
@@ -359,6 +366,7 @@ function GuestsStep({
         </label>
         <div className="flex items-center space-x-4">
           <button
+            type="button"
             onClick={() =>
               setBookingData({
                 ...bookingData,
@@ -366,6 +374,7 @@ function GuestsStep({
               })
             }
             className="w-10 h-10 rounded-sm border border-neutral-200 flex items-center justify-center hover:bg-neutral-50 transition-colors"
+            aria-label="Зменшити кількість дітей"
           >
             -
           </button>
@@ -373,6 +382,7 @@ function GuestsStep({
             {bookingData.children}
           </span>
           <button
+            type="button"
             onClick={() =>
               setBookingData({
                 ...bookingData,
@@ -380,6 +390,7 @@ function GuestsStep({
               })
             }
             className="w-10 h-10 rounded-sm border border-neutral-200 flex items-center justify-center hover:bg-neutral-50 transition-colors"
+            aria-label="Збільшити кількість дітей"
           >
             +
           </button>
@@ -387,10 +398,10 @@ function GuestsStep({
       </div>
 
       <div className="flex space-x-4 pt-4">
-        <button onClick={onBack} className="luxury-button-secondary flex-1">
+        <button onClick={onBack} type="button" className="luxury-button-secondary flex-1">
           Назад
         </button>
-        <button onClick={onNext} className="luxury-button flex-1">
+        <button onClick={onNext} type="button" className="luxury-button flex-1">
           {t('search')}
           <ChevronRight className="w-4 h-4 ml-2" />
         </button>
@@ -461,11 +472,12 @@ function RoomStep({
       </div>
 
       <div className="flex space-x-4 pt-4">
-        <button onClick={onBack} className="luxury-button-secondary flex-1">
+        <button onClick={onBack} type="button" className="luxury-button-secondary flex-1">
           Назад
         </button>
         <button
           onClick={onNext}
+          type="button"
           disabled={!bookingData.selectedRoom}
           className="luxury-button flex-1 disabled:opacity-50 disabled:cursor-not-allowed"
         >
@@ -541,10 +553,10 @@ function SummaryStep({
       </div>
 
       <div className="flex space-x-4">
-        <button onClick={onBack} className="luxury-button-secondary flex-1">
+        <button onClick={onBack} type="button" className="luxury-button-secondary flex-1">
           Назад
         </button>
-        <button className="luxury-button flex-1">
+        <button type="button" className="luxury-button flex-1">
           {t('reserve')}
         </button>
       </div>
