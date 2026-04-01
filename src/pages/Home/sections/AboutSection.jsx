@@ -6,15 +6,15 @@ import { getIcon } from '@/utils/icons'
 import { useLanguage } from '@/context/LanguageContext'
 
 const FEATURES_EN = {
-  '200 га природного лісу': '200 ha of natural forest',
+  'Преміальний сервіс 24/7': 'Premium 24/7 service',
   'Преміальний СПА-центр': 'Premium SPA center',
   'Авторська кухня': "Chef's signature cuisine",
   'Природне озеро': 'Natural lake',
 }
 
 const FEATURES_DESC_EN = {
-  'Занурення в дику природу Карпат з можливістю для піших прогулянок та спостереження за птахами.':
-    'Immerse into wild Carpathian nature with hiking routes and bird watching.',
+  'Персональний консьєрж, room service та підтримка гостей цілодобово для бездоганного відпочинку.':
+    'Personal concierge, room service, and 24/7 guest support for a seamless stay.',
   'Повний спектр оздоровчих процедур: масажі, обгортання, ванни з трав\'яними відварами.':
     'A full range of wellness treatments: massages, wraps, and herbal baths.',
   'Ресторан використовує виключно локальні продукти від місцевих фермерів та власний сад.':
@@ -37,14 +37,14 @@ export default function AboutSection() {
             <div className="grid grid-cols-2 gap-4">
               {/* Left column */}
               <div className="space-y-4">
-                <div className="aspect-[3/4] rounded-xl overflow-hidden shadow-medium">
+                <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-medium">
                   <img
                     src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80"
                     alt={isUa ? 'Природа курорту' : 'Resort nature'}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
-                <div className="aspect-square rounded-xl overflow-hidden shadow-medium">
+                <div className="aspect-square rounded-lg overflow-hidden shadow-medium">
                   <img
                     src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80"
                     alt={isUa ? 'СПА процедури' : 'SPA procedures'}
@@ -54,14 +54,14 @@ export default function AboutSection() {
               </div>
               {/* Right column — offset down */}
               <div className="space-y-4 mt-8">
-                <div className="aspect-square rounded-xl overflow-hidden shadow-medium">
+                <div className="aspect-square rounded-lg overflow-hidden shadow-medium">
                   <img
                     src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80"
                     alt={isUa ? 'Авторська кухня' : 'Signature cuisine'}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
-                <div className="aspect-[3/4] rounded-xl overflow-hidden shadow-medium">
+                <div className="aspect-[3/4] rounded-lg overflow-hidden shadow-medium">
                   <img
                     src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=600&q=80"
                     alt={isUa ? 'Озеро' : 'Lake'}
@@ -86,7 +86,7 @@ export default function AboutSection() {
           {/* Text content */}
           <div ref={ref} className="space-y-8">
             <SectionHeader
-              eyebrow="Про Готель"
+              eyebrow={isUa ? 'Про нас' : 'About us'}
               title={isUa ? 'Більше ніж просто готель' : 'More than just a hotel'}
               description={
                 isUa

@@ -235,9 +235,9 @@ export const TESTIMONIALS = [
 
 export const RESORT_FEATURES = [
   {
-    icon: 'TreePine',
-    title: '200 га природного лісу',
-    description: 'Занурення в дику природу Карпат з можливістю для піших прогулянок та спостереження за птахами.',
+    icon: 'ShieldCheck',
+    title: 'Преміальний сервіс 24/7',
+    description: 'Персональний консьєрж, room service та підтримка гостей цілодобово для бездоганного відпочинку.',
   },
   {
     icon: 'Sparkles',
