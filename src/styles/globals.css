@@ -123,3 +123,12 @@
     background-position: 1200px 0;
   }
 }
+
+@media (hover: none) and (pointer: coarse) {
+  a:hover,
+  button:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+  }
+}

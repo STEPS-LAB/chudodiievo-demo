@@ -2,11 +2,11 @@ import { cn } from '@/utils/cn'
 import { Loader2 } from 'lucide-react'
 
 const variants = {
-  primary: 'bg-primary-900 text-white hover:bg-primary-800 active:bg-primary-950 shadow-glow-sm hover:shadow-glow',
-  secondary: 'border border-primary-900 text-primary-900 hover:bg-primary-50 active:bg-primary-100',
-  ghost: 'text-primary-900 hover:bg-primary-50 active:bg-primary-100',
-  danger: 'bg-red-600 text-white hover:bg-red-700 active:bg-red-800',
-  light: 'bg-white text-primary-900 hover:bg-neutral-50 shadow-soft hover:shadow-medium',
+  primary: 'bg-primary-900 text-white lg:hover:bg-primary-800 active:bg-primary-950 shadow-glow-sm lg:hover:shadow-glow',
+  secondary: 'border border-primary-900 text-primary-900 lg:hover:bg-primary-50 active:bg-primary-100',
+  ghost: 'text-primary-900 lg:hover:bg-primary-50 active:bg-primary-100',
+  danger: 'bg-red-600 text-white lg:hover:bg-red-700 active:bg-red-800',
+  light: 'bg-white text-primary-900 lg:hover:bg-neutral-50 shadow-soft lg:hover:shadow-medium',
 }
 
 const sizes = {
