@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Users, Maximize2, Star, ArrowRight } from 'lucide-react'
+import { Users, Maximize2, Star } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { formatPrice } from '@/utils/format'
 import Badge from '@/components/ui/Badge'
@@ -31,16 +30,15 @@ export default function RoomCard({ room, index = 0 }) {
       initial={{ opacity: 0, y: 32 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      className="group"
+      className="h-full"
     >
-      <Link to={`/rooms/${localizedRoom.slug}`} className="block">
-        <div className="bg-white rounded-xl overflow-hidden shadow-soft hover:shadow-large transition-shadow duration-400">
+      <div className="bg-white rounded-lg overflow-hidden shadow-soft h-full flex flex-col transition-all duration-300 lg:hover:-translate-y-[1%] lg:hover:shadow-large">
           {/* Image */}
           <div className="relative h-56 sm:h-64 overflow-hidden">
             <img
               src={localizedRoom.images[0]}
               alt={localizedRoom.name}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              className="w-full h-full object-cover"
               loading="lazy"
             />
             {/* Overlay badges */}
@@ -61,8 +59,8 @@ export default function RoomCard({ room, index = 0 }) {
           </div>
 
           {/* Content */}
-          <div className="p-5">
-            <h3 className="text-lg font-bold font-display text-primary-900 mb-2 group-hover:text-primary-700 transition-colors line-clamp-1">
+          <div className="p-5 flex-1 flex flex-col">
+            <h3 className="text-lg font-bold font-display text-primary-900 mb-2 line-clamp-1">
               {localizedRoom.name}
             </h3>
             <p className="text-sm text-neutral-500 line-clamp-2 mb-4 leading-relaxed">
@@ -101,7 +99,7 @@ export default function RoomCard({ room, index = 0 }) {
             )}
 
             {/* Price & CTA */}
-            <div className="flex items-center justify-between pt-4 border-t border-neutral-100">
+            <div className="flex items-center justify-between pt-4 border-t border-neutral-100 mt-auto">
               <div>
               {localizedRoom.originalPrice && (
                   <p className="text-xs text-neutral-400 line-through mb-0.5">
@@ -113,14 +111,9 @@ export default function RoomCard({ room, index = 0 }) {
                 </p>
                 <p className="text-xs text-neutral-400">{isUa ? 'за ніч' : 'per night'}</p>
               </div>
-              <div className="flex items-center gap-2 text-sm font-semibold font-display text-primary-900 group-hover:text-primary-700 transition-colors">
-                {isUa ? 'Детальніше' : 'Details'}
-                <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-              </div>
             </div>
           </div>
-        </div>
-      </Link>
+      </div>
     </motion.div>
   )
 }

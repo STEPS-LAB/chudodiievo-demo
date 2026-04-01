@@ -5,7 +5,6 @@ import { PageSpinner } from '@/components/ui/Spinner'
 
 const Home = lazy(() => import('@/pages/Home'))
 const Rooms = lazy(() => import('@/pages/Rooms'))
-const RoomDetail = lazy(() => import('@/pages/RoomDetail'))
 const Booking = lazy(() => import('@/pages/Booking'))
 const Checkout = lazy(() => import('@/pages/Checkout'))
 const Confirmation = lazy(() => import('@/pages/Confirmation'))
@@ -28,10 +27,6 @@ export const router = createBrowserRouter([
       {
         path: 'rooms',
         element: <SuspenseWrapper><Rooms /></SuspenseWrapper>,
-      },
-      {
-        path: 'rooms/:slug',
-        element: <SuspenseWrapper><RoomDetail /></SuspenseWrapper>,
       },
       {
         path: 'booking',

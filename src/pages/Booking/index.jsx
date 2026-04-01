@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { motion } from 'framer-motion'
-import { ArrowLeft, Check, User, Phone, Mail } from 'lucide-react'
+import { Check, User, Phone, Mail } from 'lucide-react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useBookingStore } from '@/store/bookingStore'
 import { bookingApi } from '@/services/api/booking'
@@ -168,11 +168,10 @@ export default function Booking() {
             </div>
           </div>
           <Link
-            to={`/rooms/${localizedRoom.slug}`}
-            className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-primary-900 transition-colors mt-4 font-medium"
+            to="/rooms"
+            className="inline-flex items-center text-sm text-neutral-500 hover:text-primary-900 transition-colors mt-4 font-medium"
           >
-            <ArrowLeft className="w-4 h-4" />
-            {isUa ? 'Переглянути деталі номера' : 'View room details'}
+            {isUa ? 'Переглянути всі номери' : 'View all rooms'}
           </Link>
         </div>
 
