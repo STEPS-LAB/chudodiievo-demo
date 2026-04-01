@@ -56,7 +56,7 @@ export default function Rooms() {
             </h1>
             <p className="text-lg max-w-xl" style={{ color: 'rgba(255,255,255,0.65)' }}>
               {isUa
-                ? 'Від уютної студії до ексклюзивного пентхаусу — знайдіть ідеальний простір для вашого відпочинку.'
+                ? 'Від затишної студії до ексклюзивного пентхаусу — знайдіть ідеальний простір для вашого відпочинку.'
                 : 'From a cozy studio to an exclusive penthouse - find the perfect space for your stay.'}
             </p>
           </motion.div>
