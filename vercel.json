@@ -1,9 +1,9 @@
 {
-  "framework": "nextjs",
+  "framework": "vite",
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "outputDirectory": ".next",
+  "outputDirectory": "dist",
   "regions": ["fra1"],
   "headers": [
     {
