@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { TreePine, Menu, X } from 'lucide-react'
+import { useRef } from 'react'
 import { useScrollPosition } from '@/hooks/useScrollPosition'
 import { useUiStore } from '@/store/uiStore'
 import { NAV_LINKS, NAV_LABELS } from '@/constants'
@@ -12,8 +13,9 @@ import LanguageSwitcher from './LanguageSwitcher'
 export default function Header() {
   const { pathname, hash } = useLocation()
   const { scrolled } = useScrollPosition()
-  const { mobileMenuOpen, toggleMobileMenu } = useUiStore()
+  const { mobileMenuOpen, toggleMobileMenu, setMobileMenuOpen } = useUiStore()
   const { language } = useLanguage()
+  const touchStartX = useRef(null)
 
   const isLinkActive = (href) => {
     if (href === '/') return pathname === '/' && !hash
@@ -21,9 +23,26 @@ export default function Header() {
     return pathname === href
   }
 
+  const handleTouchStart = (event) => {
+    touchStartX.current = event.touches[0]?.clientX ?? null
+  }
+
+  const handleTouchEnd = (event) => {
+    if (mobileMenuOpen || touchStartX.current == null) return
+    const endX = event.changedTouches[0]?.clientX ?? touchStartX.current
+    const swipeDistance = touchStartX.current - endX
+    const startsFromRightEdge = touchStartX.current > window.innerWidth - 36
+
+    if (startsFromRightEdge && swipeDistance > 60) {
+      setMobileMenuOpen(true)
+    }
+  }
+
   return (
     <>
       <header
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           scrolled

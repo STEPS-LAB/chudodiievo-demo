@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useRef } from 'react'
 import { TreePine, Phone, Mail, X } from 'lucide-react'
 import { useUiStore } from '@/store/uiStore'
 import { NAV_LINKS, NAV_LABELS } from '@/constants'
@@ -10,6 +11,8 @@ export default function MobileNav() {
   const { pathname, hash } = useLocation()
   const { mobileMenuOpen, setMobileMenuOpen } = useUiStore()
   const { language } = useLanguage()
+  const swipeStartX = useRef(null)
+  const swipeStartY = useRef(null)
 
   const isLinkActive = (href) => {
     if (href === '/') return pathname === '/' && !hash
@@ -17,10 +20,33 @@ export default function MobileNav() {
     return pathname === href
   }
 
+  const handleGlobalTouchStart = (event) => {
+    swipeStartX.current = event.touches[0]?.clientX ?? null
+    swipeStartY.current = event.touches[0]?.clientY ?? null
+  }
+
+  const handleGlobalTouchEnd = (event) => {
+    if (swipeStartX.current == null || swipeStartY.current == null) return
+
+    const endX = event.changedTouches[0]?.clientX ?? swipeStartX.current
+    const endY = event.changedTouches[0]?.clientY ?? swipeStartY.current
+    const deltaX = endX - swipeStartX.current
+    const deltaY = Math.abs(endY - swipeStartY.current)
+
+    // Close drawer on horizontal right swipe anywhere on screen.
+    if (deltaX > 90 && deltaY < 80) {
+      setMobileMenuOpen(false)
+    }
+  }
+
   return (
     <AnimatePresence>
       {mobileMenuOpen && (
-        <>
+        <motion.div
+          className="fixed inset-0 z-50 lg:hidden"
+          onTouchStart={handleGlobalTouchStart}
+          onTouchEnd={handleGlobalTouchEnd}
+        >
           {/* Backdrop */}
           <motion.div
             key="backdrop"
@@ -28,18 +54,28 @@ export default function MobileNav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setMobileMenuOpen(false)}
           />
 
           {/* Drawer */}
           <motion.div
             key="drawer"
-            initial={{ x: '100%' }}
+            initial={{ x: 360 }}
             animate={{ x: 0 }}
-            exit={{ x: '100%' }}
+            exit={{ x: 360 }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed top-0 right-0 bottom-0 w-80 z-50 bg-white shadow-xl lg:hidden flex flex-col"
+            drag="x"
+            dragDirectionLock
+            dragConstraints={{ left: 0, right: 360 }}
+            dragElastic={{ left: 0, right: 0.15 }}
+            onDragEnd={(_, info) => {
+              if (info.offset.x > 90 || info.velocity.x > 500) {
+                setMobileMenuOpen(false)
+              }
+            }}
+            className="absolute top-0 right-0 bottom-0 w-[86vw] max-w-80 bg-white shadow-xl flex flex-col transform-gpu will-change-transform"
+            style={{ touchAction: 'pan-y' }}
           >
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-neutral-100">
@@ -99,7 +135,7 @@ export default function MobileNav() {
               </div>
             </div>
           </motion.div>
-        </>
+        </motion.div>
       )}
     </AnimatePresence>
   )
