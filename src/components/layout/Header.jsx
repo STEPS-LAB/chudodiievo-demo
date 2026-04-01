@@ -16,6 +16,8 @@ export default function Header() {
   const { mobileMenuOpen, toggleMobileMenu, setMobileMenuOpen } = useUiStore()
   const { language } = useLanguage()
   const isUa = language === 'ua'
+  const isContactPage = pathname === '/contact'
+  const isDarkHeader = isContactPage || !scrolled
   const touchStartX = useRef(null)
 
   const isLinkActive = (href) => {
@@ -46,7 +48,9 @@ export default function Header() {
         onTouchEnd={handleTouchEnd}
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-          scrolled
+          isContactPage
+            ? 'bg-transparent border-transparent'
+            : scrolled
             ? 'bg-white/95 backdrop-blur-md shadow-soft border-b border-neutral-100'
             : 'bg-transparent'
         )}
@@ -57,16 +61,16 @@ export default function Header() {
             <Link to="/" className="flex items-center gap-2.5 group">
               <div className={cn(
                 'p-2 rounded-sm transition-colors duration-200',
-                scrolled ? 'bg-primary-100' : 'bg-white/20 backdrop-blur-sm'
+                isDarkHeader ? 'bg-white/20 backdrop-blur-sm' : 'bg-primary-100'
               )}>
                 <TreePine className={cn(
                   'w-5 h-5 transition-colors duration-200',
-                  scrolled ? 'text-primary-900' : 'text-white'
+                  isDarkHeader ? 'text-white' : 'text-primary-900'
                 )} />
               </div>
               <span className={cn(
                 'text-lg font-bold font-display tracking-tight transition-colors duration-200',
-                scrolled ? 'text-primary-900' : 'text-white'
+                isDarkHeader ? 'text-white' : 'text-primary-900'
               )}>
                 {isUa ? 'Готель' : 'Hotel'}
               </span>
@@ -80,20 +84,20 @@ export default function Header() {
                   to={link.href}
                   className={cn(
                     'px-4 py-2 text-sm font-medium font-display rounded-sm transition-colors duration-200 relative',
-                    scrolled
+                    isDarkHeader
                       ? isLinkActive(link.href)
-                        ? 'text-primary-900'
-                        : 'text-neutral-600 hover:text-primary-900'
-                      : isLinkActive(link.href)
                         ? 'text-white'
                         : 'text-white/80 hover:text-white'
+                      : isLinkActive(link.href)
+                        ? 'text-primary-900'
+                        : 'text-neutral-600 hover:text-primary-900'
                   )}
                 >
                   {NAV_LABELS[language][link.key]}
                   <span
                     className={cn(
                       'absolute bottom-0 left-4 right-4 h-0.5 rounded-full transition-all duration-200',
-                      scrolled ? 'bg-primary-900' : 'bg-transparent',
+                      isDarkHeader ? 'bg-white' : 'bg-primary-900',
                       isLinkActive(link.href) ? 'opacity-100' : 'opacity-0'
                     )}
                   />
@@ -103,9 +107,9 @@ export default function Header() {
 
             {/* Desktop Controls */}
             <div className="hidden lg:flex items-center gap-3">
-              <LanguageSwitcher dark={scrolled} />
+              <LanguageSwitcher dark={!isDarkHeader} />
               <Link to="/rooms">
-                <Button size="sm" variant={scrolled ? 'primary' : 'light'}>
+                <Button size="sm" variant={isDarkHeader ? 'light' : 'primary'}>
                   {isUa ? 'Забронювати' : 'Book now'}
                 </Button>
               </Link>
@@ -113,13 +117,13 @@ export default function Header() {
 
             {/* Mobile controls */}
             <div className="lg:hidden flex items-center gap-2">
-              <LanguageSwitcher dark={scrolled} />
+              <LanguageSwitcher dark={!isDarkHeader} />
               <button
                 className={cn(
                   'p-2 rounded-sm transition-colors duration-200',
-                  scrolled
-                    ? 'text-primary-900 hover:bg-primary-50'
-                    : 'text-white hover:bg-white/10'
+                  isDarkHeader
+                    ? 'text-white hover:bg-white/10'
+                    : 'text-primary-900 hover:bg-primary-50'
                 )}
                 onClick={toggleMobileMenu}
                 aria-label={isUa ? 'Відкрити меню' : 'Open menu'}

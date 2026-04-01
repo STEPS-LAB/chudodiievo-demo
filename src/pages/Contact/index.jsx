@@ -10,8 +10,8 @@ export default function Contact() {
   const [name, setName] = useState('')
 
   return (
-    <div className="min-h-screen bg-canvas pt-16">
-      <section className="relative h-72 sm:h-80 overflow-hidden">
+    <div className="min-h-screen bg-canvas">
+      <section className="relative h-[19.2rem] sm:h-[22.4rem] overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=2000&q=80"
           alt={isUa ? 'Контакти готелю' : 'Hotel contacts'}
