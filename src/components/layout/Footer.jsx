@@ -145,7 +145,7 @@ export default function Footer() {
         <div className="py-6 border-t border-primary-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <p className="text-xs text-neutral-500 text-left">
             © {new Date().getFullYear()} {isUa ? 'Готель' : 'Hotel'}. {t.rights}
-            <span className="block mt-3 sm:mt-2">
+            <span className="block mt-3 sm:mt-2 lg:inline lg:mt-0 lg:ml-1">
               {t.developedBy}{' '}
               <a
                 href="https://stepslab.vercel.app"
