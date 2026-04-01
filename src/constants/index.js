@@ -1,13 +1,30 @@
-export const SITE_NAME = 'Чудодієво'
+export const SITE_NAME = 'Готель'
 export const SITE_TAGLINE = 'Преміальний Лісовий Курорт'
 
 export const NAV_LINKS = [
-  { label: 'Номери', href: '/rooms' },
-  { label: 'Ресторан', href: '/#restaurant' },
-  { label: 'СПА', href: '/#spa' },
-  { label: 'Активності', href: '/#activities' },
-  { label: 'Контакти', href: '/#contacts' },
+  { key: 'home', href: '/' },
+  { key: 'about', href: '/#about' },
+  { key: 'rooms', href: '/#rooms' },
+  { key: 'gallery', href: '/#gallery' },
+  { key: 'contacts', href: '/contact' },
 ]
+
+export const NAV_LABELS = {
+  ua: {
+    home: 'Головна',
+    about: 'Про нас',
+    rooms: 'Номери',
+    gallery: 'Галерея',
+    contacts: 'Контакти',
+  },
+  en: {
+    home: 'Home',
+    about: 'About',
+    rooms: 'Rooms',
+    gallery: 'Gallery',
+    contacts: 'Contact',
+  },
+}
 
 export const AMENITIES = [
   { id: 'wifi', label: 'Wi-Fi', icon: 'Wifi' },
@@ -30,7 +47,7 @@ export const ROOMS = [
     slug: 'standard',
     name: 'Стандартний номер',
     shortDescription: 'Затишний номер з видом на ліс та всіма необхідними зручностями для комфортного відпочинку.',
-    description: 'Стандартний номер «Чудодієво» — ідеальне поєднання природної краси та сучасного комфорту. Великі вікна відкривають панорамний вид на карпатський ліс, наповнюючи простір зеленим сяйвом. Натуральні матеріали в інтер\'єрі — дерево, льон, камінь — створюють атмосферу органічної розкоші. Просторе ліжко з ортопедичним матрацом забезпечить глибокий відновлювальний сон.',
+    description: 'Стандартний номер «Готель» — ідеальне поєднання природної краси та сучасного комфорту. Великі вікна відкривають панорамний вид на карпатський ліс, наповнюючи простір зеленим сяйвом. Натуральні матеріали в інтер\'єрі — дерево, льон, камінь — створюють атмосферу органічної розкоші. Просторе ліжко з ортопедичним матрацом забезпечить глибокий відновлювальний сон.',
     price: 3200,
     originalPrice: null,
     currency: 'UAH',

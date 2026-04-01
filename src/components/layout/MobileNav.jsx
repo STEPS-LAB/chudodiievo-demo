@@ -1,12 +1,21 @@
-import { Link, NavLink } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { TreePine, Phone, Mail, X } from 'lucide-react'
 import { useUiStore } from '@/store/uiStore'
-import { NAV_LINKS } from '@/constants'
+import { NAV_LINKS, NAV_LABELS } from '@/constants'
+import { useLanguage } from '@/context/LanguageContext'
 import { cn } from '@/utils/cn'
 
 export default function MobileNav() {
+  const { pathname, hash } = useLocation()
   const { mobileMenuOpen, setMobileMenuOpen } = useUiStore()
+  const { language } = useLanguage()
+
+  const isLinkActive = (href) => {
+    if (href === '/') return pathname === '/' && !hash
+    if (href.startsWith('/#')) return pathname === '/' && hash === href.slice(1)
+    return pathname === href
+  }
 
   return (
     <AnimatePresence>
@@ -38,7 +47,7 @@ export default function MobileNav() {
                 <div className="p-2 bg-primary-100 rounded-sm">
                   <TreePine className="w-5 h-5 text-primary-900" />
                 </div>
-                <span className="text-lg font-bold font-display text-primary-900">Чудодієво</span>
+                <span className="text-lg font-bold font-display text-primary-900">Готель</span>
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
@@ -58,33 +67,24 @@ export default function MobileNav() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.06, duration: 0.3 }}
                 >
-                  <NavLink
+                  <Link
                     to={link.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={({ isActive }) =>
-                      cn(
-                        'flex items-center h-12 px-4 rounded-sm text-base font-medium font-display transition-colors duration-150',
-                        isActive
-                          ? 'bg-primary-900 text-white'
-                          : 'text-neutral-700 hover:bg-primary-50 hover:text-primary-900'
-                      )
-                    }
+                    className={cn(
+                      'flex items-center h-12 px-4 rounded-sm text-base font-medium font-display transition-colors duration-150',
+                      isLinkActive(link.href)
+                        ? 'bg-primary-900 text-white'
+                        : 'text-neutral-700 hover:bg-primary-50 hover:text-primary-900'
+                    )}
                   >
-                    {link.label}
-                  </NavLink>
+                    {NAV_LABELS[language][link.key]}
+                  </Link>
                 </motion.div>
               ))}
             </nav>
 
             {/* Footer */}
             <div className="p-6 border-t border-neutral-100 space-y-3">
-              <Link
-                to="/rooms"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center w-full h-12 bg-primary-900 text-white font-semibold font-display rounded-sm hover:bg-primary-800 transition-colors"
-              >
-                Забронювати номер
-              </Link>
               <div className="flex items-center gap-3 text-sm text-neutral-500">
                 <Phone className="w-4 h-4" />
                 <a href="tel:+380000000000" className="hover:text-primary-900 transition-colors">

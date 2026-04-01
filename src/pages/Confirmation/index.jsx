@@ -58,7 +58,7 @@ export default function Confirmation() {
             />
             <div>
               <h3 className="font-bold font-display text-primary-900">{selectedRoom.name}</h3>
-              <p className="text-sm text-neutral-500">Чудодієво курорт</p>
+              <p className="text-sm text-neutral-500">Готель курорт</p>
             </div>
           </div>
 

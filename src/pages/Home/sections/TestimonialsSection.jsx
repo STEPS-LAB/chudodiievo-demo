@@ -34,7 +34,7 @@ export default function TestimonialsSection() {
         <SectionHeader
           eyebrow="Відгуки гостей"
           title="Що кажуть наші гості"
-          description="Справжні враження від людей, які обрали Чудодієво для свого відпочинку."
+          description="Справжні враження від людей, які обрали Готель для свого відпочинку."
         />
 
         <div className="mt-12 max-w-3xl mx-auto">

@@ -9,6 +9,7 @@ const RoomDetail = lazy(() => import('@/pages/RoomDetail'))
 const Booking = lazy(() => import('@/pages/Booking'))
 const Checkout = lazy(() => import('@/pages/Checkout'))
 const Confirmation = lazy(() => import('@/pages/Confirmation'))
+const Contact = lazy(() => import('@/pages/Contact'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
 
 function SuspenseWrapper({ children }) {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: 'confirmation',
         element: <SuspenseWrapper><Confirmation /></SuspenseWrapper>,
+      },
+      {
+        path: 'contact',
+        element: <SuspenseWrapper><Contact /></SuspenseWrapper>,
       },
       {
         path: '*',

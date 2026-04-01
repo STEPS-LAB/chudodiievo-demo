@@ -10,7 +10,7 @@ export default function HeroSection() {
       <div className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=2000&q=85"
-          alt="Чудодієво лісовий курорт"
+          alt="Готель лісовий курорт"
           className="w-full h-full object-cover"
         />
         {/* Gradient overlays */}

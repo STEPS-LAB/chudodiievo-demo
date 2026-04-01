@@ -13,12 +13,12 @@ export default function FeaturedRooms() {
   })
 
   return (
-    <section className="section-padding bg-canvas">
+    <section id="rooms" className="section-padding bg-canvas">
       <div className="container-max container-padding">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <SectionHeader
-            eyebrow="Наші номери"
-            title="Знайдіть своє місце спокою"
+            eyebrow="Номери"
+            title="Найкращі номери"
             align="left"
             className="max-w-xl"
           />
@@ -26,7 +26,7 @@ export default function FeaturedRooms() {
             to="/rooms"
             className="flex items-center gap-2 text-sm font-semibold font-display text-primary-900 hover:text-primary-700 transition-colors shrink-0 group"
           >
-            Всі номери
+            Переглянути всі номери
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>

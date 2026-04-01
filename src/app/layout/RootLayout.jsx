@@ -4,11 +4,23 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 
 export default function RootLayout() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
-  }, [pathname])
+    if (hash) {
+      const targetId = hash.replace('#', '')
+      const element = document.getElementById(targetId)
+
+      if (element) {
+        const headerOffset = 96
+        const top = element.getBoundingClientRect().top + window.scrollY - headerOffset
+        window.scrollTo({ top, behavior: 'smooth' })
+        return
+      }
+    }
+
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [pathname, hash])
 
   return (
     <div className="min-h-screen flex flex-col bg-canvas">

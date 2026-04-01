@@ -1,16 +1,25 @@
-import { Link, NavLink } from 'react-router-dom'
-import { TreePine, Menu, X, Phone } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { Link, useLocation } from 'react-router-dom'
+import { TreePine, Menu, X } from 'lucide-react'
 import { useScrollPosition } from '@/hooks/useScrollPosition'
 import { useUiStore } from '@/store/uiStore'
-import { NAV_LINKS } from '@/constants'
-import Button from '@/components/ui/Button'
+import { NAV_LINKS, NAV_LABELS } from '@/constants'
 import { cn } from '@/utils/cn'
+import { useLanguage } from '@/context/LanguageContext'
+import Button from '@/components/ui/Button'
 import MobileNav from './MobileNav'
+import LanguageSwitcher from './LanguageSwitcher'
 
 export default function Header() {
+  const { pathname, hash } = useLocation()
   const { scrolled } = useScrollPosition()
   const { mobileMenuOpen, toggleMobileMenu } = useUiStore()
+  const { language } = useLanguage()
+
+  const isLinkActive = (href) => {
+    if (href === '/') return pathname === '/' && !hash
+    if (href.startsWith('/#')) return pathname === '/' && hash === href.slice(1)
+    return pathname === href
+  }
 
   return (
     <>
@@ -39,78 +48,65 @@ export default function Header() {
                 'text-lg font-bold font-display tracking-tight transition-colors duration-200',
                 scrolled ? 'text-primary-900' : 'text-white'
               )}>
-                Чудодієво
+                Готель
               </span>
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-1">
+            <nav className="hidden lg:flex items-center gap-2">
               {NAV_LINKS.map((link) => (
-                <NavLink
+                <Link
                   key={link.href}
                   to={link.href}
-                  className={({ isActive }) =>
-                    cn(
-                      'px-4 py-2 text-sm font-medium font-display rounded-sm transition-colors duration-200 relative group',
-                      scrolled
-                        ? isActive
-                          ? 'text-primary-900'
-                          : 'text-neutral-600 hover:text-primary-900'
-                        : isActive
-                          ? 'text-white'
-                          : 'text-white/80 hover:text-white'
-                    )
-                  }
-                >
-                  {({ isActive }) => (
-                    <>
-                      {link.label}
-                      <span className={cn(
-                        'absolute bottom-0 left-4 right-4 h-0.5 rounded-full transition-all duration-200 origin-left',
-                        scrolled ? 'bg-primary-900' : 'bg-white',
-                        isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                      )} />
-                    </>
+                  className={cn(
+                    'px-4 py-2 text-sm font-medium font-display rounded-sm transition-colors duration-200 relative',
+                    scrolled
+                      ? isLinkActive(link.href)
+                        ? 'text-primary-900'
+                        : 'text-neutral-600 hover:text-primary-900'
+                      : isLinkActive(link.href)
+                        ? 'text-white'
+                        : 'text-white/80 hover:text-white'
                   )}
-                </NavLink>
+                >
+                  {NAV_LABELS[language][link.key]}
+                  <span
+                    className={cn(
+                      'absolute bottom-0 left-4 right-4 h-0.5 rounded-full transition-all duration-200',
+                      scrolled ? 'bg-primary-900' : 'bg-transparent',
+                      isLinkActive(link.href) ? 'opacity-100' : 'opacity-0'
+                    )}
+                  />
+                </Link>
               ))}
             </nav>
 
-            {/* Desktop CTA */}
+            {/* Desktop Controls */}
             <div className="hidden lg:flex items-center gap-3">
-              <a
-                href="tel:+380000000000"
-                className={cn(
-                  'flex items-center gap-1.5 text-sm font-medium transition-colors duration-200',
-                  scrolled ? 'text-neutral-600 hover:text-primary-900' : 'text-white/80 hover:text-white'
-                )}
-              >
-                <Phone className="w-4 h-4" />
-                <span className="hidden xl:inline">+38 (000) 000-00-00</span>
-              </a>
+              <LanguageSwitcher dark={scrolled} />
               <Link to="/rooms">
-                <Button
-                  size="sm"
-                  variant={scrolled ? 'primary' : 'light'}
-                >
+                <Button size="sm" variant={scrolled ? 'primary' : 'light'}>
                   Забронювати
                 </Button>
               </Link>
             </div>
 
-            {/* Mobile Hamburger */}
-            <button
-              className={cn(
-                'lg:hidden p-2 rounded-sm transition-colors duration-200',
-                scrolled
-                  ? 'text-primary-900 hover:bg-primary-50'
-                  : 'text-white hover:bg-white/10'
-              )}
-              onClick={toggleMobileMenu}
-              aria-label="Відкрити меню"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            {/* Mobile controls */}
+            <div className="lg:hidden flex items-center gap-2">
+              <LanguageSwitcher dark={scrolled} />
+              <button
+                className={cn(
+                  'p-2 rounded-sm transition-colors duration-200',
+                  scrolled
+                    ? 'text-primary-900 hover:bg-primary-50'
+                    : 'text-white hover:bg-white/10'
+                )}
+                onClick={toggleMobileMenu}
+                aria-label="Відкрити меню"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
       </header>

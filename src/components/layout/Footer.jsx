@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { TreePine, Phone, Mail, MapPin, Instagram, Facebook, Youtube } from 'lucide-react'
-import { NAV_LINKS } from '@/constants'
+import { NAV_LINKS, NAV_LABELS } from '@/constants'
+import { useLanguage } from '@/context/LanguageContext'
 
 const SOCIAL_LINKS = [
   { icon: Instagram, href: '#', label: 'Instagram' },
@@ -9,6 +10,8 @@ const SOCIAL_LINKS = [
 ]
 
 export default function Footer() {
+  const { language } = useLanguage()
+
   return (
     <footer className="bg-primary-950 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,7 +23,7 @@ export default function Footer() {
               <div className="p-2 bg-primary-800 rounded-sm">
                 <TreePine className="w-5 h-5 text-secondary-400" />
               </div>
-              <span className="text-xl font-bold font-display">Чудодієво</span>
+              <span className="text-xl font-bold font-display">Готель</span>
             </div>
             <p className="text-sm text-neutral-400 leading-relaxed">
               Преміальний лісовий курорт серед нескінченних карпатських лісів.
@@ -52,7 +55,7 @@ export default function Footer() {
                     to={link.href}
                     className="text-sm text-neutral-400 hover:text-white transition-colors duration-150"
                   >
-                    {link.label}
+                    {NAV_LABELS[language][link.key]}
                   </Link>
                 </li>
               ))}
@@ -84,7 +87,7 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-secondary-500 shrink-0 mt-0.5" />
                 <span className="text-sm text-neutral-400">
-                  Карпатська обл., смт. Чудодієво, вул. Лісова, 1
+                  Карпатська обл., смт. Готель, вул. Лісова, 1
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -106,7 +109,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="py-6 border-t border-primary-900 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-neutral-500">
-            © {new Date().getFullYear()} Чудодієво. Всі права захищені.
+            © {new Date().getFullYear()} Готель. Всі права захищені.
           </p>
           <div className="flex items-center gap-6">
             <a href="#" className="text-xs text-neutral-500 hover:text-white transition-colors">
