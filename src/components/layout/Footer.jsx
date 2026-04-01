@@ -41,7 +41,7 @@ export default function Footer() {
             </div>
             <Link
               to="/booking"
-              className="inline-flex items-center justify-center h-11 px-5 rounded-sm bg-white text-primary-900 lg:hover:bg-neutral-100 active:scale-[0.95] lg:hover:scale-[1.02] transition-all duration-200 font-semibold font-display whitespace-nowrap"
+              className="inline-flex items-center justify-center h-11 px-5 rounded-lg bg-white text-primary-900 lg:hover:bg-neutral-100 active:scale-[0.95] lg:hover:scale-[1.02] transition-all duration-200 font-semibold font-display whitespace-nowrap"
             >
               {t.ctaButton}
             </Link>

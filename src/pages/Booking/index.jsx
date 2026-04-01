@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { motion } from 'framer-motion'
-import { Check, User, Phone, Mail } from 'lucide-react'
+import { Check, User, Phone, Mail, CalendarDays, ArrowRight } from 'lucide-react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useBookingStore } from '@/store/bookingStore'
 import { bookingApi } from '@/services/api/booking'
@@ -17,15 +17,25 @@ import { useLanguage } from '@/context/LanguageContext'
 import { localizeRoom } from '@/i18n/rooms'
 
 const schema = z.object({
-  firstName: z.string().min(2, "Мінімум 2 символи"),
-  lastName: z.string().min(2, "Мінімум 2 символи"),
+  firstName: z
+    .string()
+    .min(2, "Мінімум 2 символи")
+    .regex(/^[A-Za-zА-Яа-яІіЇїЄєҐґ'’\-\s]+$/, 'Лише літери'),
+  lastName: z
+    .string()
+    .min(2, "Мінімум 2 символи")
+    .regex(/^[A-Za-zА-Яа-яІіЇїЄєҐґ'’\-\s]+$/, 'Лише літери'),
   phone: z
     .string()
-    .min(10, 'Введіть коректний номер')
-    .regex(/^[\d+\s()-]+$/, 'Некоректний формат'),
+    .refine((value) => {
+      const digits = value.replace(/\D/g, '')
+      return digits.length === 12 && digits.startsWith('380')
+    }, 'Введіть коректний номер'),
   email: z.string().email('Невірний email'),
   requests: z.string().optional(),
 })
+
+const PHONE_PREFIX = '+38 (0'
 
 export default function Booking() {
   const { language } = useLanguage()
@@ -67,10 +77,14 @@ export default function Booking() {
 
   const nights = getNights(checkIn, checkOut)
   const total = selectedRoom ? selectedRoom.price * nights : 0
+  const checkInInputRef = useRef(null)
+  const checkOutInputRef = useRef(null)
 
   const {
     register,
     handleSubmit,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -96,14 +110,87 @@ export default function Booking() {
 
   if (!selectedRoom) return null
   const localizedRoom = localizeRoom(selectedRoom, language)
+  const totalGuests = adults + children
+  const guestLabel = isUa
+    ? totalGuests === 1
+      ? 'гість'
+      : totalGuests < 5
+        ? 'гості'
+        : 'гостей'
+    : totalGuests === 1
+      ? 'guest'
+      : 'guests'
+  const formatDisplayDate = (value) =>
+    value
+      ? new Date(`${value}T00:00:00`).toLocaleDateString(isUa ? 'uk-UA' : 'en-US', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+        })
+      : isUa
+        ? 'Оберіть дату'
+        : 'Select date'
+  const openDatePicker = (inputRef) => {
+    if (!inputRef.current) return
+    inputRef.current.focus()
+    if (typeof inputRef.current.showPicker === 'function') inputRef.current.showPicker()
+  }
+  const sanitizeName = (value) => value.replace(/[^A-Za-zА-Яа-яІіЇїЄєҐґ'’\-\s]/g, '')
+  const applyPhoneMask = (raw) => {
+    let digits = raw.replace(/\D/g, '')
+    if (digits.startsWith('380')) digits = digits.slice(3)
+    else if (digits.startsWith('0')) digits = digits.slice(1)
+    digits = digits.slice(0, 9)
+
+    let result = PHONE_PREFIX
+    if (digits.length === 0) return result
+    result += digits.slice(0, 2)
+    if (digits.length >= 2) result += ')-'
+    result += digits.slice(2, 5)
+    if (digits.length >= 5) result += '-'
+    result += digits.slice(5, 7)
+    if (digits.length >= 7) result += '-'
+    result += digits.slice(7, 9)
+    return result
+  }
+  const handlePhoneChange = (event) => {
+    const masked = applyPhoneMask(event.target.value)
+    setValue('phone', masked, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    })
+  }
+  const handlePhoneFocus = () => {
+    if (!getValues('phone')) {
+      setValue('phone', PHONE_PREFIX, { shouldDirty: true, shouldTouch: true })
+    }
+  }
+  const handlePhoneBlur = () => {
+    if (getValues('phone') === PHONE_PREFIX) {
+      setValue('phone', '', { shouldDirty: true, shouldTouch: true, shouldValidate: true })
+    }
+  }
+  const handlePhoneKeyDown = (event) => {
+    const value = getValues('phone') || ''
+    if (event.key === 'Backspace' && (value === PHONE_PREFIX || value === '')) {
+      event.preventDefault()
+      setValue('phone', '', { shouldDirty: true, shouldTouch: true, shouldValidate: true })
+      return
+    }
+    const allowedControlKeys = ['Backspace', 'Delete', 'Tab', 'ArrowLeft', 'ArrowRight', 'Home', 'End']
+    const isModifierKey = event.ctrlKey || event.metaKey
+    if (isModifierKey || allowedControlKeys.includes(event.key)) return
+    if (!/^\d$/.test(event.key)) event.preventDefault()
+  }
 
   return (
     <div className="min-h-screen bg-canvas pt-20">
       <div className="container-max container-padding py-10">
-        <div className="mb-8 bg-white rounded-xl shadow-soft p-5">
+        <div className="mb-8 bg-white rounded-lg shadow-soft p-5 transition-shadow duration-200 hover:shadow-medium">
           <div className="flex flex-col lg:flex-row gap-4 lg:items-end">
             <div className="flex-1">
-              <label className="text-sm font-medium text-neutral-700 font-display mb-2 block">
+              <label className="text-sm font-bold text-primary-900 font-display mb-2 block">
                 {isUa ? 'Оберіть номер' : 'Select room'}
               </label>
               <select
@@ -112,7 +199,7 @@ export default function Booking() {
                   const nextRoom = rooms.find((room) => room.slug === e.target.value)
                   if (nextRoom) setSelectedRoom(nextRoom)
                 }}
-                className="h-11 w-full px-3 rounded-md border border-neutral-200 text-sm text-neutral-800 bg-white focus:outline-none focus:border-primary-500"
+                className="h-11 w-full px-3 rounded-lg border border-neutral-200 text-sm text-neutral-800 bg-white focus:outline-none focus:border-primary-500 transition-colors duration-200 hover:border-primary-300"
               >
                 {rooms.map((room) => (
                   <option key={room.slug} value={room.slug}>
@@ -123,45 +210,63 @@ export default function Booking() {
             </div>
             <div className="grid grid-cols-2 gap-3 lg:w-[320px]">
               <div>
-                <label className="text-sm font-medium text-neutral-700 font-display mb-2 block">
+                <label className="text-sm font-bold text-primary-900 font-display mb-2 block">
                   {isUa ? 'Заїзд' : 'Check-in'}
                 </label>
-                <input
-                  type="date"
-                  value={checkIn || ''}
-                  min={new Date().toISOString().split('T')[0]}
-                  onChange={(e) => setDates(e.target.value, checkOut)}
-                  className="h-11 w-full px-3 rounded-md border border-neutral-200 text-sm text-neutral-800 bg-white focus:outline-none focus:border-primary-500"
-                />
+                <label
+                  onClick={() => openDatePicker(checkInInputRef)}
+                  className="relative h-11 w-full px-3 rounded-lg border border-neutral-200 text-sm text-neutral-800 bg-white flex items-center justify-between cursor-pointer transition-colors duration-200 hover:border-primary-300"
+                >
+                  <span>{formatDisplayDate(checkIn)}</span>
+                  <CalendarDays className="w-4 h-4 text-primary-900 shrink-0" />
+                  <input
+                    ref={checkInInputRef}
+                    type="date"
+                    value={checkIn || ''}
+                    min={new Date().toISOString().split('T')[0]}
+                    onChange={(e) => setDates(e.target.value, checkOut)}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    aria-label={isUa ? 'Дата заїзду' : 'Check-in date'}
+                  />
+                </label>
               </div>
               <div>
-                <label className="text-sm font-medium text-neutral-700 font-display mb-2 block">
+                <label className="text-sm font-bold text-primary-900 font-display mb-2 block">
                   {isUa ? 'Виїзд' : 'Check-out'}
                 </label>
-                <input
-                  type="date"
-                  value={checkOut || ''}
-                  min={checkIn || new Date().toISOString().split('T')[0]}
-                  onChange={(e) => setDates(checkIn, e.target.value)}
-                  className="h-11 w-full px-3 rounded-md border border-neutral-200 text-sm text-neutral-800 bg-white focus:outline-none focus:border-primary-500"
-                />
+                <label
+                  onClick={() => openDatePicker(checkOutInputRef)}
+                  className="relative h-11 w-full px-3 rounded-lg border border-neutral-200 text-sm text-neutral-800 bg-white flex items-center justify-between cursor-pointer transition-colors duration-200 hover:border-primary-300"
+                >
+                  <span>{formatDisplayDate(checkOut)}</span>
+                  <CalendarDays className="w-4 h-4 text-primary-900 shrink-0" />
+                  <input
+                    ref={checkOutInputRef}
+                    type="date"
+                    value={checkOut || ''}
+                    min={checkIn || new Date().toISOString().split('T')[0]}
+                    onChange={(e) => setDates(checkIn, e.target.value)}
+                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                    aria-label={isUa ? 'Дата виїзду' : 'Check-out date'}
+                  />
+                </label>
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="grid grid-cols-[44px_minmax(0,1fr)_44px] gap-2 w-full lg:w-auto">
               <button
                 type="button"
                 onClick={() => setGuests(Math.max(1, adults - 1), children)}
-                className="w-11 h-11 rounded-md border border-neutral-200 text-lg text-primary-900"
+                className="w-11 h-11 rounded-lg border border-neutral-200 text-lg text-primary-900 transition-colors duration-200 hover:border-primary-300 hover:bg-primary-50"
               >
                 -
               </button>
-              <div className="h-11 px-4 rounded-md border border-neutral-200 flex items-center text-sm text-neutral-700">
-                {adults + children} {isUa ? 'гостей' : 'guests'}
+              <div className="h-11 w-full px-4 rounded-lg border border-neutral-200 flex items-center justify-center text-sm text-neutral-700 transition-colors duration-200 hover:border-primary-300 hover:bg-primary-50/40">
+                {totalGuests} {guestLabel}
               </div>
               <button
                 type="button"
-                onClick={() => setGuests(Math.min(selectedRoom.maxGuests, adults + 1), children)}
-                className="w-11 h-11 rounded-md border border-neutral-200 text-lg text-primary-900"
+                onClick={() => setGuests(Math.min(8, adults + 1), children)}
+                className="w-11 h-11 rounded-lg border border-neutral-200 text-lg text-primary-900 transition-colors duration-200 hover:border-primary-300 hover:bg-primary-50"
               >
                 +
               </button>
@@ -169,19 +274,20 @@ export default function Booking() {
           </div>
           <Link
             to="/rooms"
-            className="inline-flex items-center text-sm text-neutral-500 hover:text-primary-900 transition-colors mt-4 font-medium"
+            className="inline-flex items-center gap-2 text-sm font-semibold font-display text-primary-900 hover:text-primary-700 transition-colors duration-200 mt-4 group"
           >
             {isUa ? 'Переглянути всі номери' : 'View all rooms'}
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start lg:items-stretch">
           {/* Booking Form */}
           <div className="lg:col-span-2">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-xl shadow-soft p-6 sm:p-8"
+              className="bg-white rounded-lg shadow-soft p-6 sm:p-8"
             >
               <h1 className="text-2xl font-bold font-display text-primary-900 mb-6">
                 {isUa ? 'Ваші дані для бронювання' : 'Your booking details'}
@@ -191,34 +297,53 @@ export default function Booking() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <Input
                     label={isUa ? "Ім'я" : 'First name'}
-                    placeholder={isUa ? 'Іван' : 'John'}
+                    placeholder={isUa ? "Ваше імʼя.." : 'Your name..'}
                     prefix={<User className="w-4 h-4" />}
                     error={errors.firstName?.message}
-                    {...register('firstName')}
+                    className="rounded-lg"
+                    {...register('firstName', {
+                      onChange: (event) => {
+                        event.target.value = sanitizeName(event.target.value)
+                      },
+                    })}
                   />
                   <Input
                     label={isUa ? 'Прізвище' : 'Last name'}
-                    placeholder={isUa ? 'Іваненко' : 'Doe'}
+                    placeholder={isUa ? 'Ваше прізвище..' : 'Your surname..'}
                     error={errors.lastName?.message}
-                    {...register('lastName')}
+                    className="rounded-lg"
+                    {...register('lastName', {
+                      onChange: (event) => {
+                        event.target.value = sanitizeName(event.target.value)
+                      },
+                    })}
                   />
                 </div>
 
                 <Input
                   label={isUa ? 'Телефон' : 'Phone'}
                   type="tel"
-                  placeholder="+380 00 000 00 00"
+                  placeholder="+38 (0__)-___-__-__"
                   prefix={<Phone className="w-4 h-4" />}
                   error={errors.phone?.message}
-                  {...register('phone')}
+                  className="rounded-lg"
+                  inputMode="numeric"
+                  autoComplete="tel"
+                  {...register('phone', {
+                    onChange: handlePhoneChange,
+                    onFocus: handlePhoneFocus,
+                    onBlur: handlePhoneBlur,
+                  })}
+                  onKeyDown={handlePhoneKeyDown}
                 />
 
                 <Input
                   label="Email"
                   type="email"
-                  placeholder="ivan@example.com"
+                  placeholder="example@mail.com"
                   prefix={<Mail className="w-4 h-4" />}
                   error={errors.email?.message}
+                  className="rounded-lg"
                   {...register('email')}
                 />
 
@@ -233,7 +358,7 @@ export default function Booking() {
                         : 'Early check-in, allergy to feather pillows, celebration...'
                     }
                     rows={3}
-                    className="w-full bg-white border border-neutral-200 rounded-sm px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-900/20 focus:border-primary-900 transition-colors resize-none hover:border-neutral-300"
+                    className="w-full bg-white border border-neutral-200 rounded-lg px-4 py-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-900/20 focus:border-primary-900 transition-colors resize-none hover:border-neutral-300"
                     {...register('requests')}
                   />
                 </div>
@@ -245,12 +370,14 @@ export default function Booking() {
                       ? 'Безкоштовне скасування до 48 годин до заїзду'
                       : 'Free cancellation up to 48 hours before check-in'}
                   </div>
-                  <Button type="submit" fullWidth size="lg" loading={isPending}>
+                  <Button type="submit" fullWidth size="md" loading={isPending} className="rounded-lg">
                     {isPending
                       ? isUa
                         ? 'Обробляємо бронювання...'
                         : 'Processing booking...'
-                      : `${isUa ? 'Підтвердити бронювання' : 'Confirm booking'} · ${formatPrice(total)}`}
+                      : isUa
+                        ? 'Підтвердити бронювання'
+                        : 'Confirm booking'}
                   </Button>
                 </div>
               </form>
@@ -259,7 +386,7 @@ export default function Booking() {
 
           {/* Booking Summary Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-soft p-6 sticky top-24">
+            <div className="bg-white rounded-lg shadow-soft p-6 lg:h-full lg:flex lg:flex-col">
               <h3 className="font-bold font-display text-primary-900 mb-4">
                 {isUa ? 'Деталі бронювання' : 'Booking details'}
               </h3>
@@ -268,7 +395,7 @@ export default function Booking() {
                 <img
                   src={localizedRoom.images[0]}
                   alt={localizedRoom.name}
-                  className="w-full h-40 object-cover rounded-md mb-3"
+                  className="w-full h-52 object-cover rounded-lg mb-3"
                 />
                 <h4 className="font-bold font-display text-primary-900">{localizedRoom.name}</h4>
                 <Rating
@@ -300,7 +427,7 @@ export default function Booking() {
                 </div>
               </div>
 
-              <div className="border-t border-neutral-100 mt-4 pt-4">
+              <div className="border-t border-neutral-100 mt-auto pt-4">
                 <div className="flex justify-between text-sm text-neutral-600 mb-2">
                   <span>
                     {formatPrice(localizedRoom.price)} × {nights} {isUa ? 'ночей' : 'nights'}

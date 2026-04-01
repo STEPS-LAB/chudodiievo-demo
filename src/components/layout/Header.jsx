@@ -17,7 +17,9 @@ export default function Header() {
   const { language } = useLanguage()
   const isUa = language === 'ua'
   const isContactPage = pathname === '/contact'
-  const isDarkHeader = isContactPage || !scrolled
+  const isBookingPage = pathname === '/booking'
+  const shouldUseSolidHeader = isBookingPage || scrolled
+  const isDarkHeader = isContactPage || !shouldUseSolidHeader
   const touchStartX = useRef(null)
 
   const isLinkActive = (href) => {
@@ -50,7 +52,7 @@ export default function Header() {
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           isContactPage
             ? 'bg-transparent border-transparent'
-            : scrolled
+            : shouldUseSolidHeader
             ? 'bg-white/95 backdrop-blur-md shadow-soft border-b border-neutral-100'
             : 'bg-transparent'
         )}
@@ -108,8 +110,8 @@ export default function Header() {
             {/* Desktop Controls */}
             <div className="hidden lg:flex items-center gap-3">
               <LanguageSwitcher dark={!isDarkHeader} />
-              <Link to="/rooms">
-                <Button size="sm" variant={isDarkHeader ? 'light' : 'primary'}>
+              <Link to="/booking">
+                <Button size="sm" variant={isDarkHeader ? 'light' : 'primary'} className="rounded-lg">
                   {isUa ? 'Забронювати' : 'Book now'}
                 </Button>
               </Link>
