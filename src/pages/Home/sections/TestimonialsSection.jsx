@@ -53,6 +53,22 @@ export default function TestimonialsSection() {
 
         <div className="mt-12 max-w-3xl mx-auto">
           <div className="relative">
+            {/* Mobile controls */}
+            <div className="md:hidden absolute -top-12 right-0 z-10 flex items-center gap-2">
+              <button
+                onClick={prev}
+                className="w-9 h-9 bg-white rounded-full shadow-medium flex items-center justify-center hover:bg-neutral-50 transition-colors"
+              >
+                <ChevronLeft className="w-4 h-4 text-primary-900" />
+              </button>
+              <button
+                onClick={next}
+                className="w-9 h-9 bg-white rounded-full shadow-medium flex items-center justify-center hover:bg-neutral-50 transition-colors"
+              >
+                <ChevronRight className="w-4 h-4 text-primary-900" />
+              </button>
+            </div>
+
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={current}
@@ -66,7 +82,7 @@ export default function TestimonialsSection() {
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
-                className="bg-white rounded-2xl p-8 sm:p-10 shadow-medium text-center"
+                className="bg-white rounded-lg p-8 sm:p-10 shadow-medium text-center"
               >
                 {/* Stars */}
                 <div className="flex justify-center gap-1 mb-6">
@@ -96,16 +112,16 @@ export default function TestimonialsSection() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Prev/Next controls */}
+            {/* Desktop controls */}
             <button
               onClick={prev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-5 w-10 h-10 bg-white rounded-full shadow-medium flex items-center justify-center hover:bg-neutral-50 transition-colors"
+              className="hidden md:flex absolute -left-12 lg:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-medium items-center justify-center hover:bg-neutral-50 transition-colors"
             >
               <ChevronLeft className="w-5 h-5 text-primary-900" />
             </button>
             <button
               onClick={next}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-5 w-10 h-10 bg-white rounded-full shadow-medium flex items-center justify-center hover:bg-neutral-50 transition-colors"
+              className="hidden md:flex absolute -right-12 lg:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-medium items-center justify-center hover:bg-neutral-50 transition-colors"
             >
               <ChevronRight className="w-5 h-5 text-primary-900" />
             </button>

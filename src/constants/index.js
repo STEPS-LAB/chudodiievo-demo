@@ -202,7 +202,7 @@ export const TESTIMONIALS = [
     rating: 5,
     text: 'Неймовірне місце! Приїхали з чоловіком на 3 ночі в Лісовому люксі — це був найкращий відпочинок за останні роки. Природа, тиша, фантастична кухня. Вже плануємо повернутися з дітьми.',
     date: '2024-12',
-    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b040?w=100&q=80',
+    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
   },
   {
     id: 2,
