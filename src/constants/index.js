@@ -4,7 +4,7 @@ export const SITE_TAGLINE = 'Преміальний Лісовий Курорт'
 export const NAV_LINKS = [
   { key: 'home', href: '/' },
   { key: 'about', href: '/#about' },
-  { key: 'rooms', href: '/#rooms' },
+  { key: 'rooms', href: '/rooms' },
   { key: 'gallery', href: '/#gallery' },
   { key: 'contacts', href: '/contact' },
 ]

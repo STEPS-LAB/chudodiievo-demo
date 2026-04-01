@@ -1,4 +1,5 @@
 import { Mail, MapPin, Phone, Clock } from 'lucide-react'
+import { useState } from 'react'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import { useLanguage } from '@/context/LanguageContext'
@@ -6,6 +7,7 @@ import { useLanguage } from '@/context/LanguageContext'
 export default function Contact() {
   const { language } = useLanguage()
   const isUa = language === 'ua'
+  const [name, setName] = useState('')
 
   return (
     <div className="min-h-screen bg-canvas pt-16">
@@ -30,7 +32,7 @@ export default function Contact() {
 
       <section className="section-padding">
         <div className="container-max container-padding grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10">
-          <div className="lg:col-span-2 bg-white rounded-2xl p-6 sm:p-8 shadow-soft border border-neutral-100 space-y-6">
+          <div className="lg:col-span-2 bg-white rounded-lg p-6 sm:p-8 shadow-soft border border-neutral-100 space-y-6">
             <h2 className="text-2xl font-bold font-display text-primary-900">
               {isUa ? "Зв'яжіться з Нами" : 'Contact Us'}
             </h2>
@@ -39,21 +41,32 @@ export default function Contact() {
                 <Phone className="w-5 h-5 text-primary-700 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-neutral-900">{isUa ? 'Телефон' : 'Phone'}</p>
-                  <p>+380 44 123 4567</p>
+                  <a href="tel:+380441234567" className="transition-colors lg:hover:text-primary-900">
+                    +380 44 123 4567
+                  </a>
                 </div>
               </div>
               <div className="flex gap-3">
                 <Mail className="w-5 h-5 text-primary-700 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-neutral-900">Email</p>
-                  <p>info@luminahotel.ua</p>
+                  <a href="mailto:hotel@gmail.com" className="transition-colors lg:hover:text-primary-900">
+                    hotel@gmail.com
+                  </a>
                 </div>
               </div>
               <div className="flex gap-3">
                 <MapPin className="w-5 h-5 text-primary-700 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-neutral-900">{isUa ? 'Адреса' : 'Address'}</p>
-                  <p>гора 1, Буковель, Івано-Франківська обл., Україна</p>
+                  <a
+                    href="https://maps.google.com/?q=Карпатська+обл.,+смт.+Готель,+вул.+Лісова,+1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-colors lg:hover:text-primary-900"
+                  >
+                    Карпатська обл., смт. Готель, вул. Лісова, 1
+                  </a>
                 </div>
               </div>
               <div className="flex gap-3">
@@ -68,12 +81,23 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="lg:col-span-3 bg-white rounded-2xl p-6 sm:p-8 shadow-soft border border-neutral-100">
+          <div className="lg:col-span-3 bg-white rounded-lg p-6 sm:p-8 shadow-soft border border-neutral-100">
             <form className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Input label={isUa ? "Ваше ім'я *" : 'Your Name *'} placeholder="—" />
-              <Input label={isUa ? 'Електронна Пошта *' : 'Email *'} placeholder="—" type="email" />
+              <Input
+                label={isUa ? "Ваше ім'я *" : 'Your Name *'}
+                placeholder="—"
+                value={name}
+                onChange={(event) => setName(event.target.value.replace(/\d/g, ''))}
+                className="rounded-sm"
+              />
+              <Input
+                label={isUa ? 'Електронна Пошта *' : 'Email *'}
+                placeholder="—"
+                type="email"
+                className="rounded-sm"
+              />
               <div className="sm:col-span-2">
-                <Input label={isUa ? 'Тема *' : 'Subject *'} placeholder="—" />
+                <Input label={isUa ? 'Тема *' : 'Subject *'} placeholder="—" className="rounded-sm" />
               </div>
               <div className="sm:col-span-2">
                 <label className="block text-sm font-medium text-neutral-700 mb-2">
@@ -86,11 +110,11 @@ export default function Contact() {
                       ? 'Маєте запитання або особливе прохання? Ми готові зробити ваше перебування досконалим.'
                       : 'Have a question or a special request? We are ready to make your stay exceptional.'
                   }
-                  className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-primary-700 focus:ring-2 focus:ring-primary-700/20"
+                  className="w-full rounded-sm border border-neutral-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-primary-700 focus:ring-2 focus:ring-primary-700/20"
                 />
               </div>
               <div className="sm:col-span-2">
-                <Button type="submit" className="w-full" size="lg">
+                <Button type="submit" className="w-full rounded-sm" size="md">
                   {isUa ? 'Надіслати Повідомлення' : 'Send Message'}
                 </Button>
               </div>
