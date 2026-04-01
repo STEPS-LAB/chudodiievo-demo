@@ -15,6 +15,7 @@ export default function Header() {
   const { scrolled } = useScrollPosition()
   const { mobileMenuOpen, toggleMobileMenu, setMobileMenuOpen } = useUiStore()
   const { language } = useLanguage()
+  const isUa = language === 'ua'
   const touchStartX = useRef(null)
 
   const isLinkActive = (href) => {
@@ -67,7 +68,7 @@ export default function Header() {
                 'text-lg font-bold font-display tracking-tight transition-colors duration-200',
                 scrolled ? 'text-primary-900' : 'text-white'
               )}>
-                Готель
+                {isUa ? 'Готель' : 'Hotel'}
               </span>
             </Link>
 
@@ -105,7 +106,7 @@ export default function Header() {
               <LanguageSwitcher dark={scrolled} />
               <Link to="/rooms">
                 <Button size="sm" variant={scrolled ? 'primary' : 'light'}>
-                  Забронювати
+                  {isUa ? 'Забронювати' : 'Book now'}
                 </Button>
               </Link>
             </div>
@@ -121,7 +122,7 @@ export default function Header() {
                     : 'text-white hover:bg-white/10'
                 )}
                 onClick={toggleMobileMenu}
-                aria-label="Відкрити меню"
+                aria-label={isUa ? 'Відкрити меню' : 'Open menu'}
               >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>

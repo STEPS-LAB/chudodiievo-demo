@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ArrowDown, Award } from 'lucide-react'
+import { Award } from 'lucide-react'
 import Button from '@/components/ui/Button'
+import { useLanguage } from '@/context/LanguageContext'
 
 export default function HeroSection() {
+  const { language } = useLanguage()
+  const isUa = language === 'ua'
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Background */}
@@ -40,7 +44,7 @@ export default function HeroSection() {
           className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white/90 text-sm font-medium"
         >
           <Award className="w-4 h-4 text-secondary-400" style={{ color: '#D8C3A5' }} />
-          <span>Найкращий еко-курорт Карпат 2024</span>
+          <span>{isUa ? 'Найкращий еко-курорт Карпат' : 'Best Eco Resort in the Carpathians'}</span>
         </motion.div>
 
         {/* Title */}
@@ -50,11 +54,11 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold font-display text-white mb-6 leading-tight tracking-tight"
         >
-          Де природа
+          {isUa ? 'Де природа' : 'Where nature'}
           <br />
-          <span style={{ color: '#D8C3A5' }}>зустрічає</span>
+          <span style={{ color: '#D8C3A5' }}>{isUa ? 'зустрічає' : 'meets'}</span>
           <br />
-          розкіш
+          {isUa ? 'розкіш' : 'luxury'}
         </motion.h1>
 
         {/* Subtitle */}
@@ -64,8 +68,9 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 0.5 }}
           className="text-lg sm:text-xl text-white/75 mb-10 max-w-2xl mx-auto leading-relaxed"
         >
-          Преміальний лісовий курорт у серці Карпат. Унікальне поєднання дикої природи, сучасного
-          комфорту та автентичної карпатської культури.
+          {isUa
+            ? 'Преміальний лісовий курорт у серці Карпат. Унікальне поєднання дикої природи, сучасного комфорту та автентичної карпатської культури.'
+            : 'A premium forest resort in the heart of the Carpathians. A unique blend of wild nature, modern comfort, and authentic mountain culture.'}
         </motion.p>
 
         {/* CTAs */}
@@ -77,19 +82,18 @@ export default function HeroSection() {
         >
           <Link to="/rooms">
             <Button size="xl" variant="light" className="min-w-48 font-bold shadow-xl hover:shadow-2xl">
-              Обрати номер
+              {isUa ? 'Обрати номер' : 'Choose a room'}
             </Button>
           </Link>
-          <a href="#about">
+          <Link to="/booking">
             <Button
               size="xl"
               variant="ghost"
-              className="text-white border border-white/30 min-w-48"
-              style={{ color: 'white' }}
+              className="text-white border border-white/30 min-w-48 hover:!text-black"
             >
-              Дізнатись більше
+              {isUa ? 'Забронювати' : 'Book now'}
             </Button>
-          </a>
+          </Link>
         </motion.div>
 
         {/* Stats */}
@@ -100,9 +104,9 @@ export default function HeroSection() {
           className="flex items-center justify-center gap-8 sm:gap-16 mt-16"
         >
           {[
-            { value: '200+', label: 'га лісу' },
-            { value: '12', label: 'унікальних номерів' },
-            { value: '5★', label: 'рейтинг гостей' },
+            { value: '1000+', label: isUa ? 'задоволених гостей' : 'happy guests' },
+            { value: '12', label: isUa ? 'унікальних номерів' : 'unique rooms' },
+            { value: '99%', label: isUa ? 'позитивних відгуків' : 'positive reviews' },
           ].map(({ value, label }) => (
             <div key={label} className="text-center">
               <p className="text-2xl sm:text-3xl font-bold font-display text-white mb-1">{value}</p>
@@ -112,21 +116,6 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50"
-      >
-        <span className="text-xs uppercase tracking-widest">Гортати</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <ArrowDown className="w-5 h-5" />
-        </motion.div>
-      </motion.div>
     </section>
   )
 }

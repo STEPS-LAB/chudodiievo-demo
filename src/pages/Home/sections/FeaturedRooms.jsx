@@ -5,8 +5,12 @@ import { roomsApi } from '@/services/api/rooms'
 import RoomCard from '@/features/rooms/RoomCard'
 import { SkeletonCard } from '@/components/ui/Skeleton'
 import SectionHeader from '@/components/ui/SectionHeader'
+import { useLanguage } from '@/context/LanguageContext'
 
 export default function FeaturedRooms() {
+  const { language } = useLanguage()
+  const isUa = language === 'ua'
+
   const { data: rooms, isLoading } = useQuery({
     queryKey: ['rooms', 'featured'],
     queryFn: () => roomsApi.getFeatured(),
@@ -17,8 +21,8 @@ export default function FeaturedRooms() {
       <div className="container-max container-padding">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
           <SectionHeader
-            eyebrow="Номери"
-            title="Найкращі номери"
+            eyebrow={isUa ? 'Номери' : 'Rooms'}
+            title={isUa ? 'Найкращі номери' : 'Best rooms'}
             align="left"
             className="max-w-xl"
           />
@@ -26,7 +30,7 @@ export default function FeaturedRooms() {
             to="/rooms"
             className="flex items-center gap-2 text-sm font-semibold font-display text-primary-900 hover:text-primary-700 transition-colors shrink-0 group"
           >
-            Переглянути всі номери
+            {isUa ? 'Переглянути всі номери' : 'View all rooms'}
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>

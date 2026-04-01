@@ -29,7 +29,7 @@ export default function Button({
   return (
     <button
       className={cn(
-        'inline-flex items-center justify-center gap-2 font-medium font-display tracking-wide transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none select-none cursor-pointer',
+        'inline-flex items-center justify-center gap-2 font-medium font-display tracking-wide transition-all duration-200 active:scale-[0.95] lg:hover:scale-[1.02] disabled:opacity-50 disabled:pointer-events-none select-none cursor-pointer',
         variants[variant],
         sizes[size],
         fullWidth && 'w-full',

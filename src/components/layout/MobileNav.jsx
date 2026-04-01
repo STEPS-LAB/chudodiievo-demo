@@ -11,6 +11,7 @@ export default function MobileNav() {
   const { pathname, hash } = useLocation()
   const { mobileMenuOpen, setMobileMenuOpen } = useUiStore()
   const { language } = useLanguage()
+  const isUa = language === 'ua'
   const swipeStartX = useRef(null)
   const swipeStartY = useRef(null)
 
@@ -83,12 +84,14 @@ export default function MobileNav() {
                 <div className="p-2 bg-primary-100 rounded-sm">
                   <TreePine className="w-5 h-5 text-primary-900" />
                 </div>
-                <span className="text-lg font-bold font-display text-primary-900">Готель</span>
+                <span className="text-lg font-bold font-display text-primary-900">
+                  {isUa ? 'Готель' : 'Hotel'}
+                </span>
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-2 text-neutral-500 hover:text-primary-900 hover:bg-primary-50 rounded-sm transition-colors"
-                aria-label="Закрити меню"
+                aria-label={isUa ? 'Закрити меню' : 'Close menu'}
               >
                 <X className="w-5 h-5" />
               </button>

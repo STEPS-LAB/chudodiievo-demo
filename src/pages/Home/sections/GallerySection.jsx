@@ -1,4 +1,5 @@
 import SectionHeader from '@/components/ui/SectionHeader'
+import { useLanguage } from '@/context/LanguageContext'
 
 const GALLERY_IMAGES = [
   'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80',
@@ -10,13 +11,20 @@ const GALLERY_IMAGES = [
 ]
 
 export default function GallerySection() {
+  const { language } = useLanguage()
+  const isUa = language === 'ua'
+
   return (
     <section id="gallery" className="section-padding bg-white">
       <div className="container-max container-padding">
         <SectionHeader
-          eyebrow="Галерея"
-          title="Атмосфера вашого відпочинку"
-          description="Кілька моментів, які передають характер готелю та красу локації."
+          eyebrow={isUa ? 'Галерея' : 'Gallery'}
+          title={isUa ? 'Атмосфера вашого відпочинку' : 'Atmosphere of your stay'}
+          description={
+            isUa
+              ? 'Кілька моментів, які передають характер готелю та красу локації.'
+              : 'A few moments that reflect the spirit of the hotel and the beauty of the location.'
+          }
         />
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-10">
@@ -24,7 +32,7 @@ export default function GallerySection() {
             <div key={src} className="overflow-hidden rounded-xl shadow-soft">
               <img
                 src={src}
-                alt={`Галерея готелю ${index + 1}`}
+                alt={isUa ? `Галерея готелю ${index + 1}` : `Hotel gallery ${index + 1}`}
                 className="w-full h-44 sm:h-56 lg:h-64 object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>

@@ -3,8 +3,18 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
 import { TESTIMONIALS } from '@/constants'
 import SectionHeader from '@/components/ui/SectionHeader'
+import { useLanguage } from '@/context/LanguageContext'
+
+const TEXT_EN = [
+  'An incredible place! We stayed three nights in the forest suite - the best recharge in years. Nature, silence, and fantastic cuisine.',
+  'The lakeside cottage is amazing. Morning fishing, evening sauna, and a starry sky. Service level is excellent.',
+  'The SPA penthouse exceeded all expectations. Mountain views, private jacuzzi, and truly premium service.',
+  'A perfect place for a family vacation. The kids loved nature and activities, and the staff was very attentive.',
+]
 
 export default function TestimonialsSection() {
+  const { language } = useLanguage()
+  const isUa = language === 'ua'
   const [current, setCurrent] = useState(0)
   const [direction, setDirection] = useState(1)
 
@@ -32,9 +42,13 @@ export default function TestimonialsSection() {
     <section className="section-padding" style={{ backgroundColor: '#F0EEE9' }}>
       <div className="container-max container-padding">
         <SectionHeader
-          eyebrow="Відгуки гостей"
-          title="Що кажуть наші гості"
-          description="Справжні враження від людей, які обрали Готель для свого відпочинку."
+          eyebrow={isUa ? 'Відгуки гостей' : 'Guest reviews'}
+          title={isUa ? 'Що кажуть наші гості' : 'What our guests say'}
+          description={
+            isUa
+              ? 'Справжні враження від людей, які обрали Готель для свого відпочинку.'
+              : 'Real impressions from people who chose our hotel for their stay.'
+          }
         />
 
         <div className="mt-12 max-w-3xl mx-auto">
@@ -63,7 +77,7 @@ export default function TestimonialsSection() {
 
                 {/* Quote */}
                 <blockquote className="text-lg sm:text-xl text-neutral-700 leading-relaxed mb-8 italic">
-                  "{t.text}"
+                  "{isUa ? t.text : TEXT_EN[current]}"
                 </blockquote>
 
                 {/* Author */}

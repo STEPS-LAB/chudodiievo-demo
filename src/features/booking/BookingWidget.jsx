@@ -2,11 +2,14 @@ import { useNavigate } from 'react-router-dom'
 import { Calendar, Users, Check } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { useBookingStore } from '@/store/bookingStore'
-import { formatPrice, getNights, formatGuests } from '@/utils/format'
+import { formatPrice, getNights } from '@/utils/format'
 import Button from '@/components/ui/Button'
 import Rating from '@/components/ui/Rating'
+import { useLanguage } from '@/context/LanguageContext'
 
 export default function BookingWidget({ room }) {
+  const { language } = useLanguage()
+  const isUa = language === 'ua'
   const navigate = useNavigate()
   const { checkIn, checkOut, adults, children, setDates, setGuests, setSelectedRoom } =
     useBookingStore()
@@ -31,7 +34,7 @@ export default function BookingWidget({ room }) {
             <span className="text-3xl font-bold font-display text-primary-900">
               {formatPrice(room.price)}
             </span>
-            <span className="text-sm text-neutral-500">/ ніч</span>
+            <span className="text-sm text-neutral-500">{isUa ? '/ ніч' : '/ night'}</span>
           </div>
         </div>
         <Rating value={room.rating} count={room.reviewCount} size="sm" />
@@ -43,7 +46,7 @@ export default function BookingWidget({ room }) {
         <div className="flex">
           <label className="flex-1 p-3 border-r border-neutral-200 cursor-pointer hover:bg-neutral-50 transition-colors">
             <p className="text-xs font-semibold font-display text-neutral-500 uppercase tracking-wide mb-1">
-              Заїзд
+              {isUa ? 'Заїзд' : 'Check-in'}
             </p>
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-primary-600 shrink-0" />
@@ -58,7 +61,7 @@ export default function BookingWidget({ room }) {
           </label>
           <label className="flex-1 p-3 cursor-pointer hover:bg-neutral-50 transition-colors">
             <p className="text-xs font-semibold font-display text-neutral-500 uppercase tracking-wide mb-1">
-              Виїзд
+              {isUa ? 'Виїзд' : 'Check-out'}
             </p>
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-primary-600 shrink-0" />
@@ -80,13 +83,15 @@ export default function BookingWidget({ room }) {
         {/* Guests row */}
         <div className="border-t border-neutral-200 p-3">
           <p className="text-xs font-semibold font-display text-neutral-500 uppercase tracking-wide mb-2">
-            Гості
+            {isUa ? 'Гості' : 'Guests'}
           </p>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Users className="w-4 h-4 text-primary-600" />
               <span className="text-sm font-medium text-neutral-900">
-                {formatGuests(adults, children)}
+                {isUa
+                  ? `${adults + children} ${adults + children === 1 ? 'гість' : adults + children < 5 ? 'гості' : 'гостей'}`
+                  : `${adults + children} ${adults + children === 1 ? 'guest' : 'guests'}`}
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -116,28 +121,34 @@ export default function BookingWidget({ room }) {
           <div className="flex justify-between text-sm text-neutral-600">
             <span>
               {formatPrice(room.price)} × {nights}{' '}
-              {nights === 1 ? 'ніч' : nights < 5 ? 'ночі' : 'ночей'}
+              {isUa ? (nights === 1 ? 'ніч' : nights < 5 ? 'ночі' : 'ночей') : nights === 1 ? 'night' : 'nights'}
             </span>
             <span>{formatPrice(totalPrice)}</span>
           </div>
           <div className="flex justify-between text-sm font-bold text-neutral-900">
-            <span>Разом</span>
+            <span>{isUa ? 'Разом' : 'Total'}</span>
             <span>{formatPrice(totalPrice)}</span>
           </div>
         </div>
       )}
 
       <Button fullWidth size="lg" onClick={handleBook} className="mb-3">
-        {nights > 0 ? `Забронювати · ${formatPrice(totalPrice)}` : 'Забронювати'}
+        {nights > 0
+          ? `${isUa ? 'Забронювати' : 'Book now'} · ${formatPrice(totalPrice)}`
+          : isUa
+            ? 'Забронювати'
+            : 'Book now'}
       </Button>
 
       <p className="text-xs text-neutral-400 text-center">
-        Безкоштовне скасування до 48 годин до заїзду
+        {isUa ? 'Безкоштовне скасування до 48 годин до заїзду' : 'Free cancellation up to 48 hours before check-in'}
       </p>
 
       {/* Trust features */}
       <div className="mt-5 space-y-2">
-        {['Підтвердження миттєво', 'Без прихованих платежів', 'Безпечна оплата'].map((feat) => (
+        {(isUa
+          ? ['Підтвердження миттєво', 'Без прихованих платежів', 'Безпечна оплата']
+          : ['Instant confirmation', 'No hidden fees', 'Secure payment']).map((feat) => (
           <div key={feat} className="flex items-center gap-2 text-xs text-neutral-600">
             <Check className="w-3.5 h-3.5 text-green-500 shrink-0" />
             {feat}

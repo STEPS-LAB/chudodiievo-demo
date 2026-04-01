@@ -257,19 +257,19 @@ export const RESORT_FEATURES = [
 ]
 
 export const ROOM_CATEGORIES = [
-  { id: 'all', label: 'Всі номери' },
-  { id: 'standard', label: 'Стандарт' },
-  { id: 'studio', label: 'Студія' },
-  { id: 'suite', label: 'Люкс' },
-  { id: 'cottage', label: 'Котедж' },
-  { id: 'penthouse', label: 'Пентхаус' },
+  { id: 'all', key: 'all' },
+  { id: 'standard', key: 'standard' },
+  { id: 'studio', key: 'studio' },
+  { id: 'suite', key: 'suite' },
+  { id: 'cottage', key: 'cottage' },
+  { id: 'penthouse', key: 'penthouse' },
 ]
 
 export const SORT_OPTIONS = [
-  { id: 'popular', label: 'За популярністю' },
-  { id: 'price_asc', label: 'Від дешевших' },
-  { id: 'price_desc', label: 'Від дорожчих' },
-  { id: 'rating', label: 'За рейтингом' },
+  { id: 'popular', key: 'popular' },
+  { id: 'price_asc', key: 'price_asc' },
+  { id: 'price_desc', key: 'price_desc' },
+  { id: 'rating', key: 'rating' },
 ]
 
 export const ANIMATION_DURATION = {

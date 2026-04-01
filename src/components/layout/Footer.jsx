@@ -11,6 +11,7 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   const { language } = useLanguage()
+  const isUa = language === 'ua'
 
   return (
     <footer className="bg-primary-950 text-white">
@@ -26,8 +27,9 @@ export default function Footer() {
               <span className="text-xl font-bold font-display">Готель</span>
             </div>
             <p className="text-sm text-neutral-400 leading-relaxed">
-              Преміальний лісовий курорт серед нескінченних карпатських лісів.
-              Місце, де природа, розкіш та спокій стають єдиним цілим.
+              {isUa
+                ? 'Преміальний лісовий курорт серед нескінченних карпатських лісів. Місце, де природа, розкіш та спокій стають єдиним цілим.'
+                : 'A premium forest resort among endless Carpathian woods. A place where nature, luxury, and peace become one.'}
             </p>
             <div className="flex items-center gap-3">
               {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
@@ -46,7 +48,7 @@ export default function Footer() {
           {/* Navigation */}
           <div className="space-y-4">
             <h4 className="text-sm font-semibold font-display tracking-widest uppercase text-secondary-400">
-              Навігація
+              {isUa ? 'Навігація' : 'Navigation'}
             </h4>
             <ul className="space-y-3">
               {NAV_LINKS.map((link) => (
@@ -65,10 +67,12 @@ export default function Footer() {
           {/* Services */}
           <div className="space-y-4">
             <h4 className="text-sm font-semibold font-display tracking-widest uppercase text-secondary-400">
-              Послуги
+              {isUa ? 'Послуги' : 'Services'}
             </h4>
             <ul className="space-y-3">
-              {['СПА та оздоровлення', 'Авторська кухня', 'Активний відпочинок', 'Конференц-зал', 'Трансфер', 'Дитячі програми'].map((item) => (
+              {(isUa
+                ? ['СПА та оздоровлення', 'Авторська кухня', 'Активний відпочинок', 'Конференц-зал', 'Трансфер', 'Дитячі програми']
+                : ['SPA & wellness', 'Signature cuisine', 'Outdoor activities', 'Conference hall', 'Transfer', 'Kids programs']).map((item) => (
                 <li key={item}>
                   <a href="#" className="text-sm text-neutral-400 hover:text-white transition-colors duration-150">
                     {item}
@@ -81,13 +85,13 @@ export default function Footer() {
           {/* Contact */}
           <div className="space-y-4">
             <h4 className="text-sm font-semibold font-display tracking-widest uppercase text-secondary-400">
-              Контакти
+              {isUa ? 'Контакти' : 'Contacts'}
             </h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-secondary-500 shrink-0 mt-0.5" />
                 <span className="text-sm text-neutral-400">
-                  Карпатська обл., смт. Готель, вул. Лісова, 1
+                  {isUa ? 'Карпатська обл., смт. Готель, вул. Лісова, 1' : 'Carpathian region, Hotel town, Lisova St., 1'}
                 </span>
               </li>
               <li className="flex items-center gap-3">
@@ -109,14 +113,16 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="py-6 border-t border-primary-900 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-neutral-500">
-            © {new Date().getFullYear()} Готель. Всі права захищені.
+            {isUa
+              ? `© ${new Date().getFullYear()} Готель. Всі права захищені.`
+              : `© ${new Date().getFullYear()} Hotel. All rights reserved.`}
           </p>
           <div className="flex items-center gap-6">
             <a href="#" className="text-xs text-neutral-500 hover:text-white transition-colors">
-              Політика конфіденційності
+              {isUa ? 'Політика конфіденційності' : 'Privacy policy'}
             </a>
             <a href="#" className="text-xs text-neutral-500 hover:text-white transition-colors">
-              Умови бронювання
+              {isUa ? 'Умови бронювання' : 'Booking terms'}
             </a>
           </div>
         </div>

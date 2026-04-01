@@ -3,9 +3,30 @@ import { RESORT_FEATURES } from '@/constants'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import SectionHeader from '@/components/ui/SectionHeader'
 import { getIcon } from '@/utils/icons'
+import { useLanguage } from '@/context/LanguageContext'
+
+const FEATURES_EN = {
+  '200 га природного лісу': '200 ha of natural forest',
+  'Преміальний СПА-центр': 'Premium SPA center',
+  'Авторська кухня': "Chef's signature cuisine",
+  'Природне озеро': 'Natural lake',
+}
+
+const FEATURES_DESC_EN = {
+  'Занурення в дику природу Карпат з можливістю для піших прогулянок та спостереження за птахами.':
+    'Immerse into wild Carpathian nature with hiking routes and bird watching.',
+  'Повний спектр оздоровчих процедур: масажі, обгортання, ванни з трав\'яними відварами.':
+    'A full range of wellness treatments: massages, wraps, and herbal baths.',
+  'Ресторан використовує виключно локальні продукти від місцевих фермерів та власний сад.':
+    'Our restaurant uses only local products from nearby farmers and our own garden.',
+  'Плавання, рибалка, каяки та SUP-серфінг на кристально чистому гірському озері.':
+    'Swimming, fishing, kayaking and SUP on a crystal-clear mountain lake.',
+}
 
 export default function AboutSection() {
   const [ref, inView] = useIntersectionObserver()
+  const { language } = useLanguage()
+  const isUa = language === 'ua'
 
   return (
     <section id="about" className="section-padding bg-white">
@@ -19,14 +40,14 @@ export default function AboutSection() {
                 <div className="aspect-[3/4] rounded-xl overflow-hidden shadow-medium">
                   <img
                     src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80"
-                    alt="Природа курорту"
+                    alt={isUa ? 'Природа курорту' : 'Resort nature'}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="aspect-square rounded-xl overflow-hidden shadow-medium">
                   <img
                     src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80"
-                    alt="СПА процедури"
+                    alt={isUa ? 'СПА процедури' : 'SPA procedures'}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
@@ -36,14 +57,14 @@ export default function AboutSection() {
                 <div className="aspect-square rounded-xl overflow-hidden shadow-medium">
                   <img
                     src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80"
-                    alt="Авторська кухня"
+                    alt={isUa ? 'Авторська кухня' : 'Signature cuisine'}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="aspect-[3/4] rounded-xl overflow-hidden shadow-medium">
                   <img
                     src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=600&q=80"
-                    alt="Озеро"
+                    alt={isUa ? 'Озеро' : 'Lake'}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
@@ -57,7 +78,7 @@ export default function AboutSection() {
             >
               <p className="text-3xl font-bold font-display">12+</p>
               <p className="text-xs" style={{ color: '#a7c4b5' }}>
-                років досвіду
+                {isUa ? 'років досвіду' : 'years of experience'}
               </p>
             </div>
           </div>
@@ -66,8 +87,12 @@ export default function AboutSection() {
           <div ref={ref} className="space-y-8">
             <SectionHeader
               eyebrow="Про Готель"
-              title="Більше ніж просто готель"
-              description="Ми створили місце, де кожна деталь продумана для вашого відновлення. Від архітектури, що вписується в природний ландшафт, до авторської кухні з місцевих продуктів — Готель це досвід, який змінює уявлення про відпочинок."
+              title={isUa ? 'Більше ніж просто готель' : 'More than just a hotel'}
+              description={
+                isUa
+                  ? 'Ми створили місце, де кожна деталь продумана для вашого відновлення. Від архітектури, що вписується в природний ландшафт, до авторської кухні з місцевих продуктів — Готель це досвід, який змінює уявлення про відпочинок.'
+                  : 'We created a place where every detail is designed for restoration. From architecture integrated into the landscape to signature cuisine with local ingredients, this hotel redefines a quality getaway.'
+              }
               align="left"
             />
 
@@ -90,9 +115,11 @@ export default function AboutSection() {
                     </div>
                     <div>
                       <h4 className="text-sm font-bold font-display text-primary-900 mb-1">
-                        {title}
+                        {isUa ? title : FEATURES_EN[title] || title}
                       </h4>
-                      <p className="text-xs text-neutral-500 leading-relaxed">{description}</p>
+                      <p className="text-xs text-neutral-500 leading-relaxed">
+                        {isUa ? description : FEATURES_DESC_EN[description] || description}
+                      </p>
                     </div>
                   </motion.div>
                 )

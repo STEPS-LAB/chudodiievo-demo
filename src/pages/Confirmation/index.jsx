@@ -5,8 +5,12 @@ import { CheckCircle2, Calendar, Users, Home, ArrowRight } from 'lucide-react'
 import { useBookingStore } from '@/store/bookingStore'
 import { formatPrice, formatDate } from '@/utils/format'
 import Button from '@/components/ui/Button'
+import { useLanguage } from '@/context/LanguageContext'
+import { localizeRoom } from '@/i18n/rooms'
 
 export default function Confirmation() {
+  const { language } = useLanguage()
+  const isUa = language === 'ua'
   const navigate = useNavigate()
   const { confirmation, selectedRoom, checkIn, checkOut, adults, children, reset } =
     useBookingStore()
@@ -16,6 +20,7 @@ export default function Confirmation() {
   }, [confirmation, navigate])
 
   if (!confirmation || !selectedRoom) return null
+  const localizedRoom = localizeRoom(selectedRoom, language)
 
   return (
     <div className="min-h-screen bg-canvas flex items-center justify-center px-4 py-20">
@@ -36,15 +41,17 @@ export default function Confirmation() {
             <CheckCircle2 className="w-10 h-10 text-green-600" />
           </motion.div>
           <h1 className="text-3xl font-bold font-display text-primary-900 mb-2">
-            Бронювання підтверджено!
+            {isUa ? 'Бронювання підтверджено!' : 'Booking confirmed!'}
           </h1>
-          <p className="text-neutral-500">Підтвердження надіслано на вашу email-адресу.</p>
+          <p className="text-neutral-500">
+            {isUa ? 'Підтвердження надіслано на вашу email-адресу.' : 'Confirmation has been sent to your email.'}
+          </p>
         </div>
 
         {/* Booking summary card */}
         <div className="bg-white rounded-xl shadow-medium p-6 mb-6">
           <div className="flex items-center justify-between mb-4 pb-4 border-b border-neutral-100">
-            <span className="text-sm text-neutral-500">Номер бронювання</span>
+            <span className="text-sm text-neutral-500">{isUa ? 'Номер бронювання' : 'Booking number'}</span>
             <span className="font-bold font-display text-primary-900 text-lg">
               {confirmation.id}
             </span>
@@ -52,13 +59,13 @@ export default function Confirmation() {
 
           <div className="flex gap-4 mb-4">
             <img
-              src={selectedRoom.images[0]}
-              alt={selectedRoom.name}
+              src={localizedRoom.images[0]}
+              alt={localizedRoom.name}
               className="w-20 h-16 object-cover rounded-md shrink-0"
             />
             <div>
-              <h3 className="font-bold font-display text-primary-900">{selectedRoom.name}</h3>
-              <p className="text-sm text-neutral-500">Готель курорт</p>
+              <h3 className="font-bold font-display text-primary-900">{localizedRoom.name}</h3>
+              <p className="text-sm text-neutral-500">{isUa ? 'Готель курорт' : 'Hotel resort'}</p>
             </div>
           </div>
 
@@ -71,12 +78,12 @@ export default function Confirmation() {
             </div>
             <div className="flex items-center gap-3 text-neutral-600">
               <Users className="w-4 h-4 text-primary-600 shrink-0" />
-              <span>{adults + children} гостей</span>
+              <span>{adults + children} {isUa ? 'гостей' : 'guests'}</span>
             </div>
           </div>
 
           <div className="mt-4 pt-4 border-t border-neutral-100 flex justify-between font-bold text-primary-900">
-            <span>Оплачено</span>
+            <span>{isUa ? 'Оплачено' : 'Paid'}</span>
             <span>{formatPrice(confirmation.total)}</span>
           </div>
         </div>
@@ -85,14 +92,14 @@ export default function Confirmation() {
         <div className="flex flex-col gap-3">
           <Link to="/rooms" className="block">
             <Button fullWidth variant="primary" onClick={reset}>
-              Забронювати ще номер
+              {isUa ? 'Забронювати ще номер' : 'Book another room'}
               <ArrowRight className="w-4 h-4" />
             </Button>
           </Link>
           <Link to="/" className="block">
             <Button fullWidth variant="secondary" onClick={reset}>
               <Home className="w-4 h-4" />
-              На головну
+              {isUa ? 'На головну' : 'Back to home'}
             </Button>
           </Link>
         </div>

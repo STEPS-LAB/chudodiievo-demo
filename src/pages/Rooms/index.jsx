@@ -8,10 +8,27 @@ import { SkeletonCard } from '@/components/ui/Skeleton'
 import SearchBar from '@/features/search/SearchBar'
 import { ROOM_CATEGORIES, SORT_OPTIONS } from '@/constants'
 import { cn } from '@/utils/cn'
+import { useLanguage } from '@/context/LanguageContext'
 
 export default function Rooms() {
+  const { language } = useLanguage()
+  const isUa = language === 'ua'
   const [category, setCategory] = useState('all')
   const [sort, setSort] = useState('popular')
+  const categoryLabels = {
+    all: isUa ? 'Всі номери' : 'All rooms',
+    standard: isUa ? 'Стандарт' : 'Standard',
+    studio: isUa ? 'Студія' : 'Studio',
+    suite: isUa ? 'Люкс' : 'Suite',
+    cottage: isUa ? 'Котедж' : 'Cottage',
+    penthouse: isUa ? 'Пентхаус' : 'Penthouse',
+  }
+  const sortLabels = {
+    popular: isUa ? 'За популярністю' : 'Most popular',
+    price_asc: isUa ? 'Від дешевших' : 'Price: low to high',
+    price_desc: isUa ? 'Від дорожчих' : 'Price: high to low',
+    rating: isUa ? 'За рейтингом' : 'Top rated',
+  }
 
   const { data: rooms, isLoading } = useQuery({
     queryKey: ['rooms', { category, sort }],
@@ -32,14 +49,15 @@ export default function Rooms() {
               className="text-sm font-semibold tracking-widest uppercase font-display mb-2"
               style={{ color: '#D8C3A5' }}
             >
-              Розміщення
+              {isUa ? 'Розміщення' : 'Accommodation'}
             </p>
             <h1 className="text-4xl sm:text-5xl font-bold font-display text-white mb-4">
-              Наші номери та котеджі
+              {isUa ? 'Наші номери та котеджі' : 'Our rooms and cottages'}
             </h1>
             <p className="text-lg max-w-xl" style={{ color: 'rgba(255,255,255,0.65)' }}>
-              Від уютної студії до ексклюзивного пентхаусу — знайдіть ідеальний простір для вашого
-              відпочинку.
+              {isUa
+                ? 'Від уютної студії до ексклюзивного пентхаусу — знайдіть ідеальний простір для вашого відпочинку.'
+                : 'From a cozy studio to an exclusive penthouse - find the perfect space for your stay.'}
             </p>
           </motion.div>
 
@@ -68,7 +86,7 @@ export default function Rooms() {
                   category === cat.id ? { backgroundColor: '#1F3A2E' } : {}
                 }
               >
-                {cat.label}
+                {categoryLabels[cat.key]}
               </button>
             ))}
           </div>
@@ -83,7 +101,7 @@ export default function Rooms() {
             >
               {SORT_OPTIONS.map((opt) => (
                 <option key={opt.id} value={opt.id}>
-                  {opt.label}
+                  {sortLabels[opt.key]}
                 </option>
               ))}
             </select>
@@ -93,9 +111,9 @@ export default function Rooms() {
         {/* Result count */}
         {!isLoading && rooms && (
           <p className="text-sm text-neutral-500 mb-6">
-            Знайдено{' '}
+            {isUa ? 'Знайдено' : 'Found'}{' '}
             <span className="font-semibold text-neutral-700">{rooms.length}</span>{' '}
-            варіантів
+            {isUa ? 'варіантів' : 'options'}
           </p>
         )}
 
@@ -111,9 +129,9 @@ export default function Rooms() {
           <div className="text-center py-20">
             <p className="text-4xl mb-4">🌲</p>
             <h3 className="text-xl font-bold font-display text-primary-900 mb-2">
-              Номерів не знайдено
+              {isUa ? 'Номерів не знайдено' : 'No rooms found'}
             </h3>
-            <p className="text-neutral-500">Спробуйте змінити фільтри</p>
+            <p className="text-neutral-500">{isUa ? 'Спробуйте змінити фільтри' : 'Try changing filters'}</p>
           </div>
         )}
       </div>

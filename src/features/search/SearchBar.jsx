@@ -5,8 +5,11 @@ import { Calendar, Users, Search, ChevronDown } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { useBookingStore } from '@/store/bookingStore'
 import Button from '@/components/ui/Button'
+import { useLanguage } from '@/context/LanguageContext'
 
 export default function SearchBar({ variant = 'hero', onSearch }) {
+  const { language } = useLanguage()
+  const isUa = language === 'ua'
   const { checkIn, checkOut, adults, children, setDates, setGuests } = useBookingStore()
   const navigate = useNavigate()
 
@@ -41,7 +44,7 @@ export default function SearchBar({ variant = 'hero', onSearch }) {
           )}
         >
           <span className="text-xs font-semibold font-display text-neutral-500 uppercase tracking-wide">
-            Заїзд
+            {isUa ? 'Заїзд' : 'Check-in'}
           </span>
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4 text-primary-600 shrink-0" />
@@ -51,7 +54,7 @@ export default function SearchBar({ variant = 'hero', onSearch }) {
               min={new Date().toISOString().split('T')[0]}
               onChange={(e) => setDates(e.target.value, checkOut)}
               className="text-sm font-medium text-neutral-900 bg-transparent border-none outline-none cursor-pointer w-full"
-              placeholder="Оберіть дату"
+              placeholder={isUa ? 'Оберіть дату' : 'Select date'}
             />
           </div>
         </label>
@@ -66,7 +69,7 @@ export default function SearchBar({ variant = 'hero', onSearch }) {
           )}
         >
           <span className="text-xs font-semibold font-display text-neutral-500 uppercase tracking-wide">
-            Виїзд
+            {isUa ? 'Виїзд' : 'Check-out'}
           </span>
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4 text-primary-600 shrink-0" />
@@ -96,14 +99,22 @@ export default function SearchBar({ variant = 'hero', onSearch }) {
             onClick={() => setGuestMenuOpen(!guestMenuOpen)}
           >
             <span className="text-xs font-semibold font-display text-neutral-500 uppercase tracking-wide">
-              Гості
+              {isUa ? 'Гості' : 'Guests'}
             </span>
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <Users className="w-4 h-4 text-primary-600 shrink-0" />
                 <span className="text-sm font-medium text-neutral-900">
                   {totalGuests}{' '}
-                  {totalGuests === 1 ? 'гість' : totalGuests < 5 ? 'гості' : 'гостей'}
+                  {isUa
+                    ? totalGuests === 1
+                      ? 'гість'
+                      : totalGuests < 5
+                        ? 'гості'
+                        : 'гостей'
+                    : totalGuests === 1
+                      ? 'guest'
+                      : 'guests'}
                 </span>
               </div>
               <ChevronDown
@@ -119,8 +130,8 @@ export default function SearchBar({ variant = 'hero', onSearch }) {
           {guestMenuOpen && (
             <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-large border border-neutral-100 p-4 z-50">
               <GuestCounter
-                label="Дорослі"
-                sublabel="від 13 років"
+                label={isUa ? 'Дорослі' : 'Adults'}
+                sublabel={isUa ? 'від 13 років' : '13+ years'}
                 value={adults}
                 min={1}
                 max={8}
@@ -128,8 +139,8 @@ export default function SearchBar({ variant = 'hero', onSearch }) {
               />
               <div className="border-t border-neutral-100 my-3" />
               <GuestCounter
-                label="Діти"
-                sublabel="до 12 років"
+                label={isUa ? 'Діти' : 'Children'}
+                sublabel={isUa ? 'до 12 років' : 'up to 12 years'}
                 value={children}
                 min={0}
                 max={4}
@@ -139,7 +150,7 @@ export default function SearchBar({ variant = 'hero', onSearch }) {
                 className="mt-4 w-full text-center text-sm font-semibold text-primary-900 hover:text-primary-700 transition-colors"
                 onClick={() => setGuestMenuOpen(false)}
               >
-                Готово
+                {isUa ? 'Готово' : 'Done'}
               </button>
             </div>
           )}
@@ -148,7 +159,7 @@ export default function SearchBar({ variant = 'hero', onSearch }) {
         {/* Search Button */}
         <Button size="lg" onClick={handleSearch} className="shrink-0 sm:self-center">
           <Search className="w-4 h-4" />
-          <span>Знайти</span>
+          <span>{isUa ? 'Знайти' : 'Search'}</span>
         </Button>
       </div>
     </motion.div>

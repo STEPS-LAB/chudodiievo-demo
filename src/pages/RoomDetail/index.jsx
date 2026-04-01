@@ -19,6 +19,8 @@ import { SkeletonCard } from '@/components/ui/Skeleton'
 import { AMENITIES } from '@/constants'
 import { getIcon } from '@/utils/icons'
 import { cn } from '@/utils/cn'
+import { useLanguage } from '@/context/LanguageContext'
+import { localizeRoom } from '@/i18n/rooms'
 
 const CATEGORY_LABELS = {
   standard: 'Стандарт',
@@ -29,6 +31,8 @@ const CATEGORY_LABELS = {
 }
 
 export default function RoomDetail() {
+  const { language } = useLanguage()
+  const isUa = language === 'ua'
   const { slug } = useParams()
   const [activeImg, setActiveImg] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
@@ -60,23 +64,25 @@ export default function RoomDetail() {
         <div className="text-center">
           <p className="text-4xl mb-4">🌲</p>
           <h2 className="text-2xl font-bold font-display text-primary-900 mb-2">
-            Номер не знайдено
+            {isUa ? 'Номер не знайдено' : 'Room not found'}
           </h2>
           <Link to="/rooms" className="text-primary-600 hover:underline">
-            Повернутися до номерів
+            {isUa ? 'Повернутися до номерів' : 'Back to rooms'}
           </Link>
         </div>
       </div>
     )
   }
 
-  const amenitiesData = room.amenities
+  const localizedRoom = localizeRoom(room, language)
+
+  const amenitiesData = localizedRoom.amenities
     .map((id) => AMENITIES.find((a) => a.id === id))
     .filter(Boolean)
 
   const prevImg = () =>
-    setActiveImg((activeImg - 1 + room.images.length) % room.images.length)
-  const nextImg = () => setActiveImg((activeImg + 1) % room.images.length)
+    setActiveImg((activeImg - 1 + localizedRoom.images.length) % localizedRoom.images.length)
+  const nextImg = () => setActiveImg((activeImg + 1) % localizedRoom.images.length)
 
   return (
     <div className="min-h-screen bg-canvas">
@@ -87,7 +93,7 @@ export default function RoomDetail() {
           className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-primary-900 transition-colors font-medium"
         >
           <ArrowLeft className="w-4 h-4" />
-          Усі номери
+          {isUa ? 'Усі номери' : 'All rooms'}
         </Link>
       </div>
 
@@ -108,8 +114,8 @@ export default function RoomDetail() {
                 onClick={() => setLightboxOpen(true)}
               >
                 <img
-                  src={room.images[activeImg]}
-                  alt={room.name}
+                  src={localizedRoom.images[activeImg]}
+                  alt={localizedRoom.name}
                   className="w-full h-full object-cover transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
@@ -136,13 +142,13 @@ export default function RoomDetail() {
 
                 {/* Counter */}
                 <div className="absolute bottom-3 right-3 bg-black/50 text-white text-xs px-2.5 py-1 rounded-full">
-                  {activeImg + 1} / {room.images.length}
+                  {activeImg + 1} / {localizedRoom.images.length}
                 </div>
               </div>
 
               {/* Thumbnails */}
               <div className="flex gap-2 overflow-x-auto scrollbar-hide">
-                {room.images.map((img, i) => (
+                {localizedRoom.images.map((img, i) => (
                   <button
                     key={i}
                     onClick={() => setActiveImg(i)}
@@ -162,19 +168,29 @@ export default function RoomDetail() {
             {/* Header info */}
             <div>
               <div className="flex flex-wrap items-start gap-3 mb-3">
-                <Badge variant="default">{CATEGORY_LABELS[room.category]}</Badge>
-                <Rating value={room.rating} count={room.reviewCount} size="sm" />
+                <Badge variant="default">
+                  {isUa
+                    ? CATEGORY_LABELS[localizedRoom.category]
+                    : {
+                        standard: 'Standard',
+                        studio: 'Studio',
+                        suite: 'Suite',
+                        cottage: 'Cottage',
+                        penthouse: 'Penthouse',
+                      }[localizedRoom.category]}
+                </Badge>
+                <Rating value={localizedRoom.rating} count={localizedRoom.reviewCount} size="sm" />
               </div>
               <h1 className="text-3xl sm:text-4xl font-bold font-display text-primary-900 mb-4">
-                {room.name}
+                {localizedRoom.name}
               </h1>
 
               {/* Specs row */}
               <div className="flex flex-wrap gap-4 mb-6">
                 {[
-                  { icon: Users, label: `до ${room.maxGuests} гостей` },
-                  { icon: Maximize2, label: `${room.size} м²` },
-                  { icon: BedDouble, label: room.bedType },
+                  { icon: Users, label: isUa ? `до ${localizedRoom.maxGuests} гостей` : `up to ${localizedRoom.maxGuests} guests` },
+                  { icon: Maximize2, label: `${localizedRoom.size} м²` },
+                  { icon: BedDouble, label: localizedRoom.bedType },
                 ].map(({ icon: Icon, label }) => (
                   <div key={label} className="flex items-center gap-2 text-sm text-neutral-600">
                     <Icon className="w-4 h-4 text-primary-600" />
@@ -183,12 +199,14 @@ export default function RoomDetail() {
                 ))}
               </div>
 
-              <p className="text-neutral-600 leading-relaxed text-base">{room.description}</p>
+              <p className="text-neutral-600 leading-relaxed text-base">{localizedRoom.description}</p>
             </div>
 
             {/* Amenities */}
             <div>
-              <h2 className="text-xl font-bold font-display text-primary-900 mb-5">Зручності</h2>
+              <h2 className="text-xl font-bold font-display text-primary-900 mb-5">
+                {isUa ? 'Зручності' : 'Amenities'}
+              </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {amenitiesData.map(({ id, label, icon }) => {
                   const Icon = getIcon(icon)
@@ -213,7 +231,7 @@ export default function RoomDetail() {
 
           {/* Sidebar — Booking Widget */}
           <div className="lg:col-span-1">
-            <BookingWidget room={room} />
+            <BookingWidget room={localizedRoom} />
           </div>
         </div>
       </div>
@@ -232,7 +250,7 @@ export default function RoomDetail() {
           </button>
 
           <img
-            src={room.images[activeImg]}
+            src={localizedRoom.images[activeImg]}
             alt=""
             className="max-w-full max-h-full object-contain rounded-lg"
             onClick={(e) => e.stopPropagation()}

@@ -6,16 +6,21 @@ import { formatPrice } from '@/utils/format'
 import Badge from '@/components/ui/Badge'
 import Rating from '@/components/ui/Rating'
 import { AMENITIES } from '@/constants'
-
-const CATEGORY_LABELS = {
-  standard: 'Стандарт',
-  studio: 'Студія',
-  suite: 'Люкс',
-  cottage: 'Котедж',
-  penthouse: 'Пентхаус',
-}
+import { useLanguage } from '@/context/LanguageContext'
+import { localizeRoom } from '@/i18n/rooms'
 
 export default function RoomCard({ room, index = 0 }) {
+  const { language } = useLanguage()
+  const isUa = language === 'ua'
+  const localizedRoom = localizeRoom(room, language)
+  const categoryLabels = {
+    standard: isUa ? 'Стандарт' : 'Standard',
+    studio: isUa ? 'Студія' : 'Studio',
+    suite: isUa ? 'Люкс' : 'Suite',
+    cottage: isUa ? 'Котедж' : 'Cottage',
+    penthouse: isUa ? 'Пентхаус' : 'Penthouse',
+  }
+
   const displayAmenities = room.amenities
     .slice(0, 3)
     .map((id) => AMENITIES.find((a) => a.id === id)?.label)
@@ -28,13 +33,13 @@ export default function RoomCard({ room, index = 0 }) {
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
       className="group"
     >
-      <Link to={`/rooms/${room.slug}`} className="block">
+      <Link to={`/rooms/${localizedRoom.slug}`} className="block">
         <div className="bg-white rounded-xl overflow-hidden shadow-soft hover:shadow-large transition-shadow duration-400">
           {/* Image */}
           <div className="relative h-56 sm:h-64 overflow-hidden">
             <img
-              src={room.images[0]}
-              alt={room.name}
+              src={localizedRoom.images[0]}
+              alt={localizedRoom.name}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               loading="lazy"
             />
@@ -44,35 +49,35 @@ export default function RoomCard({ room, index = 0 }) {
                 variant="default"
                 className="bg-white/90 backdrop-blur-sm text-primary-900 shadow-soft"
               >
-                {CATEGORY_LABELS[room.category]}
+                {categoryLabels[room.category]}
               </Badge>
-              {room.originalPrice && <Badge variant="warning">Знижка</Badge>}
+              {localizedRoom.originalPrice && <Badge variant="warning">{isUa ? 'Знижка' : 'Discount'}</Badge>}
             </div>
             {/* Rating overlay */}
             <div className="absolute top-3 right-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-2.5 py-1 shadow-soft">
               <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-              <span className="text-xs font-semibold text-neutral-800">{room.rating}</span>
+              <span className="text-xs font-semibold text-neutral-800">{localizedRoom.rating}</span>
             </div>
           </div>
 
           {/* Content */}
           <div className="p-5">
             <h3 className="text-lg font-bold font-display text-primary-900 mb-2 group-hover:text-primary-700 transition-colors line-clamp-1">
-              {room.name}
+              {localizedRoom.name}
             </h3>
             <p className="text-sm text-neutral-500 line-clamp-2 mb-4 leading-relaxed">
-              {room.shortDescription}
+              {localizedRoom.shortDescription}
             </p>
 
             {/* Specs */}
             <div className="flex items-center gap-4 mb-4">
               <div className="flex items-center gap-1.5 text-xs text-neutral-500">
                 <Users className="w-3.5 h-3.5" />
-                <span>до {room.maxGuests} осіб</span>
+                <span>{isUa ? `до ${localizedRoom.maxGuests} осіб` : `up to ${localizedRoom.maxGuests} guests`}</span>
               </div>
               <div className="flex items-center gap-1.5 text-xs text-neutral-500">
                 <Maximize2 className="w-3.5 h-3.5" />
-                <span>{room.size} м²</span>
+                <span>{localizedRoom.size} м²</span>
               </div>
             </div>
 
@@ -98,18 +103,18 @@ export default function RoomCard({ room, index = 0 }) {
             {/* Price & CTA */}
             <div className="flex items-center justify-between pt-4 border-t border-neutral-100">
               <div>
-                {room.originalPrice && (
+              {localizedRoom.originalPrice && (
                   <p className="text-xs text-neutral-400 line-through mb-0.5">
-                    {formatPrice(room.originalPrice)}
+                    {formatPrice(localizedRoom.originalPrice)}
                   </p>
                 )}
                 <p className="text-xl font-bold font-display text-primary-900">
-                  {formatPrice(room.price)}
+                  {formatPrice(localizedRoom.price)}
                 </p>
-                <p className="text-xs text-neutral-400">за ніч</p>
+                <p className="text-xs text-neutral-400">{isUa ? 'за ніч' : 'per night'}</p>
               </div>
               <div className="flex items-center gap-2 text-sm font-semibold font-display text-primary-900 group-hover:text-primary-700 transition-colors">
-                Детальніше
+                {isUa ? 'Детальніше' : 'Details'}
                 <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
               </div>
             </div>
